@@ -1,0 +1,204 @@
+/* ============================================================
+   ONI DO — Colors & Type foundations
+   ------------------------------------------------------------
+   Dark theme is the hero/default. Light ("paper") theme ships too.
+   All color is authored in OKLCH. Targets WCAG 2.1 AA in both themes.
+
+   Fonts are loaded from Google Fonts as a SUBSTITUTION (no brand
+   font files were provided). See README → Typography. Swap the
+   @import + --font-* vars when the licensed faces arrive.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ---------- 1. RAW PALETTE (theme-independent) ---------- */
+:root {
+  /* Ink / obsidian — cool-undertoned near-blacks (the dark surfaces) */
+  --ink-900: oklch(0.145 0.012 256);   /* deepest canvas */
+  --ink-850: oklch(0.170 0.013 256);
+  --ink-800: oklch(0.195 0.014 256);   /* base surface */
+  --ink-750: oklch(0.225 0.015 256);
+  --ink-700: oklch(0.262 0.017 256);   /* raised surface */
+  --ink-650: oklch(0.305 0.018 256);
+  --ink-600: oklch(0.355 0.018 256);   /* hairline / border on dark */
+  --ink-500: oklch(0.430 0.017 256);
+
+  /* Paper — warm off-whites (the light surfaces) */
+  --paper-0:  oklch(0.985 0.006 83);   /* brightest */
+  --paper-50: oklch(0.972 0.008 83);   /* base light canvas */
+  --paper-100:oklch(0.952 0.010 83);
+  --paper-200:oklch(0.922 0.012 84);
+  --paper-300:oklch(0.882 0.013 84);   /* hairline / border on light */
+  --paper-400:oklch(0.800 0.014 85);
+
+  /* Vermilion — the signature "oni" hero accent */
+  --vermilion-700: oklch(0.560 0.182 30);
+  --vermilion-600: oklch(0.620 0.196 31);
+  --vermilion-500: oklch(0.665 0.205 31);  /* core brand accent */
+  --vermilion-400: oklch(0.715 0.190 33);
+  --vermilion-300: oklch(0.785 0.150 36);
+  --vermilion-tint:oklch(0.665 0.205 31 / 0.14);
+
+  /* Mint / cyan — cool counter-accent for fresh pops */
+  --mint-600: oklch(0.700 0.130 182);
+  --mint-500: oklch(0.800 0.135 180);
+  --mint-400: oklch(0.860 0.130 178);   /* core counter-accent */
+  --mint-300: oklch(0.910 0.095 177);
+  --mint-tint:oklch(0.860 0.130 178 / 0.14);
+
+  /* Functional hues (kept distinct from the brand accents) */
+  --green-500:  oklch(0.745 0.150 152);
+  --amber-500:  oklch(0.800 0.140 78);
+  --red-500:    oklch(0.620 0.210 23);
+
+  /* ---------- Spacing (4px base) ---------- */
+  --sp-1: 2px;  --sp-2: 4px;  --sp-3: 8px;  --sp-4: 12px;
+  --sp-5: 16px; --sp-6: 20px; --sp-7: 24px; --sp-8: 32px;
+  --sp-9: 40px; --sp-10: 48px; --sp-11: 64px; --sp-12: 80px;
+
+  /* ---------- Radii (soft, rounded) ---------- */
+  --r-xs: 6px; --r-sm: 10px; --r-md: 14px; --r-lg: 20px;
+  --r-xl: 28px; --r-2xl: 36px; --r-full: 999px;
+
+  /* ---------- Motion — snappy ease-out, "faster than expected" ---------- */
+  --ease-out:      cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.30, 1);
+  --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 120ms; --t-base: 180ms; --t-slow: 280ms;
+
+  /* ---------- Type families ---------- */
+  --font-display: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --font-sans:    'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* ---------- Type scale (rem, fluid-friendly) ---------- */
+  --fs-display: 64px; --lh-display: 1.02; --ls-display: -0.022em;
+  --fs-h1: 44px; --lh-h1: 1.06; --ls-h1: -0.02em;
+  --fs-h2: 32px; --lh-h2: 1.12; --ls-h2: -0.016em;
+  --fs-h3: 24px; --lh-h3: 1.18; --ls-h3: -0.012em;
+  --fs-h4: 19px; --lh-h4: 1.25; --ls-h4: -0.008em;
+  --fs-lg: 18px; --lh-lg: 1.5;
+  --fs-body: 16px; --lh-body: 1.55;
+  --fs-sm: 14px; --lh-sm: 1.5;
+  --fs-xs: 13px; --lh-xs: 1.45;
+  --fs-2xs: 11px; --lh-2xs: 1.4; --ls-2xs: 0.04em;
+
+  --fw-regular: 400; --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700;
+}
+
+/* ============================================================
+   2. THEME TOKENS — semantic, theme-aware
+   Default = DARK (hero). [data-theme="light"] = paper.
+   ============================================================ */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg-canvas:   var(--ink-900);
+  --bg-surface:  var(--ink-800);
+  --bg-raised:   var(--ink-700);
+  --bg-overlay:  var(--ink-750);
+  --bg-inset:    var(--ink-850);
+  --bg-hover:    oklch(1 0 0 / 0.05);
+  --bg-active:   oklch(1 0 0 / 0.09);
+
+  --fg-1: oklch(0.972 0.006 83);   /* primary text (warm white) */
+  --fg-2: oklch(0.795 0.010 256);  /* secondary text */
+  --fg-3: oklch(0.620 0.012 256);  /* tertiary / muted */
+  --fg-4: oklch(0.500 0.012 256);  /* faint / disabled */
+
+  --border-1: oklch(1 0 0 / 0.08);   /* hairline */
+  --border-2: oklch(1 0 0 / 0.14);   /* stronger */
+  --border-focus: var(--vermilion-500);
+
+  --accent:        var(--vermilion-500);
+  --accent-hover:  var(--vermilion-400);
+  --accent-press:  var(--vermilion-600);
+  --accent-tint:   var(--vermilion-tint);
+  --on-accent:     var(--ink-900);   /* ink text on vermilion = AA */
+
+  --accent-2:      var(--mint-400);
+  --accent-2-tint: var(--mint-tint);
+  --on-accent-2:   var(--ink-900);
+
+  --success: var(--green-500);
+  --warning: var(--amber-500);
+  --danger:  var(--red-500);
+
+  /* Diffuse depth + gentle glows (no heavy drop shadows) */
+  --shadow-1: 0 1px 2px oklch(0 0 0 / 0.30), 0 2px 8px oklch(0 0 0 / 0.22);
+  --shadow-2: 0 4px 14px oklch(0 0 0 / 0.34), 0 12px 34px oklch(0 0 0 / 0.30);
+  --shadow-3: 0 10px 30px oklch(0 0 0 / 0.40), 0 30px 70px oklch(0 0 0 / 0.36);
+  --glow-accent: 0 0 0 1px oklch(0.665 0.205 31 / 0.30), 0 6px 26px oklch(0.665 0.205 31 / 0.30);
+  --glow-accent-2: 0 0 0 1px oklch(0.860 0.130 178 / 0.28), 0 6px 24px oklch(0.860 0.130 178 / 0.26);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg-canvas:   var(--paper-50);
+  --bg-surface:  var(--paper-0);
+  --bg-raised:   var(--paper-0);
+  --bg-overlay:  var(--paper-0);
+  --bg-inset:    var(--paper-100);
+  --bg-hover:    oklch(0 0 0 / 0.035);
+  --bg-active:   oklch(0 0 0 / 0.06);
+
+  --fg-1: oklch(0.225 0.012 256);
+  --fg-2: oklch(0.400 0.013 256);
+  --fg-3: oklch(0.530 0.013 256);
+  --fg-4: oklch(0.640 0.012 256);
+
+  --border-1: oklch(0 0 0 / 0.09);
+  --border-2: oklch(0 0 0 / 0.15);
+  --border-focus: var(--vermilion-600);
+
+  --accent:        var(--vermilion-600);
+  --accent-hover:  var(--vermilion-500);
+  --accent-press:  var(--vermilion-700);
+  --accent-tint:   oklch(0.665 0.205 31 / 0.12);
+  --on-accent:     var(--paper-0);   /* white text on deeper vermilion = AA */
+
+  --accent-2:      var(--mint-600);
+  --accent-2-tint: oklch(0.700 0.130 182 / 0.14);
+  --on-accent-2:   var(--paper-0);
+
+  --success: oklch(0.620 0.150 152);
+  --warning: oklch(0.680 0.140 70);
+  --danger:  var(--red-500);
+
+  --shadow-1: 0 1px 2px oklch(0.42 0.03 256 / 0.10), 0 2px 8px oklch(0.42 0.03 256 / 0.08);
+  --shadow-2: 0 4px 14px oklch(0.42 0.03 256 / 0.12), 0 12px 30px oklch(0.42 0.03 256 / 0.10);
+  --shadow-3: 0 10px 28px oklch(0.42 0.03 256 / 0.16), 0 28px 64px oklch(0.42 0.03 256 / 0.14);
+  --glow-accent: 0 0 0 1px oklch(0.620 0.196 31 / 0.26), 0 6px 22px oklch(0.620 0.196 31 / 0.22);
+  --glow-accent-2: 0 0 0 1px oklch(0.700 0.130 182 / 0.26), 0 6px 22px oklch(0.700 0.130 182 / 0.22);
+}
+
+/* ============================================================
+   3. SEMANTIC TYPE classes (optional helpers)
+   ============================================================ */
+.t-display { font-family: var(--font-display); font-weight: var(--fw-bold);
+  font-size: var(--fs-display); line-height: var(--lh-display); letter-spacing: var(--ls-display); }
+.t-h1 { font-family: var(--font-display); font-weight: var(--fw-bold);
+  font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: var(--ls-h1); }
+.t-h2 { font-family: var(--font-display); font-weight: var(--fw-semibold);
+  font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--ls-h2); }
+.t-h3 { font-family: var(--font-display); font-weight: var(--fw-semibold);
+  font-size: var(--fs-h3); line-height: var(--lh-h3); letter-spacing: var(--ls-h3); }
+.t-h4 { font-family: var(--font-display); font-weight: var(--fw-medium);
+  font-size: var(--fs-h4); line-height: var(--lh-h4); letter-spacing: var(--ls-h4); }
+.t-lead { font-family: var(--font-sans); font-weight: var(--fw-regular);
+  font-size: var(--fs-lg); line-height: var(--lh-lg); color: var(--fg-2); }
+.t-body { font-family: var(--font-sans); font-weight: var(--fw-regular);
+  font-size: var(--fs-body); line-height: var(--lh-body); }
+.t-sm { font-family: var(--font-sans); font-size: var(--fs-sm); line-height: var(--lh-sm); }
+.t-xs { font-family: var(--font-sans); font-size: var(--fs-xs); line-height: var(--lh-xs); }
+.t-label { font-family: var(--font-mono); font-weight: var(--fw-medium);
+  font-size: var(--fs-2xs); line-height: var(--lh-2xs); letter-spacing: var(--ls-2xs);
+  text-transform: uppercase; }
+.t-mono { font-family: var(--font-mono); font-size: var(--fs-sm); }
+
+/* Convenience text utilities */
+.fg-1 { color: var(--fg-1); } .fg-2 { color: var(--fg-2); }
+.fg-3 { color: var(--fg-3); } .accent { color: var(--accent); }
+.accent-2 { color: var(--accent-2); }

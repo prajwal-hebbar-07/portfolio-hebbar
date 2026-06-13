@@ -1,0 +1,40 @@
+---
+import { profile } from '../data/portfolio';
+const [first, ...rest] = profile.name.split(' ');
+const last = rest.join(' ');
+---
+
+<header class="nav" id="nav">
+  <a class="brand" href="#hero" aria-label={`${profile.name} — home`}>
+    <span class="monogram" aria-hidden="true">PH</span>
+    <span class="bname">{first} <b>{last}</b><span class="role">{profile.role}</span></span>
+  </a>
+
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="nav-actions">
+    <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
+      <svg class="ic" id="theme-ic" data-lucide="sun"></svg>
+    </button>
+    <a class="btn btn-secondary btn-sm resume-btn" href="#" data-resume aria-label="Download résumé (PDF)">
+      <svg class="ic" data-lucide="file-text"></svg> Résumé
+    </a>
+    <button class="icon-btn nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg class="ic" id="nav-toggle-ic" data-lucide="menu"></svg>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+  <a href="#about"><span>About</span><span class="idx">01</span></a>
+  <a href="#experience"><span>Experience</span><span class="idx">02</span></a>
+  <a href="#skills"><span>Skills</span><span class="idx">03</span></a>
+  <a href="#contact"><span>Contact</span><span class="idx">04</span></a>
+  <a class="btn btn-secondary" href="#" data-resume style="justify-content:center;"><svg class="ic" data-lucide="file-text"></svg> Download résumé</a>
+</div>

@@ -1,0 +1,35 @@
+---
+import { skillGroups } from '../data/portfolio';
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Skills</span>
+      <h2>The <span class="accent">toolkit</span>.</h2>
+      <p>Frontend-leaning full stack, with real depth in Web3 &amp; AI integration and the DevOps to ship it.</p>
+    </div>
+
+    <div class="skills-grid">
+      {
+        skillGroups.map((g, i) => (
+          <div
+            class={`card skill-card${g.alt ? ' alt' : ''} reveal`}
+            data-delay={i % 2 === 0 ? '1' : '2'}
+            style={g.full ? 'grid-column:1/-1;' : undefined}
+          >
+            <div class="sk-head">
+              <span class="sk-ic"><svg class="ic" data-lucide={g.icon}></svg></span>
+              <span class="sk-title">{g.title}</span>
+              <span class="sk-count">{pad(g.skills.length)}</span>
+            </div>
+            <div class="skill-tags">
+              {g.skills.map((s) => <span class="chip">{s}</span>)}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

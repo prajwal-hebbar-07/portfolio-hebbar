@@ -1,0 +1,46 @@
+---
+import { profile } from '../data/portfolio';
+---
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">About</span>
+      <h2>Engineer of <span class="accent">configurable</span> systems &amp; intelligent interfaces.</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-bio reveal" data-delay="1">
+        <p>
+          I specialize in <b>ReactJS, Next.js, TypeScript</b>, and Web3/AI integrations. At
+          <b>LYIK Technologies</b> I currently architect configurable enterprise form-filling
+          infrastructure, dashboard layouts, and ERP workflows.
+        </p>
+        <p>
+          On the freelance side I build AI-powered DeFi platforms and Web3 portfolio tools —
+          pairing thoughtful product engineering with <b>prompt-engineered, LLM-driven</b> experiences.
+          The thread through all of it: turning complex requirements into systems that
+          <strong class="acc">feel effortless to use</strong>.
+        </p>
+      </div>
+
+      <div class="about-side">
+        <div class="card stat-card reveal" data-delay="2">
+          <div class="glow" aria-hidden="true"></div>
+          <div class="stat-num">30%+</div>
+          <div class="stat-label">efficiency gains delivered through client-facing platform development</div>
+        </div>
+        <div class="card fact-card reveal" data-delay="3">
+          <div class="fc-label"><svg class="ic" data-lucide="graduation-cap"></svg> Education</div>
+          <div class="fc-value">{profile.education} <span class="muted">— {profile.educationSchool}</span></div>
+        </div>
+        <div class="card fact-card reveal" data-delay="3">
+          <div class="fc-label"><svg class="ic" data-lucide="languages"></svg> Languages</div>
+          <div class="chip-row">
+            {profile.languages.map((l) => <span class="chip">{l}</span>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

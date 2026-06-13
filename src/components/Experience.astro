@@ -1,0 +1,48 @@
+---
+import { experiences } from '../data/portfolio';
+---
+
+<section class="section" id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Experience</span>
+      <h2>Nearly five years building for <span class="accent">production</span>.</h2>
+      <p>Enterprise infrastructure, Web3 &amp; AI dApps, and product front-ends — shipped, containerized, and maintained.</p>
+    </div>
+
+    <div class="timeline">
+      {
+        experiences.map((xp) => (
+          <article class={`xp${xp.current ? ' current' : ''} reveal`} data-delay="1">
+            <span class="node" aria-hidden="true"></span>
+            <div class="card xp-card">
+              <div class="xp-head">
+                <div>
+                  {xp.current ? (
+                    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                      <h3 class="xp-role">{xp.role}</h3>
+                      <span class="tag-now"><svg class="ic" data-lucide="zap" style="width:12px;height:12px;"></svg> Current</span>
+                    </div>
+                  ) : (
+                    <h3 class="xp-role">{xp.role}</h3>
+                  )}
+                  <div class="xp-company"><span class="at">@</span> {xp.company}</div>
+                </div>
+                <div class="xp-when">
+                  <Fragment set:html={xp.when} /><br />
+                  <span class="loc"><svg class="ic" data-lucide={xp.locationIcon}></svg> {xp.location}</span>
+                </div>
+              </div>
+              <ul class="xp-points">
+                {xp.points.map((p) => <li set:html={p} />)}
+              </ul>
+              <div class="tech-row">
+                {xp.tech.map((t) => <span class="tech-tag">{t}</span>)}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

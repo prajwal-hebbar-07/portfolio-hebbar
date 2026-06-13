@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-hebbar",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Prajwal Hebbar — Full Stack Developer portfolio. Built with Astro on the Oni Do design system.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "node ./dist/server/entry.mjs",
+    "start": "node ./dist/server/entry.mjs",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.104.1",
+    "@astrojs/node": "^10.1.4",
+    "astro": "^6.4.6"
+  }
+}
