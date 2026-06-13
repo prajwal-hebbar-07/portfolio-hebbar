@@ -369,24 +369,6 @@ if (fab && chat && scrim && log && form && input && sendBtn) {
 const yr = $('#year');
 if (yr) yr.textContent = String(new Date().getFullYear());
 
-/* ---------------- Résumé placeholder toast ---------------- */
-const toast = $('#toast');
-let toastT: ReturnType<typeof setTimeout> | undefined;
-function showToast(msg: string) {
-  if (!toast) return;
-  toast.innerHTML = `<svg class="ic" data-lucide="file-text"></svg><span>${msg}</span>`;
-  refreshIcons();
-  toast.classList.add('show');
-  clearTimeout(toastT);
-  toastT = setTimeout(() => toast.classList.remove('show'), 4200);
-}
-$$('[data-resume]').forEach((el) =>
-  el.addEventListener('click', (e) => {
-    e.preventDefault();
-    showToast("Résumé PDF coming soon — email me and I'll send it straight over.");
-  }),
-);
-
 // init icons last
 refreshIcons();
 
