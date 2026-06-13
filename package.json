@@ -7,13 +7,11 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "node ./dist/server/entry.mjs",
-    "start": "node ./dist/server/entry.mjs",
     "astro": "astro"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.104.1",
-    "@astrojs/node": "^10.1.4",
+    "@astrojs/vercel": "^10.0.8",
     "astro": "^6.4.6"
   }
 }

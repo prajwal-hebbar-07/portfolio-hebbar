@@ -10,7 +10,7 @@ the assistant rewired to a secure server-side route.
 
 ## Stack
 
-- **[Astro](https://astro.build)** — static pages + one on-demand API route (Node adapter).
+- **[Astro](https://astro.build)** — static pages + one on-demand API route (Vercel adapter).
 - **Oni Do design system** — OKLCH color tokens, Space Grotesk / Hanken Grotesk / JetBrains Mono
   type, soft radii, diffuse shadows + vermilion glow. Tokens live in `src/styles/tokens.css`.
 - **[Lucide](https://lucide.dev)** icons (CDN).
@@ -27,12 +27,39 @@ npm run dev               # http://localhost:4321
 The site runs **without a key** — the assistant falls back to a deterministic, still-grounded
 answer so nothing breaks. Add a key to get live, streamed Claude responses.
 
-### Build & run (production)
+### Production build
 
 ```bash
-npm run build             # outputs ./dist (static pages + Node server for the API route)
-npm run preview           # serves the built site via the Node adapter
+npm run build             # outputs a Vercel Build Output API bundle
 ```
+
+The Vercel adapter does not support `astro preview`. Use `npm run dev` for local development or
+`npx vercel dev` after linking the project to emulate Vercel locally.
+
+## Deploy to Vercel
+
+The project uses Astro's official `@astrojs/vercel` adapter. The portfolio page is prerendered,
+while `src/pages/api/chat.ts` is deployed as a Vercel Function.
+
+### Vercel dashboard
+
+1. Push this repository to GitHub, GitLab, or Bitbucket.
+2. In Vercel, select **Add New > Project** and import the repository.
+3. Keep the detected **Astro** framework preset and default build settings.
+4. Add `ANTHROPIC_API_KEY` and, optionally, `CLAUDE_MODEL` under **Environment Variables**.
+5. Select **Deploy**.
+
+Vercel automatically creates preview deployments for branches and production deployments for
+the production branch.
+
+### Vercel CLI
+
+```bash
+npx vercel          # link the project and create a preview deployment
+npx vercel --prod   # deploy to production
+```
+
+Add environment variables through the Vercel dashboard or with `npx vercel env add`.
 
 ## Environment variables
 
