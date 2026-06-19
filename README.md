@@ -85,6 +85,30 @@ It answers visitor questions about Prajwal **only** from his portfolio content.
   token-by-token (`client.messages.stream`). The browser reads the response body as a stream.
 - **Swap the grounding/model:** edit `src/data/portfolio.ts` for content, or set `CLAUDE_MODEL`.
 
+## Portfolio Assistant (`/assistant`)
+
+A standalone, full-screen chat surface at **`/assistant`** that talks to the **Go portfolio API**
+(`POST /api/v1/portfolio/ask`). It implements the `Portfolio Assistant.html` design from
+claude.ai/design: starter chips, streamed-feel typing indicator, follow-up chips, a guardrail
+state for off-topic prompts, inline validation (blank / >500 chars), and a dark/light toggle.
+
+How it connects:
+
+- The browser posts `{ prompt }` to the **same-origin proxy** `src/pages/api/portfolio/ask.ts`
+  (so there's no CORS and the backend URL stays server-side and configurable).
+- The proxy forwards to `${PORTFOLIO_API_URL}/api/v1/portfolio/ask` (default
+  `http://127.0.0.1:8000`), mirrors the backend's validation contract (`400` blank / too-long,
+  `422` missing field), and normalizes the success body to `{ answer }`.
+- If the Go backend is **unreachable or times out**, the proxy returns a grounded, on-topic
+  **offline answer** (from `src/data/assistant.ts`) so the page keeps working. Off-topic prompts
+  get the guardrail reply, and the matching answer styling is chosen client-side via the same
+  keyword router the design used.
+
+Run the backend per its own docs (`make run` / `go run ./cmd/server`, default port `8000`), set
+`PORTFOLIO_API_URL` if it lives elsewhere, then open `/assistant`. All assistant content (identity,
+starter prompts, canned/offline answers, guardrail, validation rules) lives in
+`src/data/assistant.ts`.
+
 ## Résumé
 
 The résumé button is a placeholder (shows a toast). Drop a PDF in `public/` (e.g.
@@ -95,13 +119,20 @@ The résumé button is a placeholder (shows a toast). Drop a PDF in `public/` (e
 
 ```
 src/
-  data/portfolio.ts        # content + AI grounding/system-prompt/fallback (source of truth)
-  styles/                  # tokens.css (Oni Do design system) + portfolio.css
-  layouts/Layout.astro     # <head>, global styles, Lucide + client script
+  data/
+    portfolio.ts           # portfolio content + Claude grounding/prompt/fallback (source of truth)
+    assistant.ts           # /assistant identity, starters, validation, guardrail, offline answers
+  styles/                  # tokens.css (Oni Do) + portfolio.css + assistant-ui.css
+  layouts/Layout.astro     # portfolio page <head>, global styles, Lucide + client script
   components/               # Nav, Hero, About, Experience, Skills, Contact, Footer, Assistant
-  scripts/app.ts           # theme, nav, scroll-reveal, mobile menu, toast, assistant client
+  scripts/
+    app.ts                 # portfolio page: theme, nav, scroll-reveal, mobile menu, toast
+    assistant.ts           # /assistant chat client (markdown, composer, proxy calls)
   pages/
-    index.astro            # the page
-    api/chat.ts            # server-side streaming assistant endpoint (prerender = false)
+    index.astro            # the portfolio page
+    assistant.astro        # the standalone Portfolio Assistant chat surface
+    api/
+      chat.ts              # floating site assistant — Anthropic streaming (prerender = false)
+      portfolio/ask.ts     # /assistant proxy → Go backend /api/v1/portfolio/ask (prerender = false)
 public/favicon.svg
 ```

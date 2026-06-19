@@ -562,6 +562,14 @@ svg.ic { width: 1em; height: 1em; stroke-width: 1.75; flex: none; }
 .chat-hint kbd { font-family: var(--font-mono); background: var(--bg-active); border-radius: 4px; padding: 1px 5px;
   border: 1px solid var(--border-1); color: var(--fg-3); }
 
+.chat-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 9px; }
+.chat-meta .chat-hint { margin-top: 0; text-align: left; }
+.char-count { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--fg-4);
+  flex: none; font-variant-numeric: tabular-nums; transition: color var(--t-fast) var(--ease-out); }
+.char-count .cc-sep { opacity: 0.55; margin: 0 1px; }
+.char-count.near { color: var(--warning, var(--accent-2)); }
+.char-count.over { color: var(--danger); font-weight: 600; }
+
 /* Mobile: near-full-screen sheet */
 @media (max-width: 560px) {
   .fab { right: 16px; bottom: 16px; height: 54px; }

@@ -1,6 +1,6 @@
 /* ============================================================
    Prajwal Hebbar — Portfolio · client interactions
-   Site behaviour + AI assistant client (streams from /api/chat).
+   Site behaviour + AI assistant (calls /api/portfolio/ask).
    ============================================================ */
 type LucideGlobal = { createIcons: () => void };
 declare global {
@@ -115,6 +115,8 @@ interface Turn {
   content: string;
 }
 
+const MAX_LEN = 500;
+
 const fab = $('#fab');
 const chat = $('#chat');
 const scrim = $('#chat-scrim');
@@ -123,7 +125,11 @@ const form = $<HTMLFormElement>('#chat-form');
 const input = $<HTMLTextAreaElement>('#chat-input');
 const sendBtn = $<HTMLButtonElement>('#send-btn');
 const errBox = $('#chat-err');
+const errMsg = $('#chat-err-msg');
+const errIc = $('#chat-err-ic');
 const errRetry = $('#chat-retry');
+const ccBox = $('#char-count');
+const ccNum = $('#cc-num');
 
 let lastFocus: HTMLElement | null = null;
 let busy = false;
@@ -134,7 +140,6 @@ function icon(name: string, cls?: string) {
   return `<svg class="ic ${cls || ''}" data-lucide="${name}"></svg>`;
 }
 
-// Only wire up the assistant if its markup is present.
 if (fab && chat && scrim && log && form && input && sendBtn) {
   /* --- Open / close --- */
   function openChat() {
@@ -172,9 +177,10 @@ if (fab && chat && scrim && log && form && input && sendBtn) {
       return;
     }
     if (e.key === 'Tab') {
-      const f = $$<HTMLElement>('button, textarea, a[href], [tabindex]:not([tabindex="-1"])', chat).filter(
-        (el) => !(el as HTMLButtonElement).disabled && el.offsetParent !== null,
-      );
+      const f = $$<HTMLElement>(
+        'button, textarea, a[href], [tabindex]:not([tabindex="-1"])',
+        chat,
+      ).filter((el) => !(el as HTMLButtonElement).disabled && el.offsetParent !== null);
       if (!f.length) return;
       const first = f[0],
         last = f[f.length - 1];
@@ -190,9 +196,17 @@ if (fab && chat && scrim && log && form && input && sendBtn) {
 
   /* --- Welcome / chips --- */
   const CHIPS = [
-    { ic: 'sparkles', label: 'Summarize his experience', q: "Give me the 30-second version of Prajwal's experience." },
+    {
+      ic: 'sparkles',
+      label: 'Summarize his experience',
+      q: "Give me the 30-second version of Prajwal's experience.",
+    },
     { ic: 'layers', label: 'Top skills', q: "What are Prajwal's strongest skills and stack?" },
-    { ic: 'cpu', label: 'Technical proficiency', q: 'Break down his technical proficiency across frontend, Web3 & AI, and backend/DevOps.' },
+    {
+      ic: 'cpu',
+      label: 'Technical proficiency',
+      q: 'Break down his technical proficiency across frontend, Web3 & AI, and backend/DevOps.',
+    },
     { ic: 'mail', label: 'How to contact him', q: 'How do I get in touch with Prajwal?' },
   ];
   function renderWelcome() {
@@ -219,7 +233,10 @@ if (fab && chat && scrim && log && form && input && sendBtn) {
   function mdToHtml(src: string) {
     let t = esc(src.trim());
     t = t.replace(/(https?:\/\/[^\s<)]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
-    t = t.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1">$1</a>');
+    t = t.replace(
+      /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
+      '<a href="mailto:$1">$1</a>',
+    );
     t = t.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
     const lines = t.split('\n');
     let html = '',
@@ -266,62 +283,117 @@ if (fab && chat && scrim && log && form && input && sendBtn) {
     log!.scrollTop = log!.scrollHeight;
   }
 
+  /* --- Reveal text progressively (streaming feel) --- */
+  function streamInto(bubble: HTMLElement, fullText: string): Promise<void> {
+    return new Promise((resolve) => {
+      if (reduceMotion) {
+        bubble.innerHTML = mdToHtml(fullText);
+        scrollDown();
+        resolve();
+        return;
+      }
+      const tokens = fullText.split(/(\s+)/);
+      let i = 0,
+        acc = '';
+      const step = () => {
+        const chunk = Math.random() < 0.3 ? 2 : 1;
+        for (let k = 0; k < chunk && i < tokens.length; k++) acc += tokens[i++];
+        bubble.innerHTML =
+          mdToHtml(acc) + (i < tokens.length ? '<span class="caret"></span>' : '');
+        scrollDown();
+        if (i < tokens.length) setTimeout(step, 16 + Math.random() * 24);
+        else {
+          bubble.innerHTML = mdToHtml(fullText);
+          refreshIcons();
+          resolve();
+        }
+      };
+      step();
+    });
+  }
+
   function setBusy(b: boolean) {
     busy = b;
-    sendBtn!.disabled = b || !input!.value.trim();
+    const n = input!.value.trim().length;
+    sendBtn!.disabled = b || !n || n > MAX_LEN;
     input!.setAttribute('aria-busy', String(b));
   }
 
-  /* --- Send: streams the reply from the server endpoint --- */
+  function updateCount() {
+    const n = input!.value.trim().length;
+    if (ccNum) ccNum.textContent = String(n);
+    ccBox?.classList.toggle('near', n > MAX_LEN - 60 && n <= MAX_LEN);
+    ccBox?.classList.toggle('over', n > MAX_LEN);
+  }
+
+  /* --- Send --- */
   async function send(text: string) {
     text = (text || '').trim();
     if (!text || busy) return;
+    if (text.length > MAX_LEN) {
+      showErr('limit');
+      input!.focus();
+      return;
+    }
     hideErr();
     if ($('.welcome', log!)) log!.innerHTML = '';
     addUser(text);
     history.push({ role: 'user', content: text });
     input!.value = '';
     autosize();
+    updateCount();
     setBusy(true);
     const bubble = addBotShell();
 
     try {
-      const res = await fetch('/api/chat', {
+      const res = await fetch('/api/portfolio/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify({ prompt: text }),
       });
-      if (!res.ok || !res.body) throw new Error('Bad response');
-
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let acc = '';
-      bubble.innerHTML = '';
-      for (;;) {
-        const { value, done } = await reader.read();
-        if (done) break;
-        acc += decoder.decode(value, { stream: true });
-        bubble.innerHTML = mdToHtml(acc) + '<span class="caret"></span>';
-        scrollDown();
+      if (res.status === 400 || res.status === 422) {
+        throw Object.assign(new Error('validation'), { kind: 'validation' });
       }
-      acc += decoder.decode();
-      const reply = acc.trim();
-      if (!reply) throw new Error('Empty response');
-      bubble.innerHTML = mdToHtml(reply);
-      refreshIcons();
-      scrollDown();
-      history.push({ role: 'assistant', content: reply });
+      if (!res.ok) throw Object.assign(new Error('server'), { kind: 'server' });
+      const data = (await res.json()) as Record<string, unknown>;
+      const answer = ((data.answer ?? data.response ?? data.message ?? '') as string).trim();
+      if (!answer) throw Object.assign(new Error('empty'), { kind: 'server' });
+      bubble.innerHTML = '';
+      await streamInto(bubble, answer);
+      history.push({ role: 'assistant', content: answer });
     } catch (err) {
       bubble.closest('.msg')?.remove();
-      showErr();
+      showErr((err as { kind?: string })?.kind ?? 'server');
     } finally {
       setBusy(false);
       input!.focus();
     }
   }
 
-  function showErr() {
+  const ERR_MSGS: Record<string, { ic: string; msg: string; retry: boolean }> = {
+    limit: {
+      ic: 'ruler',
+      msg: "That's over the 500-character limit — trim it down and send again.",
+      retry: false,
+    },
+    validation: {
+      ic: 'alert-triangle',
+      msg: "That didn't go through. Keep it to a clear question under 500 characters.",
+      retry: true,
+    },
+    server: {
+      ic: 'server-crash',
+      msg: 'The assistant is unavailable right now. Try again in a moment.',
+      retry: true,
+    },
+  };
+  function showErr(kind: string) {
+    const e = ERR_MSGS[kind] ?? ERR_MSGS.server;
+    if (errMsg) errMsg.textContent = e.msg;
+    if (errIc) errIc.setAttribute('data-lucide', e.ic);
+    if (errRetry) (errRetry as HTMLElement).style.display = e.retry ? '' : 'none';
     errBox?.classList.add('show');
+    refreshIcons();
   }
   function hideErr() {
     errBox?.classList.remove('show');
@@ -342,7 +414,9 @@ if (fab && chat && scrim && log && form && input && sendBtn) {
   }
   input.addEventListener('input', () => {
     autosize();
-    sendBtn!.disabled = busy || !input!.value.trim();
+    updateCount();
+    const n = input!.value.trim().length;
+    sendBtn!.disabled = busy || !n || n > MAX_LEN;
   });
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -356,7 +430,7 @@ if (fab && chat && scrim && log && form && input && sendBtn) {
   });
   sendBtn.disabled = true;
 
-  // Open via any [data-open-chat] trigger (e.g. hero "Ask AI")
+  // Open via any [data-open-chat] trigger (hero "Ask the AI about me")
   $$('[data-open-chat]').forEach((b) =>
     b.addEventListener('click', (e) => {
       e.preventDefault();

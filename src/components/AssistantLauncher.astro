@@ -1,0 +1,56 @@
+---
+// Inline AI assistant: floating button + chat dialog embedded on the portfolio page.
+---
+
+<button class="fab" id="fab" type="button" aria-label="Open AI assistant" aria-expanded="false" aria-haspopup="dialog">
+  <span class="fab-sheen" aria-hidden="true"></span>
+  <svg class="ic" data-lucide="sparkles"></svg> Ask AI
+</button>
+
+<div class="chat-scrim" id="chat-scrim" aria-hidden="true"></div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<section class="chat" id="chat" role="dialog" aria-modal="true" aria-labelledby="chat-title" aria-hidden="true">
+  <header class="chat-head">
+    <span class="chat-ava" aria-hidden="true"><svg class="ic" data-lucide="bot"></svg></span>
+    <div class="chat-id">
+      <div class="ct" id="chat-title">Prajwal's assistant</div>
+      <div class="cs"><span class="live"></span> Grounded in this portfolio</div>
+    </div>
+    <div class="ch-actions">
+      <button class="icon-btn" id="chat-close" type="button" aria-label="Close assistant">
+        <svg class="ic" data-lucide="x"></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="chat-log" id="chat-log" role="log" aria-live="polite" aria-label="Conversation"></div>
+
+  <div class="chat-err" id="chat-err" role="alert">
+    <svg class="ic" id="chat-err-ic" data-lucide="alert-triangle"></svg>
+    <span id="chat-err-msg">Something went wrong reaching the assistant.</span>
+    <button id="chat-retry" type="button">Retry</button>
+  </div>
+
+  <footer class="chat-foot">
+    <form class="chat-input" id="chat-form">
+      <textarea
+        id="chat-input"
+        rows="1"
+        maxlength="600"
+        placeholder="Ask about Prajwal's experience…"
+        aria-label="Message the assistant"
+      ></textarea>
+      <button class="send-btn" id="send-btn" type="submit" aria-label="Send message">
+        <svg class="ic" data-lucide="arrow-up"></svg>
+      </button>
+    </form>
+    <div class="chat-meta">
+      <div class="chat-hint"><kbd>Enter</kbd> to send · <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line</div>
+      <div class="char-count" id="char-count" aria-live="polite" title="Prompts are capped at 500 characters">
+        <span id="cc-num">0</span><span class="cc-sep">/</span>500
+      </div>
+    </div>
+  </footer>
+</section>

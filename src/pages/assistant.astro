@@ -1,0 +1,64 @@
+---
+import '../styles/tokens.css';
+import '../styles/assistant-ui.css';
+import { identity } from '../data/assistant';
+
+const title = `Portfolio Assistant — ${identity.name}`;
+const description = `Ask the AI assistant about ${identity.name} — experience, skills, projects, and how to get in touch. Answers grounded in his portfolio.`;
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <div class="stage">
+      <div class="stage-tools">
+        <button id="theme-dark" class="on" title="Dark" aria-label="Dark theme"><i data-lucide="moon"></i></button>
+        <button id="theme-light" title="Light" aria-label="Light theme"><i data-lucide="sun"></i></button>
+      </div>
+
+      <div class="chat">
+        <header class="chat-head">
+          <div class="avatar">P<span class="dot"></span></div>
+          <div class="chat-id">
+            <span class="nm">{identity.name}</span>
+            <span class="rl">{identity.role}</span>
+          </div>
+          <div class="head-actions">
+            <button class="ibtn" id="new-chat" title="New chat" aria-label="New chat"><i data-lucide="rotate-ccw"></i></button>
+          </div>
+        </header>
+
+        <div class="chat-status">
+          <span class="live"></span>{identity.status}
+        </div>
+
+        <div class="thread" id="thread"></div>
+
+        <div class="composer">
+          <div class="field" id="composer-field">
+            <textarea
+              id="composer-input"
+              rows="1"
+              placeholder="Ask about his experience, skills, or how to reach him…"
+              aria-label="Ask the assistant"></textarea>
+            <button class="send" id="composer-send" disabled aria-label="Send"><i data-lucide="arrow-up"></i></button>
+          </div>
+          <div class="meta" id="composer-meta"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" is:inline></script>
+    <script>
+      import '../scripts/assistant.ts';
+    </script>
+  </body>
+</html>
