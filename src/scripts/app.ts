@@ -205,7 +205,7 @@ if (fab && chat && scrim && log && form && input && sendBtn) {
     {
       ic: 'cpu',
       label: 'Technical proficiency',
-      q: 'Break down his technical proficiency across frontend, Web3 & AI, and backend/DevOps.',
+      q: 'Break down his technical proficiency across frontend, architecture, and backend/DevOps.',
     },
     { ic: 'mail', label: 'How to contact him', q: 'How do I get in touch with Prajwal?' },
   ];

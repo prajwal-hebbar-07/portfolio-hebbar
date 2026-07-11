@@ -6,7 +6,7 @@
 
 export const profile = {
   name: 'Prajwal Hebbar',
-  role: 'Full Stack Developer',
+  role: 'Senior Engineer',
   status: 'Available for opportunities',
   location: 'Bengaluru, India',
   experience: 'Nearly 5 years',
@@ -35,34 +35,22 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
-    role: 'Enterprise Engineer',
+    role: 'Senior Engineer',
     company: 'LYIK Technologies Pvt. Ltd.',
-    when: 'Apr 2023 — Present',
+    when: 'Jun 2026 — Present',
     location: 'On-site · Bengaluru',
     locationIcon: 'map-pin',
     current: true,
     points: [
-      'Completed <b>v2 of the form-filling application</b> using Redux for complete state management; now developing <b>v3</b> as a more configurable platform.',
-      'Architected the platform around a <b>rule engine</b> (field editability &amp; visibility), a <b>derive engine</b> (data derivation &amp; auto-filling), and an <b>actions engine</b> (scenario-based actions).',
-      'Built the shared form layout as a separately maintained <b>monorepo package</b>, with the main app repo handling product-specific components.',
-      'Developing <b>JSON-driven configuration</b> for dashboard layouts, and a <b>Frappe-based ERP</b> system with configurable workflows.',
-      'Set up <b>Docker/Nginx</b> containerization and a <b>GitHub Actions</b> CI/CD pipeline; built a ServiceNow integration POC.',
-      "Contributed to the company's <b>first enterprise client acquisition</b>.",
+      '<b>Promoted to Senior Engineer</b> in June 2026 (previously Enterprise Engineer, Apr 2023 &ndash; Jun 2026), after shipping v2 and driving much of the <b>v3</b> configurable form platform.',
+      'Built the v3 <b>admin dashboard</b>: a form-management console (MaterialReactTable over the forms API with create/delete + confirmation flows) and a <b>user-management tree-table</b> that models the org as a hierarchy/DAG, with full <b>user &amp; relationship CRUD</b> wired to REST APIs.',
+      'Added <b>bulk user onboarding</b> via client-side <b>CSV/ZIP</b> upload (jszip), plus a permission <b>guardrail</b> system &mdash; permission-gated routes, form-list guards, and rule-driven dashboard widgets configured through <b>dashboard.json</b>.',
+      'Built the <b>maker-checker approval workflow</b> (checker flow, verify state, submit confirmation) and <b>trusted API records</b> (tokenized nodes protected against user overwrite).',
+      'Worked across the core form <b>engines</b> in the <code>@lyikadmin/lyik-form</code> monorepo &mdash; <b>actions</b>, <b>rules</b> (persona/permission-based hide &amp; disable), <b>derive</b> and <b>navigator</b> (array-boundary navigation) &mdash; and wrote their <b>unit/integration test suites</b>.',
+      'Delivered <b>SSO login flow</b>, <b>client-side encryption</b>, <b>JSON-driven theming</b> (theme.json, custom themes, logo fallback), <b>funcex</b> expression support, <b>liveness/KYC</b> detection, ID obfuscation and multi-file upload.',
+      'Set up <b>Docker/Nginx</b> containerization and <b>GitHub Actions</b> CI/CD; also built a <b>Frappe-based ERP</b> and a ServiceNow integration POC. Contributed to the company’s <b>first enterprise client acquisition</b>.',
     ],
-    tech: ['React', 'Redux', 'TypeScript', 'Material UI', 'JSON', 'Monorepo', 'Frappe', 'Docker', 'Nginx', 'GitHub Actions', 'Azure'],
-  },
-  {
-    role: 'Full Stack Consultant',
-    company: 'Freelance — Web3 & AI dApps',
-    when: 'Ongoing',
-    location: 'Remote',
-    locationIcon: 'globe',
-    points: [
-      'Built an <b>AI-powered DeFi analytics platform</b> with a conversational chat interface.',
-      'Shipped a <b>Web3 portfolio intelligence platform</b> with WalletConnect integration.',
-      'Engineered a <b>prompt-engineering pipeline</b> producing structured JSON responses.',
-    ],
-    tech: ['Next.js', 'Node.js', 'OpenAI API', 'WalletConnect', 'Web3', 'Docker', 'AWS', 'Vercel'],
+    tech: ['React 19', 'TypeScript', 'Redux Toolkit', 'Material UI', 'TanStack Query', 'Material React Table', 'REST APIs', 'JSON-driven config', 'Monorepo', 'Vitest', 'Docker', 'Nginx', 'GitHub Actions', 'Frappe'],
   },
   {
     role: 'Associate Web Developer',
@@ -87,11 +75,11 @@ export interface SkillGroup {
 }
 
 export const skillGroups: SkillGroup[] = [
-  { icon: 'code-2', title: 'Frontend Core', skills: ['ReactJS', 'Next.js', 'TypeScript', 'JavaScript', 'Redux'] },
-  { icon: 'palette', title: 'UI & Styling', skills: ['Material UI', 'TailwindCSS', 'Bootstrap 5', 'CSS / HTML', 'Responsive Design'] },
-  { icon: 'cpu', title: 'Web3 & AI', alt: true, skills: ['OpenAI API', 'Prompt Engineering', 'LLM Integration', 'WalletConnect', 'dApp Development'] },
-  { icon: 'server', title: 'Backend &amp; DevOps', skills: ['Node.js', 'Docker', 'Nginx', 'GitHub Actions', 'AWS', 'Vercel', 'Azure'] },
-  { icon: 'wrench', title: 'Tools &amp; Other', full: true, skills: ['Git / GitHub', 'Frappe ERP', 'Figma', 'Adobe XD', 'ServiceNow', 'System Architecture'] },
+  { icon: 'code-2', title: 'Frontend Core', skills: ['ReactJS', 'Next.js', 'TypeScript', 'JavaScript', 'Redux Toolkit'] },
+  { icon: 'palette', title: 'UI &amp; Design Systems', skills: ['Material UI', 'TailwindCSS', 'Design Tokens', 'Responsive Design', 'Figma'] },
+  { icon: 'cpu', title: 'Architecture', alt: true, skills: ['Schema-driven UI', 'Rule / Derive / Actions Engines', 'Monorepo', 'JSON Logic / JSONPath', 'System Design'] },
+  { icon: 'database', title: 'State, Data &amp; Testing', skills: ['TanStack Query', 'React Hook Form', 'Zod', 'Vitest', 'React Testing Library'] },
+  { icon: 'server', title: 'Backend, DevOps &amp; Security', full: true, skills: ['Node.js', 'Docker', 'Nginx', 'GitHub Actions', 'Frappe ERP', 'Client-side Encryption', 'SSO', 'REST APIs', 'Azure'] },
 ];
 
 /* ── AI assistant grounding ──────────────────────────────────────────────── */
@@ -99,48 +87,42 @@ export const skillGroups: SkillGroup[] = [
 export const PORTFOLIO_CONTENT = `
 PROFILE
 - Name: Prajwal Hebbar
-- Role: Full Stack Developer
+- Role: Senior Engineer (at LYIK Technologies)
 - Status: Available for opportunities
 - Location: Bengaluru, India
 - Experience: Nearly 5 years
 - Languages: English, Kannada, Hindi
-- Headline: Full Stack Developer building scalable, performant, and intelligent web experiences with React, Next.js, Web3 & AI.
+- Headline: Senior Engineer building configurable, enterprise-grade web platforms with React, TypeScript, and thoughtful design systems.
 
 ABOUT
-Specializes in ReactJS, Next.js, TypeScript, and Web3/AI integrations. At LYIK Technologies he currently architects configurable enterprise form-filling infrastructure, dashboard layouts, and ERP workflows. Freelance experience includes AI-powered DeFi platforms and Web3 portfolio tools.
+Specializes in ReactJS, Next.js, and TypeScript, with deep experience in schema-driven, configurable frontend architecture. At LYIK Technologies he architects a configurable enterprise form-filling platform, its admin dashboard, and ERP workflows — turning complex requirements into systems that feel effortless to use.
 - Education: B.E. in Computer Science Engineering, VVCE Mysuru
 - Notable achievement: 30%+ efficiency gains through client-facing platform development
 
 EXPERIENCE
-1) Enterprise Engineer — LYIK Technologies Private Limited (April 2023 – Present, On-site, Bengaluru)
-   - Completed v2 of the form-filling application using Redux for complete state management
-   - Currently developing v3 as a more configurable form-filling platform
-   - Built the shared form layout and functionality as a separately maintained monorepo package, while the main application repository handles product-specific components
-   - Structured the platform around a rule engine (field editability/visibility), a derive engine (data derivation and auto-filling), and an actions engine (scenario-based actions)
-   - Developing JSON-driven configuration for dashboard layouts
-   - Built a Frappe-based ERP system with configurable workflows
-   - Docker/Nginx containerization and GitHub Actions CI/CD pipeline
-   - ServiceNow integration POC
-   - Contributed to first enterprise client acquisition
-   - Tech: React, Redux, TypeScript, Material UI, JSON, Monorepo Architecture, Frappe, Docker, Nginx, GitHub Actions, Azure
+1) Senior Engineer — LYIK Technologies Private Limited (June 2026 – Present; previously Enterprise Engineer, April 2023 – June 2026; On-site, Bengaluru)
+   - Promoted to Senior Engineer in June 2026, after shipping v2 and driving much of the v3 configurable form platform
+   - Shipped v2 of the enterprise form-filling application (React 19, Redux Toolkit, TypeScript, Material UI), then contributed heavily to v3 as a configurable, schema-driven platform
+   - Built the v3 admin dashboard: a form-management console (Material React Table over the forms management API, with create/delete and confirmation flows) and a user-management tree-table that models the org as a hierarchy/DAG (buildUserTree, multi-parent edges), with full user and relationship CRUD wired to REST APIs (create/edit/delete users, add/remove relationship edges)
+   - Added bulk user onboarding via client-side CSV/ZIP upload (jszip), and a permission guardrail system: permission-gated routes, a reusable GuardRail component, form-list guards, and rule-driven dashboard widgets configured through dashboard.json
+   - Built the maker-checker approval workflow (checker flow, checker messages, verify state, submit confirmation modal) and trusted API records (tokenized nodes protected against user overwrite)
+   - Worked across the core form engines in the @lyikadmin/lyik-form monorepo package — actions, rules (persona/permission-based hide and disable), derive (array handling) and navigator (array-boundary navigation) — and wrote their unit/integration test suites
+   - Delivered an SSO login flow, client-side encryption, JSON-driven theming (theme.json, custom themes, logo fallback), funcex expression support, liveness/KYC detection, ID obfuscation, and multi-file upload
+   - Set up Docker/Nginx containerization and a GitHub Actions CI/CD pipeline; built a Frappe-based ERP and a ServiceNow integration POC
+   - Contributed to the company's first enterprise client acquisition
+   - Tech: React 19, TypeScript, Redux Toolkit, Material UI, TanStack Query, Material React Table, REST APIs, JSON-driven config, Monorepo, Vitest, Docker, Nginx, GitHub Actions, Frappe
 
-2) Full Stack Consultant — Freelance, Web3 & AI dApps (Ongoing, Remote)
-   - AI-powered DeFi analytics platform with a conversational chat interface
-   - Web3 portfolio intelligence platform with WalletConnect integration
-   - Prompt engineering pipeline for structured JSON responses
-   - Tech: Next.js, Node.js, OpenAI API, WalletConnect, Web3, Docker, AWS, Vercel
-
-3) Associate Web Developer — Content Enablers Inc. (March 2022 – March 2023, Remote, Bengaluru)
+2) Associate Web Developer — Content Enablers Inc. (March 2022 – March 2023, Remote, Bengaluru)
    - Website revamp using ReactJS and Bootstrap 5
    - Google Analytics and Google Tag Manager integration
    - Tech: React, Bootstrap 5, Strapi CMS, Google Analytics, GTM
 
 SKILLS
-- Frontend Core: ReactJS, Next.js, TypeScript, JavaScript, Redux
-- UI & Styling: Material UI, TailwindCSS, Bootstrap 5, CSS/HTML, Responsive Design
-- Web3 & AI: OpenAI API, Prompt Engineering, LLM Integration, WalletConnect, dApp Development
-- Backend & DevOps: Node.js, Docker, Nginx, GitHub Actions, AWS, Vercel, Azure
-- Tools & Other: Git/GitHub, Frappe ERP, Figma, Adobe XD, ServiceNow, System Architecture
+- Frontend Core: ReactJS, Next.js, TypeScript, JavaScript, Redux Toolkit
+- UI & Design Systems: Material UI, TailwindCSS, Design Tokens, Responsive Design, Figma
+- Architecture: Schema-driven UI, Rule/Derive/Actions engines, Monorepo, JSON Logic/JSONPath, System Design
+- State, Data & Testing: TanStack Query, React Hook Form, Zod, Vitest, React Testing Library
+- Backend, DevOps & Security: Node.js, Docker, Nginx, GitHub Actions, Frappe ERP, Client-side Encryption, SSO, REST APIs, Azure
 
 CONTACT
 - Email: prajwalhebbaras@gmail.com
@@ -171,13 +153,13 @@ export function fallbackAnswer(q: string): string {
     return 'Easiest ways to reach Prajwal:\n- **Email** prajwalhebbaras@gmail.com\n- **Phone** +91 9483924880\n- **LinkedIn** https://linkedin.com/in/hebbarprajwal72\n- **GitHub** https://github.com/prajwalhebbar\n\nHe\'s currently open to opportunities.';
   }
   if (/skill|stack|tech|proficien/.test(s)) {
-    return 'Prajwal\'s core stack is **React, Next.js and TypeScript**. Highlights:\n- **Frontend:** ReactJS, Next.js, TypeScript, Redux\n- **Web3 & AI:** OpenAI API, prompt engineering, LLM integration, WalletConnect, dApps\n- **Backend & DevOps:** Node.js, Docker, Nginx, GitHub Actions, AWS, Vercel, Azure\n\nSee the Skills section for the full breakdown.';
+    return 'Prajwal\'s core stack is **React, Next.js and TypeScript**. Highlights:\n- **Frontend:** ReactJS, Next.js, TypeScript, Redux Toolkit\n- **Architecture:** schema-driven UI, rule/derive/actions engines, monorepo, JSON Logic/JSONPath\n- **State, data & testing:** TanStack Query, React Hook Form, Zod, Vitest\n- **Backend, DevOps & security:** Node.js, Docker, Nginx, GitHub Actions, AES encryption, SSO/OAuth, PWA, Azure\n\nSee the Skills section for the full breakdown.';
   }
   if (/experience|summary|summar|30|background|do\b|who/.test(s)) {
-    return 'The 30-second version: Prajwal is a **Full Stack Developer** with nearly 5 years\' experience, based in Bengaluru. He\'s an **Enterprise Engineer at LYIK Technologies**, where he architects a configurable enterprise form-filling platform (rule, derive and actions engines) plus ERP workflows. On the side he builds **Web3 & AI dApps** — AI-powered DeFi analytics and Web3 portfolio tools. He\'s driven **30%+ efficiency gains** through client-facing platforms.';
+    return 'The 30-second version: Prajwal is a **Senior Engineer** with nearly 5 years\' experience, based in Bengaluru. At **LYIK Technologies** — where he was **promoted to Senior Engineer in June 2026** — he shipped v2 of the enterprise form platform and drove much of v3: the admin dashboard (form + user management), a permission guardrail system, the maker-checker approval flow, and the core form engines. He\'s driven **30%+ efficiency gains** through client-facing platforms.';
   }
   if (/lyik/.test(s)) {
-    return 'At **LYIK Technologies** (Enterprise Engineer, since April 2023, Bengaluru) Prajwal:\n- Shipped v2 of the form-filling app with Redux, and is building a more configurable v3\n- Structured it around a **rule engine** (editability/visibility), a **derive engine** (auto-fill) and an **actions engine**\n- Packaged the shared form layout as a monorepo package\n- Set up Docker/Nginx and GitHub Actions CI/CD, and contributed to the first enterprise client win';
+    return 'At **LYIK Technologies** (Senior Engineer since June 2026; Enterprise Engineer from April 2023) Prajwal:\n- Shipped v2 of the form-filling app (React 19 + Redux Toolkit) and drove much of **v3** as a configurable, schema-driven platform\n- Built the v3 **admin dashboard** — form management (Material React Table) and a **user-management tree-table** (org hierarchy/DAG) with full user & relationship CRUD over REST\n- Added bulk CSV/ZIP user onboarding, a permission **guardrail** system, the **maker-checker** approval flow, and trusted API records\n- Worked across the form **engines** (rules, derive, actions, navigator) with their test suites, plus SSO, client-side encryption and JSON-driven theming; set up Docker/Nginx and GitHub Actions CI/CD';
   }
   return 'I can summarize Prajwal\'s experience, his skills, specific roles (like LYIK), or how to contact him. What would you like to know? For anything not on the site, email him at prajwalhebbaras@gmail.com.';
 }

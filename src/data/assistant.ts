@@ -23,7 +23,7 @@ export interface Starter {
 
 export const identity = {
   name: 'Prajwal Hebbar',
-  role: 'Full Stack Developer · Bengaluru',
+  role: 'Senior Engineer · Bengaluru',
   tagline: 'Ask about my experience, skills, projects, or how to reach me.',
   status: 'Powered by the portfolio assistant',
 } as const;
@@ -50,17 +50,16 @@ export const answers: Record<AnswerId, string> = {
   summary: `Here's a quick summary of Prajwal's portfolio:
 
 **Who he is**
-A Full Stack Developer with nearly 5 years of experience, based in Bengaluru. He's open to new opportunities and specializes in React, Next.js, TypeScript, Web3, and AI integrations.
+A Senior Engineer with nearly 5 years of experience, based in Bengaluru. He's open to new opportunities and specializes in React, Next.js, TypeScript, and configurable, schema-driven frontend architecture.
 
 **Current role**
-Enterprise Engineer at **LYIK Technologies** (Apr 2023 – Present), where he architects a configurable form-filling platform built on a rule engine, derive engine, and actions engine. He's also working on JSON-driven dashboard layouts and a Frappe-based ERP, with DevOps via Docker, Nginx, and GitHub Actions. He contributed to the company's first enterprise client win.
+Senior Engineer at **LYIK Technologies** (promoted in June 2026; Enterprise Engineer from Apr 2023). He shipped v2 of the enterprise form platform and drove much of v3: the admin dashboard (form management plus a user-management tree-table with full REST CRUD), a permission guardrail system, the maker-checker approval flow, and the core form engines (rules, derive, actions, navigator) with their test suites — plus SSO, client-side encryption, and JSON-driven theming, with DevOps via Docker, Nginx, and GitHub Actions. He contributed to the company's first enterprise client win.
 
 **Prior experience**
-- **Freelance Consultant (Web3 & AI dApps)** — built an AI-powered DeFi analytics platform and a Web3 portfolio tool with WalletConnect.
-- **Associate Web Developer at Content Enablers Inc.** — led a React + Bootstrap 5 site revamp with GA/GTM integration.
+- **Associate Web Developer at Content Enablers Inc.** (Mar 2022 – Mar 2023) — led a React + Bootstrap 5 site revamp with GA/GTM integration.
 
 **Strengths**
-Frontend (React, Next.js, Redux, TypeScript), UI (Material UI, Tailwind, Bootstrap), Web3/AI (OpenAI, WalletConnect, prompt engineering), and Backend/DevOps (Node.js, Docker, AWS, Azure, CI/CD).
+Frontend (React, Next.js, Redux Toolkit, TypeScript), UI & design systems (Material UI, Tailwind), architecture (schema-driven UI, rule/derive/actions engines, monorepo, JSON Logic), and backend/DevOps/security (Node.js, Docker, CI/CD, AES encryption, SSO, PWA).
 
 **Education**
 B.E. in Computer Science, VVCE Mysuru (VTU).
@@ -75,13 +74,10 @@ Want me to go deeper into any specific role, project, or skill set?`,
 
   work: `Here's a quick summary of Prajwal's work experience:
 
-**Nearly 5 years** across enterprise, freelance, and agency roles:
+**Nearly 5 years** across enterprise and agency roles:
 
-- **Enterprise Engineer — LYIK Technologies** (Apr 2023 – Present)
-  Builds configurable, enterprise-grade form-filling and ERP platforms. Architected the system's rule, derive, and actions engines; ships a monorepo-shared form layout; sets up Docker/Nginx and CI/CD; contributed to the company's first enterprise client win.
-
-- **Full Stack Consultant — Freelance** (Ongoing)
-  Builds AI and Web3 dApps, including an AI-powered DeFi analytics platform and a Web3 portfolio tool with WalletConnect. Owns the full stack — Next.js, Node.js, OpenAI, AWS/Vercel.
+- **Senior Engineer — LYIK Technologies** (Jun 2026 – Present; Enterprise Engineer, Apr 2023 – Jun 2026)
+  Builds configurable, enterprise-grade form and ERP platforms. Shipped v2, then drove much of v3: built the admin dashboard (form management + a user-management tree-table with full REST CRUD), a permission guardrail system, and the maker-checker approval flow; worked across the form engines (rules, derive, actions, navigator) with their test suites; delivered SSO, client-side encryption, and JSON-driven theming; set up Docker/Nginx and CI/CD; contributed to the company's first enterprise client win.
 
 - **Associate Web Developer — Content Enablers Inc.** (Mar 2022 – Mar 2023)
   Led a website revamp with React and Bootstrap 5, plus GA/GTM integration for product analytics.
@@ -91,31 +87,29 @@ A clear pattern: complex, configurable frontend systems with real production sca
   skills: `Here's a quick rundown of Prajwal's technical skills:
 
 **Frontend**
-- ReactJS, Next.js, TypeScript, JavaScript, Redux
+- ReactJS, Next.js, TypeScript, JavaScript, Redux Toolkit
 
-**UI & Styling**
-- Material UI, TailwindCSS, Bootstrap 5, CSS/HTML, Responsive Design
+**UI & Design Systems**
+- Material UI, TailwindCSS, Design Tokens, Responsive Design, Figma
 
-**Web3 & AI**
-- OpenAI API, Prompt Engineering, LLM Integration, WalletConnect, dApp Development
+**Architecture**
+- Schema-driven UI, Rule/Derive/Actions engines, Monorepo, JSON Logic/JSONPath, System Design
 
-**Backend & DevOps**
-- Node.js, Docker, Nginx, GitHub Actions, AWS, Vercel, Azure
+**State, Data & Testing**
+- TanStack Query, React Hook Form, Zod, Vitest, React Testing Library
 
-**Tools & Other**
-- Git/GitHub, Frappe ERP, Figma, Adobe XD, ServiceNow, System Architecture
+**Backend, DevOps & Security**
+- Node.js, Docker, Nginx, GitHub Actions, Frappe ERP, Client-side Encryption, SSO, REST APIs, Azure
 
-His strongest areas are the React/Next.js stack and Web3/AI integrations. Want me to dig into how he's applied these in specific projects? Reach him at **prajwalhebbaras@gmail.com** for the full picture.`,
+His strongest areas are the React/TypeScript stack and configurable, schema-driven architecture. Want me to dig into how he's applied these in specific projects? Reach him at **prajwalhebbaras@gmail.com** for the full picture.`,
 
-  current: `Prajwal currently works as an **Enterprise Engineer at LYIK Technologies Pvt. Ltd.** in Bengaluru (on-site), a role he's held since April 2023.
+  current: `Prajwal currently works as a **Senior Engineer at LYIK Technologies Pvt. Ltd.** in Bengaluru (on-site). He joined as an Enterprise Engineer in April 2023 and was **promoted to Senior Engineer in June 2026**.
 
 There, he:
-- Built v2 of the form-filling app with Redux and is now developing v3 as a configurable platform
-- Architected rule, derive, and actions engines for the platform
-- Works on JSON-driven dashboard layouts and a Frappe-based ERP system
-- Set up Docker/Nginx containerization and GitHub Actions CI/CD
-
-He also runs a parallel freelance practice building Web3 and AI dApps.`,
+- Shipped v2 of the form-filling app (React 19 + Redux Toolkit) and drove much of v3 as a configurable, schema-driven platform
+- Built the v3 admin dashboard: form management (Material React Table) and a user-management tree-table (org hierarchy/DAG) with full user & relationship CRUD over REST
+- Added bulk CSV/ZIP user onboarding, a permission guardrail system, the maker-checker approval flow, and trusted API records
+- Worked across the form engines (rules, derive, actions, navigator) with their test suites; delivered SSO, client-side encryption and JSON-driven theming; set up Docker/Nginx and GitHub Actions CI/CD`,
 
   contact: `You can reach Prajwal through any of these channels:
 
