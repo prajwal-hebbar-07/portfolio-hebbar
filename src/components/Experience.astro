@@ -27,6 +27,17 @@ import { experiences } from '../data/portfolio';
                     <h3 class="xp-role">{xp.role}</h3>
                   )}
                   <div class="xp-company"><span class="at">@</span> {xp.company}</div>
+                  {xp.progression && (
+                    <ol class="xp-track" aria-label="Role progression">
+                      {xp.progression.map((step, i) => (
+                        <li class={i === xp.progression!.length - 1 ? 'now' : ''}>
+                          <span class="step-role">{step.role}</span>
+                          <span class="step-when">{step.when}</span>
+                        </li>
+                      ))}
+                      <li class="promo"><svg class="ic" data-lucide="trending-up"></svg> Promoted</li>
+                    </ol>
+                  )}
                 </div>
                 <div class="xp-when">
                   <Fragment set:html={xp.when} /><br />

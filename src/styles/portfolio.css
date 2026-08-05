@@ -342,6 +342,24 @@ svg.ic { width: 1em; height: 1em; stroke-width: 1.75; flex: none; }
 .xp-company { display: inline-flex; align-items: center; gap: 9px; margin-top: 6px; color: var(--fg-2);
   font-size: 15px; font-weight: 500; }
 .xp-company .at { color: var(--accent); }
+/* Promotion track — earlier title → current title, with an arrow between steps */
+.xp-track { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap;
+  align-items: center; gap: 8px 10px; }
+.xp-track li { display: inline-flex; align-items: baseline; gap: 8px; padding: 6px 12px;
+  border-radius: var(--r-full); border: 1px solid var(--border-1); background: var(--bg-inset); }
+.xp-track li + li { position: relative; margin-left: 20px; }
+.xp-track li + li::before { content: "→"; position: absolute; left: -18px; top: 50%;
+  transform: translateY(-50%); color: var(--fg-4); font-size: 14px; }
+.xp-track li.now { border-color: color-mix(in oklch, var(--accent) 45%, transparent);
+  background: var(--accent-tint); }
+.xp-track .step-role { font-size: 14px; font-weight: 600; color: var(--fg-2); }
+.xp-track li.now .step-role { color: var(--accent); }
+.xp-track .step-when { font-family: var(--font-mono); font-size: 11px; color: var(--fg-4); }
+.xp-track li.promo { gap: 6px; align-items: center; border-color: transparent; background: transparent;
+  padding: 0; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase; font-weight: 600; color: var(--accent-2); }
+.xp-track li.promo::before { content: none; }
+.xp-track li.promo svg { width: 13px; height: 13px; }
 .xp-when { text-align: right; font-family: var(--font-mono); font-size: 12px; color: var(--fg-3);
   letter-spacing: 0.01em; line-height: 1.7; flex: none; }
 .xp-when .loc { display: inline-flex; align-items: center; gap: 5px; color: var(--fg-4); }

@@ -53,7 +53,7 @@ export const answers: Record<AnswerId, string> = {
 A Senior Engineer with nearly 5 years of experience, based in Bengaluru. He's open to new opportunities and specializes in React, Next.js, TypeScript, and configurable, schema-driven frontend architecture.
 
 **Current role**
-Senior Engineer at **LYIK Technologies** (promoted in June 2026; Enterprise Engineer from Apr 2023). He shipped v2 of the enterprise form platform and drove much of v3: the admin dashboard (form management plus a user-management tree-table with full REST CRUD), a permission guardrail system, the maker-checker approval flow, and the core form engines (rules, derive, actions, navigator) with their test suites — plus SSO, client-side encryption, and JSON-driven theming, with DevOps via Docker, Nginx, and GitHub Actions. He contributed to the company's first enterprise client win.
+Senior Engineer at **LYIK Technologies** (promoted in April 2026; Enterprise Engineer, Apr 2023 – Mar 2026). He shipped v2 of the enterprise form platform and drove much of v3: the admin dashboard (form management plus a user-management tree-table with full REST CRUD), a permission guardrail system, the maker-checker approval flow, and the core form engines (rules, derive, actions, navigator) with their test suites — plus SSO, client-side encryption, and JSON-driven theming, with DevOps via Docker, Nginx, and GitHub Actions. He contributed to the company's first enterprise client win.
 
 **Prior experience**
 - **Associate Web Developer at Content Enablers Inc.** (Mar 2022 – Mar 2023) — led a React + Bootstrap 5 site revamp with GA/GTM integration.
@@ -76,7 +76,7 @@ Want me to go deeper into any specific role, project, or skill set?`,
 
 **Nearly 5 years** across enterprise and agency roles:
 
-- **Senior Engineer — LYIK Technologies** (Jun 2026 – Present; Enterprise Engineer, Apr 2023 – Jun 2026)
+- **Senior Engineer — LYIK Technologies** (Apr 2026 – Present; Enterprise Engineer, Apr 2023 – Mar 2026)
   Builds configurable, enterprise-grade form and ERP platforms. Shipped v2, then drove much of v3: built the admin dashboard (form management + a user-management tree-table with full REST CRUD), a permission guardrail system, and the maker-checker approval flow; worked across the form engines (rules, derive, actions, navigator) with their test suites; delivered SSO, client-side encryption, and JSON-driven theming; set up Docker/Nginx and CI/CD; contributed to the company's first enterprise client win.
 
 - **Associate Web Developer — Content Enablers Inc.** (Mar 2022 – Mar 2023)
@@ -103,7 +103,7 @@ A clear pattern: complex, configurable frontend systems with real production sca
 
 His strongest areas are the React/TypeScript stack and configurable, schema-driven architecture. Want me to dig into how he's applied these in specific projects? Reach him at **prajwalhebbaras@gmail.com** for the full picture.`,
 
-  current: `Prajwal currently works as a **Senior Engineer at LYIK Technologies Pvt. Ltd.** in Bengaluru (on-site). He joined as an Enterprise Engineer in April 2023 and was **promoted to Senior Engineer in June 2026**.
+  current: `Prajwal currently works as a **Senior Engineer at LYIK Technologies Pvt. Ltd.** in Bengaluru (on-site). He joined as an Enterprise Engineer in April 2023 and was **promoted to Senior Engineer in April 2026**.
 
 There, he:
 - Shipped v2 of the form-filling app (React 19 + Redux Toolkit) and drove much of v3 as a configurable, schema-driven platform
