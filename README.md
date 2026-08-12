@@ -80,7 +80,7 @@ It answers visitor questions about Prajwal **only** from his portfolio content.
 
 - **Grounding & prompt** live in one place: `src/data/portfolio.ts` (`PORTFOLIO_CONTENT`,
   `SYSTEM_PROMPT`, and the offline `fallbackAnswer`). This same module also drives the rendered
-  Experience and Skills sections, so content stays in sync.
+  Experience, Projects and Skills sections, so content stays in sync.
 - **Server route:** `src/pages/api/chat.ts` streams the reply from the Anthropic Messages API
   token-by-token (`client.messages.stream`). The browser reads the response body as a stream.
 - **Swap the grounding/model:** edit `src/data/portfolio.ts` for content, or set `CLAUDE_MODEL`.
@@ -124,7 +124,7 @@ src/
     assistant.ts           # /assistant identity, starters, validation, guardrail, offline answers
   styles/                  # tokens.css (Oni Do) + portfolio.css + assistant-ui.css
   layouts/Layout.astro     # portfolio page <head>, global styles, Lucide + client script
-  components/               # Nav, Hero, About, Experience, Skills, Contact, Footer, Assistant
+  components/               # Nav, Hero, About, Experience, Projects, Skills, Contact, Footer, Assistant
   scripts/
     app.ts                 # portfolio page: theme, nav, scroll-reveal, mobile menu, toast
     assistant.ts           # /assistant chat client (markdown, composer, proxy calls)

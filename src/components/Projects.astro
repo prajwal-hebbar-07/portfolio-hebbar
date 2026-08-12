@@ -1,0 +1,45 @@
+---
+import { projects } from '../data/portfolio';
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Personal work</span>
+      <h2>Local-first desktop apps, built end to end.</h2>
+      <p>Open-source Tauri applications where I own the data model, the Rust host, the UI and the release pipeline.</p>
+    </div>
+
+    <div class="projects">
+      {
+        projects.map((project, index) => (
+          <article class="pj reveal" data-delay="1">
+            <span class="pj-index" aria-hidden="true">{pad(index + 1)}</span>
+            <div class="card pj-card">
+              <div class="pj-summary">
+                <div class="pj-title-row">
+                  <h3 class="pj-name">{project.name}</h3>
+                  <span class="tag-soft">{project.status}</span>
+                </div>
+                <p class="pj-tagline">{project.tagline}</p>
+                <div class="pj-kind">{project.kind}</div>
+                <a class="pj-repo" href={project.repo} target="_blank" rel="noopener">
+                  <svg class="ic" data-lucide="github"></svg> {project.repoLabel}
+                </a>
+              </div>
+
+              <ul class="xp-points">
+                {project.points.map((point) => <li set:html={point} />)}
+              </ul>
+
+              <div class="tech-row" aria-label="Technologies used">
+                {project.tech.map((technology) => <span class="tech-tag">{technology}</span>)}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

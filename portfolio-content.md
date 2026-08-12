@@ -97,7 +97,7 @@ tools.
 - **Email:** prajwalhebbaras@gmail.com
 - **Phone:** +91 9483924880
 - **LinkedIn:** https://linkedin.com/in/hebbarprajwal72
-- **GitHub:** https://github.com/prajwalhebbar
+- **GitHub:** https://github.com/prajwal-hebbar-07
 
 ---
 

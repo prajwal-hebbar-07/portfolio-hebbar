@@ -15,8 +15,8 @@ export const profile = {
   phoneHref: '+919483924880',
   linkedin: 'https://linkedin.com/in/hebbarprajwal72',
   linkedinLabel: 'in/hebbarprajwal72',
-  github: 'https://github.com/prajwalhebbar',
-  githubLabel: 'github.com/prajwalhebbar',
+  github: 'https://github.com/prajwal-hebbar-07',
+  githubLabel: 'github.com/prajwal-hebbar-07',
   education: 'B.E. in Computer Science Engineering',
   educationSchool: 'VVCE, Mysuru',
   languages: ['English', 'Kannada', 'Hindi'],
@@ -69,6 +69,52 @@ export const experiences: Experience[] = [
   },
 ];
 
+export interface Project {
+  name: string;
+  tagline: string;
+  kind: string;
+  repo: string;
+  repoLabel: string;
+  status: string;
+  points: string[]; // may contain <b>…</b> for emphasis
+  tech: string[];
+}
+
+export const projects: Project[] = [
+  {
+    name: 'LedgerFlow',
+    tagline: 'Local-first desktop expense tracker — no account, no server, no sync.',
+    kind: 'Tauri 2 · React 19 · Rust · SQLite',
+    repo: 'https://github.com/prajwal-hebbar-07/ledger-flow',
+    repoLabel: 'prajwal-hebbar-07/ledger-flow',
+    status: 'Shipping signed releases',
+    points: [
+      'Models every money movement as <b>one row</b> in a single table — spend, income, self-transfer and card charge differ only by <code>direction</code> and which source column is set; amounts are positive integers in minor units.',
+      '<b>Balances are derived in SQL</b> from an opening balance plus every transaction that touched the account, so no running total can drift out of sync with the ledger.',
+      'Five screens over the same period picker: analytics with <b>period-over-period deltas</b> and CSS-box charts (no charting library), plus a <b>rules-based report generator</b> that works with no model configured.',
+      'Optional <b>Ollama</b> integration categorises transactions in batches against a closed 14-category list and rewrites the report prose; the model writes sentences, never figures — every number is recomputed from the ledger.',
+      'Ships via <b>GitHub Actions</b> for macOS/Linux/Windows with <b>minisign-signed auto-update</b>; disk and network access live in Rust commands, the webview never fetches.',
+    ],
+    tech: ['Tauri 2', 'React 19', 'TypeScript', 'Rust', 'SQLite', 'Tailwind CSS 4', 'Ollama', 'Turborepo', 'GitHub Actions'],
+  },
+  {
+    name: 'Flex State',
+    tagline: 'Offline gamified home-workout desktop app, plus the reactive store it is built on.',
+    kind: 'pnpm + Turborepo monorepo · Tauri 2 · React 19',
+    repo: 'https://github.com/prajwal-hebbar-07/flex-state',
+    repoLabel: 'prajwal-hebbar-07/flex-state',
+    status: 'Active build',
+    points: [
+      '<b>Deterministic plan generation</b>: the same profile, catalog and locations always produce an identical weekly plan, and the generator version stamped on each snapshot forces an explicit regeneration instead of a silent replay.',
+      'Personalization keyed to a <b>training ground</b> — each place carries its own equipment set and exclusions, so eligibility is computed per location rather than from global checkboxes.',
+      'XP, level, rank, streak and weekly count are <b>derived from the ordered completion history</b>; an <code>INSERT OR IGNORE</code> on the date primary key makes a repeat claim idempotent, with no mutable summary row to drift.',
+      'Every persisted value passes a <b>runtime shape guard</b> that fails closed — a single corrupt row is skipped instead of blocking boot.',
+      'Published <code>flex-state</code> as a framework-agnostic store (<code>Object.is</code> dedupe, detachable methods) with a React 19 binding over <code>useSyncExternalStore</code>; tested with Vitest and Node&rsquo;s native test runner.',
+    ],
+    tech: ['Tauri 2', 'React 19', 'TypeScript', 'Rust', 'SQLite', 'pnpm workspace', 'Turborepo', 'Vitest', 'Biome'],
+  },
+];
+
 export interface SkillGroup {
   icon: string; // lucide name
   title: string;
@@ -80,9 +126,9 @@ export interface SkillGroup {
 export const skillGroups: SkillGroup[] = [
   { icon: 'code-2', title: 'Frontend Core', skills: ['ReactJS', 'Next.js', 'TypeScript', 'JavaScript', 'Redux Toolkit'] },
   { icon: 'palette', title: 'UI &amp; Design Systems', skills: ['Material UI', 'TailwindCSS', 'Design Tokens', 'Responsive Design', 'Figma'] },
-  { icon: 'cpu', title: 'Architecture', alt: true, skills: ['Schema-driven UI', 'Rule / Derive / Actions Engines', 'Monorepo', 'JSON Logic / JSONPath', 'System Design'] },
-  { icon: 'database', title: 'State, Data &amp; Testing', skills: ['TanStack Query', 'React Hook Form', 'Zod', 'Vitest', 'React Testing Library'] },
-  { icon: 'server', title: 'Backend, DevOps &amp; Security', full: true, skills: ['Node.js', 'Docker', 'Nginx', 'GitHub Actions', 'Frappe ERP', 'Client-side Encryption', 'SSO', 'REST APIs', 'Azure'] },
+  { icon: 'cpu', title: 'Architecture', alt: true, skills: ['Schema-driven UI', 'Rule / Derive / Actions Engines', 'Monorepo', 'JSON Logic / JSONPath', 'Local-first Desktop', 'System Design'] },
+  { icon: 'database', title: 'State, Data &amp; Testing', skills: ['TanStack Query', 'React Hook Form', 'Zod', 'SQLite', 'Vitest', 'React Testing Library'] },
+  { icon: 'server', title: 'Backend, DevOps &amp; Security', full: true, skills: ['Node.js', 'Rust / Tauri 2', 'Docker', 'Nginx', 'GitHub Actions', 'Frappe ERP', 'Client-side Encryption', 'SSO', 'REST APIs', 'Azure'] },
 ];
 
 /* ── AI assistant grounding ──────────────────────────────────────────────── */
@@ -120,18 +166,37 @@ EXPERIENCE
    - Google Analytics and Google Tag Manager integration
    - Tech: React, Bootstrap 5, Strapi CMS, Google Analytics, GTM
 
+PROJECTS (personal, open source at github.com/prajwal-hebbar-07)
+1) LedgerFlow — local-first desktop expense tracker (https://github.com/prajwal-hebbar-07/ledger-flow)
+   - Tauri 2 + React 19 + Rust desktop app for macOS, Linux and Windows; single-user, offline, one SQLite file on the machine, no account/server/sync/telemetry
+   - One row per money movement in a single expense table: spend, income, transfer between own accounts and credit-card charge differ only by direction and which of account/card/to-account is set; amounts are positive integers in minor units
+   - Balances are derived in SQL (opening balance plus every transaction that touched the account) — no stored running total that can drift
+   - Five screens (Overview, Transactions, Analytics, Report, Settings): period-over-period deltas, charts built from CSS boxes rather than a charting library, fixed-charge holdout on the daily series, and a rules-based report generator that needs no model
+   - Optional Ollama integration (cloud or local daemon) categorises transactions in batches against a closed 14-category vocabulary and rewrites the report prose; the model writes sentences, never figures, and results are stamped with the model that wrote them
+   - Release engineering: GitHub Actions cuts macOS/Linux/Windows builds sequentially, minisign-signed manifest drives in-app auto-update; disk and network access live in Rust #[tauri::command]s, the webview never fetches
+   - Tech: Tauri 2, React 19, TypeScript, Rust, SQLite, Tailwind CSS 4, Ollama, pnpm workspace, Turborepo, GitHub Actions, node:test
+
+2) Flex State — offline gamified home-workout desktop app (https://github.com/prajwal-hebbar-07/flex-state)
+   - pnpm + Turborepo monorepo: a Tauri 2 + React 19 desktop app, a published framework-agnostic store package (flex-state), a React UI package, and a shared TypeScript config
+   - Deterministic offline plan generation: identical profile + catalog + locations produce an identical weekly plan; the generator version is stamped on every saved plan and a mismatch forces a regeneration flow
+   - Personalization by training ground — each location carries its own equipment set and per-place exercise exclusions, so exercise eligibility is computed per location, not from global flags
+   - Gamified progression derived from the ordered completion history (total XP, level, rank E→S, streak, weekly count); one row per local completion date with INSERT OR IGNORE, so re-claiming a day grants XP once
+   - Strict runtime shape guards on every persisted value, failing closed so one corrupt row never blocks boot; idempotent SQLite schema and catalog seed on each launch
+   - flex-state itself: createStore<T> with Object.is dedupe and detachable methods, bound to React 19 through useSyncExternalStore
+   - Tech: Tauri 2, React 19, TypeScript, Rust, SQLite, pnpm workspace, Turborepo, Vitest, node --experimental-strip-types --test, Biome 2
+
 SKILLS
 - Frontend Core: ReactJS, Next.js, TypeScript, JavaScript, Redux Toolkit
 - UI & Design Systems: Material UI, TailwindCSS, Design Tokens, Responsive Design, Figma
-- Architecture: Schema-driven UI, Rule/Derive/Actions engines, Monorepo, JSON Logic/JSONPath, System Design
-- State, Data & Testing: TanStack Query, React Hook Form, Zod, Vitest, React Testing Library
-- Backend, DevOps & Security: Node.js, Docker, Nginx, GitHub Actions, Frappe ERP, Client-side Encryption, SSO, REST APIs, Azure
+- Architecture: Schema-driven UI, Rule/Derive/Actions engines, Monorepo, JSON Logic/JSONPath, Local-first desktop (Tauri), System Design
+- State, Data & Testing: TanStack Query, React Hook Form, Zod, SQLite, Vitest, React Testing Library
+- Backend, DevOps & Security: Node.js, Rust/Tauri 2, Docker, Nginx, GitHub Actions, Frappe ERP, Client-side Encryption, SSO, REST APIs, Azure
 
 CONTACT
 - Email: prajwalhebbaras@gmail.com
 - Phone: +91 9483924880
 - LinkedIn: https://linkedin.com/in/hebbarprajwal72
-- GitHub: https://github.com/prajwalhebbar
+- GitHub: https://github.com/prajwal-hebbar-07
 `.trim();
 
 export const SYSTEM_PROMPT = `You are Prajwal's AI assistant, embedded on his portfolio site. You help visitors (often recruiters) quickly learn about Prajwal Hebbar.
@@ -153,7 +218,7 @@ ${PORTFOLIO_CONTENT}`;
 export function fallbackAnswer(q: string): string {
   const s = (q || '').toLowerCase();
   if (/contact|email|reach|hire|touch|phone|linkedin|github/.test(s)) {
-    return 'Easiest ways to reach Prajwal:\n- **Email** prajwalhebbaras@gmail.com\n- **Phone** +91 9483924880\n- **LinkedIn** https://linkedin.com/in/hebbarprajwal72\n- **GitHub** https://github.com/prajwalhebbar\n\nHe\'s currently open to opportunities.';
+    return 'Easiest ways to reach Prajwal:\n- **Email** prajwalhebbaras@gmail.com\n- **Phone** +91 9483924880\n- **LinkedIn** https://linkedin.com/in/hebbarprajwal72\n- **GitHub** https://github.com/prajwal-hebbar-07\n\nHe\'s currently open to opportunities.';
   }
   if (/skill|stack|tech|proficien/.test(s)) {
     return 'Prajwal\'s core stack is **React, Next.js and TypeScript**. Highlights:\n- **Frontend:** ReactJS, Next.js, TypeScript, Redux Toolkit\n- **Architecture:** schema-driven UI, rule/derive/actions engines, monorepo, JSON Logic/JSONPath\n- **State, data & testing:** TanStack Query, React Hook Form, Zod, Vitest\n- **Backend, DevOps & security:** Node.js, Docker, Nginx, GitHub Actions, AES encryption, SSO/OAuth, PWA, Azure\n\nSee the Skills section for the full breakdown.';
