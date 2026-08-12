@@ -1,54 +1,53 @@
 ---
 import { experiences } from '../data/portfolio';
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
 <section class="section" id="experience">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">Experience</span>
-      <h2>Nearly five years building for <span class="accent">production</span>.</h2>
-      <p>Configurable enterprise platforms, form engines, and admin dashboards — shipped, containerized, and maintained.</p>
+      <span class="eyebrow">Selected work</span>
+      <h2>Systems shipped for real-world complexity.</h2>
+      <p>Configurable frontend engines, admin platforms, permissions, testing, and production delivery.</p>
     </div>
 
     <div class="timeline">
       {
-        experiences.map((xp) => (
+        experiences.map((xp, index) => (
           <article class={`xp${xp.current ? ' current' : ''} reveal`} data-delay="1">
-            <span class="node" aria-hidden="true"></span>
+            <span class="xp-index" aria-hidden="true">{pad(index + 1)}</span>
             <div class="card xp-card">
-              <div class="xp-head">
-                <div>
-                  {xp.current ? (
-                    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-                      <h3 class="xp-role">{xp.role}</h3>
-                      <span class="tag-now"><svg class="ic" data-lucide="zap" style="width:12px;height:12px;"></svg> Current</span>
-                    </div>
-                  ) : (
-                    <h3 class="xp-role">{xp.role}</h3>
-                  )}
-                  <div class="xp-company"><span class="at">@</span> {xp.company}</div>
-                  {xp.progression && (
-                    <ol class="xp-track" aria-label="Role progression">
-                      {xp.progression.map((step, i) => (
-                        <li class={i === xp.progression!.length - 1 ? 'now' : ''}>
-                          <span class="step-role">{step.role}</span>
-                          <span class="step-when">{step.when}</span>
-                        </li>
-                      ))}
-                      <li class="promo"><svg class="ic" data-lucide="trending-up"></svg> Promoted</li>
-                    </ol>
+              <div class="xp-summary">
+                <div class="xp-title-row">
+                  <h3 class="xp-role">{xp.role}</h3>
+                  {xp.current && (
+                    <span class="tag-now"><svg class="ic" data-lucide="zap"></svg> Current</span>
                   )}
                 </div>
+                <div class="xp-company"><span class="at">@</span> {xp.company}</div>
+                {xp.progression && (
+                  <ol class="xp-track" aria-label="Role progression">
+                    {xp.progression.map((step, i) => (
+                      <li class={i === xp.progression!.length - 1 ? 'now' : ''}>
+                        <span class="step-role">{step.role}</span>
+                        <span class="step-when">{step.when}</span>
+                      </li>
+                    ))}
+                    <li class="promo"><svg class="ic" data-lucide="trending-up"></svg> Promoted</li>
+                  </ol>
+                )}
                 <div class="xp-when">
                   <Fragment set:html={xp.when} /><br />
                   <span class="loc"><svg class="ic" data-lucide={xp.locationIcon}></svg> {xp.location}</span>
                 </div>
               </div>
+
               <ul class="xp-points">
-                {xp.points.map((p) => <li set:html={p} />)}
+                {xp.points.map((point) => <li set:html={point} />)}
               </ul>
-              <div class="tech-row">
-                {xp.tech.map((t) => <span class="tech-tag">{t}</span>)}
+
+              <div class="tech-row" aria-label="Technologies used">
+                {xp.tech.map((technology) => <span class="tech-tag">{technology}</span>)}
               </div>
             </div>
           </article>

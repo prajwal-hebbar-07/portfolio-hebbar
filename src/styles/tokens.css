@@ -56,9 +56,9 @@
   --sp-5: 16px; --sp-6: 20px; --sp-7: 24px; --sp-8: 32px;
   --sp-9: 40px; --sp-10: 48px; --sp-11: 64px; --sp-12: 80px;
 
-  /* ---------- Radii (soft, rounded) ---------- */
-  --r-xs: 6px; --r-sm: 10px; --r-md: 14px; --r-lg: 20px;
-  --r-xl: 28px; --r-2xl: 36px; --r-full: 999px;
+  /* ---------- Radii (precise, softly rounded) ---------- */
+  --r-xs: 4px; --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+  --r-xl: 20px; --r-2xl: 28px; --r-full: 999px;
 
   /* ---------- Motion — snappy ease-out, "faster than expected" ---------- */
   --ease-out:      cubic-bezier(0.22, 1, 0.36, 1);
