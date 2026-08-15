@@ -403,12 +403,17 @@ svg.ic { width: 1em; height: 1em; stroke-width: 1.75; flex: none; }
   font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); line-height: 1.7;
 }
 .pj-repo {
-  display: inline-flex; align-items: center; gap: 8px; margin-top: 14px;
-  font-family: var(--font-mono); font-size: 11px; color: var(--fg-3);
-  transition: color var(--t-fast) var(--ease-out);
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 12px;
+  height: 32px; padding: 0 12px;
+  border: 1px solid var(--border-2); border-radius: var(--radius-full);
+  font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500;
+  color: var(--fg-1); background: var(--bg-inset);
+  transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out),
+    background var(--t-fast) var(--ease-out);
 }
-.pj-repo:hover { color: var(--accent); }
-.pj-repo svg { width: 14px; height: 14px; }
+.pj-repo:hover { color: var(--color-accent); border-color: var(--color-accent); background: var(--color-accent-wash); }
+.pj-repo svg { width: 15px; height: 15px; }
+.pj-repo .pj-repo-out, .pj-repo svg:last-of-type { width: 13px; height: 13px; opacity: 0.7; }
 .tag-soft {
   display: inline-flex; align-items: center; min-height: 24px; padding: 4px 10px;
   border-radius: var(--r-full); font-family: var(--font-mono); font-size: 10px;

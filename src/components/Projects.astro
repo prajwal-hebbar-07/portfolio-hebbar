@@ -21,11 +21,19 @@ const pad = (n: number) => String(n).padStart(2, '0');
                   <h3 class="pj-name">{project.name}</h3>
                   <span class="tag-soft">{project.status}</span>
                 </div>
+                <a
+                  class="pj-repo"
+                  href={project.repo}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={`${project.name} source on GitHub — ${project.repoLabel}`}
+                >
+                  <svg class="ic" data-lucide="github"></svg>
+                  <span class="pj-repo-label">{project.repoLabel}</span>
+                  <svg class="ic pj-repo-out" data-lucide="arrow-up-right"></svg>
+                </a>
                 <p class="pj-tagline">{project.tagline}</p>
                 <div class="pj-kind">{project.kind}</div>
-                <a class="pj-repo" href={project.repo} target="_blank" rel="noopener">
-                  <svg class="ic" data-lucide="github"></svg> {project.repoLabel}
-                </a>
               </div>
 
               <ul class="xp-points">
