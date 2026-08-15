@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <title>Prajwal Hebbar — Resume</title>
 <style>
-  @page { size: A4; margin: 12mm 12mm; }
+  @page { size: A4; margin: 11mm 12mm; }
   :root {
     --ink: #1a1d24;
     --body: #2c313b;
@@ -18,7 +18,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 10.4pt; line-height: 1.35; color: var(--body);
+    font-size: 10.4pt; line-height: 1.3; color: var(--body);
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
   b, strong { font-weight: 600; color: var(--ink); }
@@ -32,10 +32,10 @@
   .contact .sep { color: var(--faint); padding: 0 7pt; }
 
   h2 { font-size: 8.2pt; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-       color: var(--accent); margin: 9pt 0 4pt; padding-bottom: 2.5pt; border-bottom: 0.6pt solid var(--rule); }
+       color: var(--accent); margin: 7pt 0 3.5pt; padding-bottom: 2.5pt; border-bottom: 0.6pt solid var(--rule); }
   header { padding-bottom: 5pt; border-bottom: 1.6pt solid var(--ink); }
 
-  .job { margin-top: 8pt; }
+  .job { margin-top: 6.5pt; }
   .job:first-of-type { margin-top: 0; }
   .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12pt; }
   .job-title { font-size: 12.2pt; font-weight: 700; color: var(--ink); }
@@ -43,7 +43,7 @@
   .job-when { font-size: 9.2pt; font-weight: 600; color: var(--muted); white-space: nowrap; }
   .job-meta { font-size: 8.9pt; color: var(--muted); margin-top: 1.5pt; }
   ul { list-style: none; margin: 4pt 0 0; }
-  li { position: relative; padding-left: 11pt; margin-top: 2.4pt; }
+  li { position: relative; padding-left: 11pt; margin-top: 2.2pt; }
   li::before { content: "•"; position: absolute; left: 1pt; color: var(--faint); }
   .stack { margin-top: 4pt; font-size: 8.5pt; color: var(--faint); }
   .stack b { font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); font-size: 7.2pt; }
@@ -65,7 +65,7 @@
   <h1>Prajwal Hebbar</h1>
   <div class="role">Senior Engineer</div>
   <div class="contact">
-    <span>prajwalhebbaras@gmail.com</span><span class="sep">·</span><span>+91 94839 24880</span><span class="sep">·</span><span>Bengaluru, India</span><span class="sep">·</span><span>linkedin.com/in/hebbarprajwal72</span><span class="sep">·</span><span>github.com/prajwal-hebbar-07</span><span class="sep">·</span><span>portfolio.hebbars.in</span>
+    <span>prajwalhebbaras@gmail.com</span><span class="sep">·</span><span>+91 94839 24880</span><span class="sep">·</span><span>Bengaluru, India</span><span class="sep">·</span><span>linkedin.com/in/prajwal-hebbar-a-s-a213b121a</span><span class="sep">·</span><span>github.com/prajwal-hebbar-07</span><span class="sep">·</span><span>portfolio.hebbars.in</span>
   </div>
 </header>
 
@@ -74,7 +74,7 @@
 <b>React, TypeScript and schema-driven frontend architecture</b> — admin dashboards, permission systems and
 reusable rules/actions engines, shipped with the DevOps to run in production. Promoted to Senior Engineer at LYIK
 in April 2026 after shipping v2 and driving much of the v3 form platform. Outside work I ship <b>local-first
-Tauri 2 desktop apps</b> in TypeScript and Rust, release pipeline included.</p>
+Tauri 2 desktop and Expo mobile apps</b> in TypeScript and Rust, release pipeline included.</p>
 
 <h2>Experience</h2>
 
@@ -125,7 +125,7 @@ Tauri 2 desktop apps</b> in TypeScript and Rust, release pipeline included.</p>
     <div class="job-title">LedgerFlow — <span class="co">local-first desktop expense tracker</span></div>
     <div class="job-when">github.com/prajwal-hebbar-07/ledger-flow</div>
   </div>
-  <div class="job-meta">Tauri 2 · React 19 · Rust · SQLite — shipping signed macOS/Linux releases</div>
+  <div class="job-meta">Tauri 2 · React 19 · Rust · SQLite — shipping signed macOS/Linux/Windows releases</div>
   <ul>
     <li>Models every money movement as <b>one row</b> in a single table — spend, income, self-transfer and card
       charge differ only by <code>direction</code> and which source column is set; <b>balances are derived in
@@ -160,12 +160,32 @@ Tauri 2 desktop apps</b> in TypeScript and Rust, release pipeline included.</p>
     Vitest, Biome</div>
 </div>
 
+<div class="job">
+  <div class="job-head">
+    <div class="job-title">GrowthOS — <span class="co">local-first study-plan tracker</span></div>
+    <div class="job-when">private repository</div>
+  </div>
+  <div class="job-meta">Tauri 2 · React 19 · Expo 57 · Rust · SQLite — macOS desktop plus Android/iOS clients</div>
+  <ul>
+    <li>Two clients over <b>one model</b>: <code>@growth-os/learning</code> is consumed as TypeScript source with
+      no build step, so the desktop app and the Expo React Native app share the same types, validators and eight
+      bundled courses.</li>
+    <li>Progress is <b>dated completions in SQLite</b> — one row per finished task, so totals and the
+      consecutive-day streak derive from the ordered history and re-ticking never rewrites the original date.</li>
+    <li>Task chat and day summaries call <b>Ollama from Rust</b>, never the webview, so no key reaches the
+      frontend; summaries append into a markdown notes folder under a dated heading, and versioned
+      <b>backup/restore</b> rejects a newer format whole rather than losing ticks.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> Tauri 2, React 19, TypeScript, Rust, SQLite, Expo 57, React Native, Ollama,
+    pnpm workspace, Turborepo</div>
+</div>
+
 <h2>Skills</h2>
 <dl class="skills">
-  <dt>Frontend Core</dt><dd>ReactJS, Next.js, TypeScript, JavaScript, Redux Toolkit</dd>
-  <dt>UI &amp; Design Systems</dt><dd>Material UI, TailwindCSS, Design Tokens, Figma</dd>
+  <dt>Frontend Core</dt><dd>ReactJS, Next.js, TypeScript, JavaScript, Redux Toolkit, React Native</dd>
+  <dt>UI &amp; Design Systems</dt><dd>Material UI, TailwindCSS, Design Tokens, Figma, Paper</dd>
   <dt>Architecture &amp; Testing</dt><dd>Schema-driven UI, Rule/Derive/Actions engines, Monorepo, TanStack Query, Zod, Vitest</dd>
-  <dt>Backend, DevOps &amp; Security</dt><dd>Node.js, Rust/Tauri, SQLite, Docker, Nginx, GitHub Actions, SSO, Client-side Encryption</dd>
+  <dt>Backend, DevOps &amp; Security</dt><dd>Node.js, Rust/Tauri 2, SQLite, Docker, Nginx, GitHub Actions, SSO, Client-side Encryption</dd>
 </dl>
 
 <h2>Education</h2>
