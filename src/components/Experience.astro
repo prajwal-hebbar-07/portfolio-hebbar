@@ -6,9 +6,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
 <section class="section" id="experience">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">Selected work</span>
-      <h2>Systems shipped for real-world complexity.</h2>
-      <p>Configurable frontend engines, admin platforms, permissions, testing, and production delivery.</p>
+      <span class="eyebrow">Experience</span>
+      <h2>Nearly five years of <span class="accent">shipped</span> enterprise systems.</h2>
     </div>
 
     <div class="timeline">
@@ -20,11 +19,9 @@ const pad = (n: number) => String(n).padStart(2, '0');
               <div class="xp-summary">
                 <div class="xp-title-row">
                   <h3 class="xp-role">{xp.role}</h3>
-                  {xp.current && (
-                    <span class="tag-now"><svg class="ic" data-lucide="zap"></svg> Current</span>
-                  )}
+                  {xp.current && <span class="tag-now">Current</span>}
                 </div>
-                <div class="xp-company"><span class="at">@</span> {xp.company}</div>
+                <div class="xp-company">{xp.company}</div>
                 {xp.progression && (
                   <ol class="xp-track" aria-label="Role progression">
                     {xp.progression.map((step, i) => (
@@ -33,21 +30,22 @@ const pad = (n: number) => String(n).padStart(2, '0');
                         <span class="step-when">{step.when}</span>
                       </li>
                     ))}
-                    <li class="promo"><svg class="ic" data-lucide="trending-up"></svg> Promoted</li>
                   </ol>
                 )}
                 <div class="xp-when">
                   <Fragment set:html={xp.when} /><br />
-                  <span class="loc"><svg class="ic" data-lucide={xp.locationIcon}></svg> {xp.location}</span>
+                  <span class="loc">{xp.location}</span>
                 </div>
               </div>
 
-              <ul class="xp-points">
-                {xp.points.map((point) => <li set:html={point} />)}
-              </ul>
+              <div class="xp-body">
+                <ul class="xp-points">
+                  {xp.points.map((point) => <li set:html={point} />)}
+                </ul>
 
-              <div class="tech-row" aria-label="Technologies used">
-                {xp.tech.map((technology) => <span class="tech-tag">{technology}</span>)}
+                <div class="tech-row" aria-label="Technologies used">
+                  {xp.tech.map((technology) => <span class="tech-tag">{technology}</span>)}
+                </div>
               </div>
             </div>
           </article>

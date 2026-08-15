@@ -1,14 +1,12 @@
 ---
 import { skillGroups } from '../data/portfolio';
-const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
 <section class="section" id="skills">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Skills</span>
-      <h2>The <span class="accent">toolkit</span>.</h2>
-      <p>Frontend-leaning full stack, with real depth in configurable, schema-driven architecture and the DevOps to ship it.</p>
+      <h2>The stack behind <span class="accent">configurable</span> systems.</h2>
     </div>
 
     <div class="skills-grid">
@@ -22,7 +20,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
             <div class="sk-head">
               <span class="sk-ic"><svg class="ic" data-lucide={g.icon}></svg></span>
               <span class="sk-title">{g.title}</span>
-              <span class="sk-count">{pad(g.skills.length)}</span>
             </div>
             <div class="skill-tags">
               {g.skills.map((s) => <span class="chip">{s}</span>)}
