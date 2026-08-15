@@ -404,9 +404,10 @@ svg.ic { width: 1em; height: 1em; stroke-width: 1.75; flex: none; }
   letter-spacing: var(--tracking-tight); margin: 0;
 }
 .pj-tagline {
-  margin: 14px 0 0; color: var(--color-body);
+  margin: 12px 0 0; color: var(--color-body);
   font-size: var(--text-base); line-height: var(--leading-base);
 }
+.pj-repo + .pj-tagline { margin-top: 14px; }
 .pj-kind {
   margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border-1);
   font-family: var(--font-mono); font-size: var(--text-xs); line-height: 20px;

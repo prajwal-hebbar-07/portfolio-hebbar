@@ -73,8 +73,8 @@ export interface Project {
   name: string;
   tagline: string;
   kind: string;
-  repo: string;
-  repoLabel: string;
+  repo?: string; // omitted for private repositories
+  repoLabel?: string;
   status: string;
   shipped?: boolean; // solid accent pill vs tinted "in progress" pill
   points: string[]; // may contain <b>…</b> for emphasis
@@ -115,6 +115,21 @@ export const projects: Project[] = [
     ],
     tech: ['Tauri 2', 'React 19', 'TypeScript', 'Rust', 'SQLite', 'pnpm workspace', 'Turborepo', 'Vitest', 'Biome'],
   },
+  {
+    name: 'GrowthOS',
+    tagline: 'Local-first study-plan tracker for macOS, Android and iOS — no account, no server.',
+    kind: 'Tauri 2 · React 19 · Expo 57 · Rust · SQLite',
+    status: 'Shipped',
+    shipped: true,
+    points: [
+      'Two clients over one model: <code>@growth-os/learning</code> is consumed as TypeScript source with no build step, so the Tauri 2 desktop app and the Expo React Native app share the same types, validators and eight bundled courses.',
+      'Desktop progress is <b>dated completions in SQLite</b> — one row per finished task, so streaks and totals are derived from the ordered history and re-ticking never rewrites the original date.',
+      'Task chat and day summaries call <b>Ollama from Rust</b>, never the webview, so the API key never reaches the frontend; the prompt is rebuilt from the current path on every send.',
+      '<b>Day summaries</b> are written from that day&rsquo;s own ticks and task conversations, never stored, and appended into a markdown notes folder under a dated heading so no earlier note is overwritten.',
+      'Versioned <b>backup and restore</b> merges into the device and keeps the dates tasks were finished; a file from a newer format version is rejected whole rather than silently losing ticks.',
+    ],
+    tech: ['Tauri 2', 'React 19', 'TypeScript', 'Rust', 'SQLite', 'Expo 57', 'React Native', 'Ollama', 'pnpm workspace', 'Turborepo'],
+  },
 ];
 
 export interface SkillGroup {
@@ -127,7 +142,7 @@ export interface SkillGroup {
 
 export const skillGroups: SkillGroup[] = [
   { icon: 'code-2', title: 'Frontend Core', skills: ['ReactJS', 'Next.js', 'TypeScript', 'JavaScript', 'Redux Toolkit'] },
-  { icon: 'palette', title: 'UI & Design Systems', skills: ['Material UI', 'TailwindCSS', 'Design Tokens', 'Responsive Design', 'Figma'] },
+  { icon: 'palette', title: 'UI & Design Systems', skills: ['Material UI', 'TailwindCSS', 'Design Tokens', 'Responsive Design', 'Figma', 'Paper'] },
   { icon: 'cpu', title: 'Architecture', alt: true, skills: ['Schema-driven UI', 'Rule / Derive / Actions Engines', 'Monorepo', 'JSON Logic / JSONPath', 'Local-first Desktop', 'System Design'] },
   { icon: 'database', title: 'State, Data & Testing', skills: ['TanStack Query', 'React Hook Form', 'Zod', 'SQLite', 'Vitest', 'React Testing Library'] },
   { icon: 'server', title: 'Backend, DevOps & Security', full: true, skills: ['Node.js', 'Rust / Tauri 2', 'Docker', 'Nginx', 'GitHub Actions', 'Frappe ERP', 'Client-side Encryption', 'SSO', 'REST APIs', 'Azure'] },
@@ -168,7 +183,7 @@ EXPERIENCE
    - Google Analytics and Google Tag Manager integration
    - Tech: React, Bootstrap 5, Strapi CMS, Google Analytics, GTM
 
-PROJECTS (personal, open source at github.com/prajwal-hebbar-07)
+PROJECTS (personal; the two open-source ones are at github.com/prajwal-hebbar-07)
 1) LedgerFlow — local-first desktop expense tracker (https://github.com/prajwal-hebbar-07/ledger-flow)
    - Tauri 2 + React 19 + Rust desktop app for macOS, Linux and Windows; single-user, offline, one SQLite file on the machine, no account/server/sync/telemetry
    - One row per money movement in a single expense table: spend, income, transfer between own accounts and credit-card charge differ only by direction and which of account/card/to-account is set; amounts are positive integers in minor units
@@ -187,9 +202,18 @@ PROJECTS (personal, open source at github.com/prajwal-hebbar-07)
    - flex-state itself: createStore<T> with Object.is dedupe and detachable methods, bound to React 19 through useSyncExternalStore
    - Tech: Tauri 2, React 19, TypeScript, Rust, SQLite, pnpm workspace, Turborepo, Vitest, node --experimental-strip-types --test, Biome 2
 
+3) GrowthOS — local-first study-plan tracker (private repository, no public link)
+   - Ships as a macOS desktop app (Tauri 2 + React 19) and an Android/iOS app (Expo 57 / React Native), preloaded with an eight-week AI-backend curriculum; no account, no server, nothing uploaded
+   - pnpm + Turborepo monorepo whose shared package (@growth-os/learning) is consumed as TypeScript source with no build step, so both clients share one model, one set of validators and the eight bundled courses
+   - Desktop persistence is SQLite through rusqlite (bundled): one dated row per finished task, so totals and the consecutive-day streak are derived from the ordered completion history and re-ticking never rewrites the original date
+   - Task chat and day summaries call Ollama from Rust rather than the webview, so the API key never reaches the frontend; the system prompt is rebuilt from the current path on every send
+   - Day summaries are written from that day's own ticks and task conversations, never stored, and saved as markdown into a folder you pick — appended under a dated heading so an earlier note or hand edit is never overwritten
+   - Versioned JSON backup/restore merges into the device and preserves the dates tasks were finished; a newer format version is rejected whole rather than partially losing ticks
+   - Tech: Tauri 2, React 19, TypeScript, Rust, SQLite, Expo 57, React Native, Ollama, pnpm workspace, Turborepo, GitHub Actions
+
 SKILLS
 - Frontend Core: ReactJS, Next.js, TypeScript, JavaScript, Redux Toolkit
-- UI & Design Systems: Material UI, TailwindCSS, Design Tokens, Responsive Design, Figma
+- UI & Design Systems: Material UI, TailwindCSS, Design Tokens, Responsive Design, Figma, Paper
 - Architecture: Schema-driven UI, Rule/Derive/Actions engines, Monorepo, JSON Logic/JSONPath, Local-first desktop (Tauri), System Design
 - State, Data & Testing: TanStack Query, React Hook Form, Zod, SQLite, Vitest, React Testing Library
 - Backend, DevOps & Security: Node.js, Rust/Tauri 2, Docker, Nginx, GitHub Actions, Frappe ERP, Client-side Encryption, SSO, REST APIs, Azure

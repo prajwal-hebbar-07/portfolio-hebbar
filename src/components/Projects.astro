@@ -18,17 +18,19 @@ const pad = (n: number) => String(n).padStart(2, '0');
             <div class="card pj-card">
               <div class="pj-summary">
                 <h3 class="pj-name">{project.name}</h3>
-                <a
-                  class="pj-repo"
-                  href={project.repo}
-                  target="_blank"
-                  rel="noopener"
-                  aria-label={`${project.name} source on GitHub — ${project.repoLabel}`}
-                >
-                  <svg class="ic" data-lucide="github"></svg>
-                  <span class="pj-repo-label">{project.repoLabel}</span>
-                  <svg class="ic pj-repo-out" data-lucide="arrow-up-right"></svg>
-                </a>
+                {project.repo && (
+                  <a
+                    class="pj-repo"
+                    href={project.repo}
+                    target="_blank"
+                    rel="noopener"
+                    aria-label={`${project.name} source on GitHub — ${project.repoLabel}`}
+                  >
+                    <svg class="ic" data-lucide="github"></svg>
+                    <span class="pj-repo-label">{project.repoLabel}</span>
+                    <svg class="ic pj-repo-out" data-lucide="arrow-up-right"></svg>
+                  </a>
+                )}
                 <p class="pj-tagline">{project.tagline}</p>
                 <span class:list={['pj-status', project.shipped && 'is-shipped']}>{project.status}</span>
                 <div class="pj-kind">{project.kind}</div>
