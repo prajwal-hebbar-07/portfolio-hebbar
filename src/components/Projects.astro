@@ -17,10 +17,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
             <span class="pj-index" aria-hidden="true">{pad(index + 1)}</span>
             <div class="card pj-card">
               <div class="pj-summary">
-                <div class="pj-title-row">
-                  <h3 class="pj-name">{project.name}</h3>
-                  <span class="tag-soft">{project.status}</span>
-                </div>
+                <h3 class="pj-name">{project.name}</h3>
                 <a
                   class="pj-repo"
                   href={project.repo}
@@ -33,15 +30,18 @@ const pad = (n: number) => String(n).padStart(2, '0');
                   <svg class="ic pj-repo-out" data-lucide="arrow-up-right"></svg>
                 </a>
                 <p class="pj-tagline">{project.tagline}</p>
+                <span class:list={['pj-status', project.shipped && 'is-shipped']}>{project.status}</span>
                 <div class="pj-kind">{project.kind}</div>
               </div>
 
-              <ul class="xp-points">
-                {project.points.map((point) => <li set:html={point} />)}
-              </ul>
+              <div class="pj-body">
+                <ul class="xp-points">
+                  {project.points.map((point) => <li set:html={point} />)}
+                </ul>
 
-              <div class="tech-row" aria-label="Technologies used">
-                {project.tech.map((technology) => <span class="tech-tag">{technology}</span>)}
+                <div class="tech-row" aria-label="Technologies used">
+                  {project.tech.map((technology) => <span class="tech-tag">{technology}</span>)}
+                </div>
               </div>
             </div>
           </article>

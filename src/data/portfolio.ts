@@ -76,6 +76,7 @@ export interface Project {
   repo: string;
   repoLabel: string;
   status: string;
+  shipped?: boolean; // solid accent pill vs tinted "in progress" pill
   points: string[]; // may contain <b>…</b> for emphasis
   tech: string[];
 }
@@ -87,7 +88,8 @@ export const projects: Project[] = [
     kind: 'Tauri 2 · React 19 · Rust · SQLite',
     repo: 'https://github.com/prajwal-hebbar-07/ledger-flow',
     repoLabel: 'prajwal-hebbar-07/ledger-flow',
-    status: 'Shipping signed releases',
+    status: 'Shipped',
+    shipped: true,
     points: [
       'Models every money movement as <b>one row</b> in a single table — spend, income, self-transfer and card charge differ only by <code>direction</code> and which source column is set; amounts are positive integers in minor units.',
       '<b>Balances are derived in SQL</b> from an opening balance plus every transaction that touched the account, so no running total can drift out of sync with the ledger.',
