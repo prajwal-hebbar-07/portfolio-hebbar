@@ -13,8 +13,8 @@ export const profile = {
   email: 'prajwalhebbaras@gmail.com',
   phone: '+91 94839 24880',
   phoneHref: '+919483924880',
-  linkedin: 'https://linkedin.com/in/hebbarprajwal72',
-  linkedinLabel: 'in/hebbarprajwal72',
+  linkedin: 'https://www.linkedin.com/in/prajwal-hebbar-a-s-a213b121a/',
+  linkedinLabel: 'in/prajwal-hebbar-a-s-a213b121a',
   github: 'https://github.com/prajwal-hebbar-07',
   githubLabel: 'github.com/prajwal-hebbar-07',
   education: 'B.E. in Computer Science Engineering',
@@ -221,7 +221,7 @@ SKILLS
 CONTACT
 - Email: prajwalhebbaras@gmail.com
 - Phone: +91 9483924880
-- LinkedIn: https://linkedin.com/in/hebbarprajwal72
+- LinkedIn: https://www.linkedin.com/in/prajwal-hebbar-a-s-a213b121a/
 - GitHub: https://github.com/prajwal-hebbar-07
 `.trim();
 
@@ -244,7 +244,7 @@ ${PORTFOLIO_CONTENT}`;
 export function fallbackAnswer(q: string): string {
   const s = (q || '').toLowerCase();
   if (/contact|email|reach|hire|touch|phone|linkedin|github/.test(s)) {
-    return 'Easiest ways to reach Prajwal:\n- **Email** prajwalhebbaras@gmail.com\n- **Phone** +91 9483924880\n- **LinkedIn** https://linkedin.com/in/hebbarprajwal72\n- **GitHub** https://github.com/prajwal-hebbar-07\n\nHe\'s currently open to opportunities.';
+    return 'Easiest ways to reach Prajwal:\n- **Email** prajwalhebbaras@gmail.com\n- **Phone** +91 9483924880\n- **LinkedIn** https://www.linkedin.com/in/prajwal-hebbar-a-s-a213b121a/\n- **GitHub** https://github.com/prajwal-hebbar-07\n\nHe\'s currently open to opportunities.';
   }
   if (/skill|stack|tech|proficien/.test(s)) {
     return 'Prajwal\'s core stack is **React, Next.js and TypeScript**. Highlights:\n- **Frontend:** ReactJS, Next.js, TypeScript, Redux Toolkit\n- **Architecture:** schema-driven UI, rule/derive/actions engines, monorepo, JSON Logic/JSONPath\n- **State, data & testing:** TanStack Query, React Hook Form, Zod, Vitest\n- **Backend, DevOps & security:** Node.js, Docker, Nginx, GitHub Actions, AES encryption, SSO/OAuth, PWA, Azure\n\nSee the Skills section for the full breakdown.';

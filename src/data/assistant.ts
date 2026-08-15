@@ -66,7 +66,7 @@ B.E. in Computer Science, VVCE Mysuru (VTU).
 
 **Contact**
 - Email: prajwalhebbaras@gmail.com
-- LinkedIn: linkedin.com/in/hebbarprajwal72
+- LinkedIn: linkedin.com/in/prajwal-hebbar-a-s-a213b121a
 - GitHub: github.com/prajwal-hebbar-07
 - Website: https://portfolio.hebbars.in
 
@@ -115,7 +115,7 @@ There, he:
 
 - **Email:** prajwalhebbaras@gmail.com
 - **Phone:** +91 9483924880
-- **LinkedIn:** https://linkedin.com/in/hebbarprajwal72
+- **LinkedIn:** https://www.linkedin.com/in/prajwal-hebbar-a-s-a213b121a/
 - **GitHub:** https://github.com/prajwal-hebbar-07
 
 Email is usually the best way to start a conversation about opportunities.`,
