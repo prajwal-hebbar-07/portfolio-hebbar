@@ -12,7 +12,7 @@
    keeps switching themes with no JS change.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
 
 /* ---------- 1. RAW PALETTE + PRIMITIVES (theme-independent) ---------- */
 :root {
@@ -45,7 +45,8 @@
   --color-oxide-500: #9E4A2E;
 
   /* ---------- Type families ---------- */
-  --font-display: 'Archivo', 'Segoe UI', system-ui, sans-serif;
+  /* Defaults for the `grotesk` set; [data-font] blocks re-point these. */
+  --font-display: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
   --font-sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
 
@@ -128,6 +129,146 @@
 }
 
 /* ============================================================
+   1b. ACCENT RAMPS — one hue family per [data-accent]
+   ------------------------------------------------------------
+   These define a hue-only ramp. They never name a semantic role;
+   section 2 maps the ramp onto --color-accent* per theme. That
+   keeps theme (dark/light) and accent (hue) orthogonal: 2 themes
+   x N accents with N+2 blocks instead of 2N.
+   --accent-400 is the dark-theme face, --accent-500 the light one.
+   ============================================================ */
+:root,
+[data-accent='verdigris'] {
+  --accent-100: #DDEBE6;
+  --accent-300: #8FC4B5;
+  --accent-400: #4FA894;
+  --accent-500: #2F7A6A;
+  --accent-600: #266255;
+  --accent-700: #1D4A40;
+  --accent-wash-dark: #16302B;
+  --accent-on-light: #FAF9F6;
+  --accent-on-dark: #08110F;
+}
+
+[data-accent='cobalt'] {
+  --accent-100: #DCE7F7;
+  --accent-300: #93B4E8;
+  --accent-400: #5B8FDB;
+  --accent-500: #2F62B4;
+  --accent-600: #274F93;
+  --accent-700: #1D3B6E;
+  --accent-wash-dark: #142438;
+  --accent-on-light: #FAF9F6;
+  --accent-on-dark: #060D16;
+}
+
+[data-accent='violet'] {
+  --accent-100: #E7DFF7;
+  --accent-300: #B69FE4;
+  --accent-400: #9678D6;
+  --accent-500: #6B47B0;
+  --accent-600: #573A90;
+  --accent-700: #412B6B;
+  --accent-wash-dark: #241A38;
+  --accent-on-light: #FAF9F6;
+  --accent-on-dark: #0D0716;
+}
+
+[data-accent='rose'] {
+  --accent-100: #F7DEE5;
+  --accent-300: #E89FB2;
+  --accent-400: #DB7691;
+  --accent-500: #B43F5E;
+  --accent-600: #93334D;
+  --accent-700: #6E2639;
+  --accent-wash-dark: #38141F;
+  --accent-on-light: #FAF9F6;
+  --accent-on-dark: #16060B;
+}
+
+[data-accent='amber'] {
+  --accent-100: #F7E9D2;
+  --accent-300: #E8C489;
+  --accent-400: #D9A441;
+  --accent-500: #B07C1E;
+  --accent-600: #8F6318;
+  --accent-700: #6B4A12;
+  --accent-wash-dark: #34260C;
+  --accent-on-light: #FAF9F6;
+  --accent-on-dark: #1A1204;
+}
+
+[data-accent='ember'] {
+  --accent-100: #F7E1D8;
+  --accent-300: #E8A88C;
+  --accent-400: #DB8460;
+  --accent-500: #B4522A;
+  --accent-600: #934322;
+  --accent-700: #6E321A;
+  --accent-wash-dark: #38180E;
+  --accent-on-light: #FAF9F6;
+  --accent-on-dark: #160805;
+}
+
+[data-accent='slate'] {
+  --accent-100: #E3E6E8;
+  --accent-300: #A8B2B8;
+  --accent-400: #8A979E;
+  --accent-500: #5A686F;
+  --accent-600: #48545A;
+  --accent-700: #353F43;
+  --accent-wash-dark: #22292C;
+  --accent-on-light: #FAF9F6;
+  --accent-on-dark: #0B0F11;
+}
+
+/* Custom hue: JS sets --accent-seed on <html>; the ramp is derived in
+   CSS so no colour maths ships in the bundle. on-* pick themselves via
+   contrast-colour fallback (a mid-point mix is close enough at these
+   lightnesses, and both faces are checked against the seed). */
+[data-accent='custom'] {
+  --accent-seed: #4FA894;
+  --accent-100: color-mix(in oklab, var(--accent-seed) 20%, #FFFFFF);
+  --accent-300: color-mix(in oklab, var(--accent-seed) 58%, #FFFFFF);
+  --accent-400: var(--accent-seed);
+  --accent-500: color-mix(in oklab, var(--accent-seed) 78%, #000000);
+  --accent-600: color-mix(in oklab, var(--accent-seed) 62%, #000000);
+  --accent-700: color-mix(in oklab, var(--accent-seed) 46%, #000000);
+  --accent-wash-dark: color-mix(in oklab, var(--accent-seed) 22%, #0E1113);
+  --accent-on-light: #FAF9F6;
+  --accent-on-dark: color-mix(in oklab, var(--accent-seed) 12%, #000000);
+}
+
+/* ============================================================
+   1c. FONT SETS — one pairing per [data-font]
+   Re-points the three family tokens only. The scale, tracking and
+   weights are shared, so a set swap never reflows the type system.
+   ============================================================ */
+[data-font='mineral'] {
+  --font-display: 'Archivo', 'Segoe UI', system-ui, sans-serif;
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+}
+
+[data-font='grotesk'] {
+  --font-display: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+}
+
+[data-font='editorial'] {
+  --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+}
+
+[data-font='mono'] {
+  --font-display: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+  --font-sans: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+}
+
+/* ============================================================
    2. SEMANTIC TOKENS — theme-aware
    Paper's --color-dark-* ramp is applied here by re-pointing the
    same semantic names. Default = DARK (matches Layout.astro's
@@ -147,11 +288,11 @@
   --color-body: #B6BDC0;
   --color-muted: #7E868A;
 
-  --color-accent: #4FA894;
-  --color-accent-hover: var(--color-verdigris-300);
-  --color-accent-press: var(--color-verdigris-500);
-  --color-accent-wash: #16302B;
-  --color-on-accent: #08110F;
+  --color-accent: var(--accent-400);
+  --color-accent-hover: var(--accent-300);
+  --color-accent-press: var(--accent-500);
+  --color-accent-wash: var(--accent-wash-dark);
+  --color-on-accent: var(--accent-on-dark);
   --color-on-ink: var(--color-basalt-950);
 
   --color-error: #D9744F;
@@ -175,11 +316,11 @@
   --color-body: var(--color-slate-700);
   --color-muted: var(--color-slate-500);
 
-  --color-accent: var(--color-verdigris-500);
-  --color-accent-hover: var(--color-verdigris-600);
-  --color-accent-press: var(--color-verdigris-700);
-  --color-accent-wash: var(--color-verdigris-100);
-  --color-on-accent: var(--color-limestone-50);
+  --color-accent: var(--accent-500);
+  --color-accent-hover: var(--accent-600);
+  --color-accent-press: var(--accent-700);
+  --color-accent-wash: var(--accent-100);
+  --color-on-accent: var(--accent-on-light);
   --color-on-ink: var(--color-limestone-50);
 
   --color-error: var(--color-oxide-500);
@@ -222,8 +363,8 @@
   --accent-tint: var(--color-accent-wash);
   --on-accent: var(--color-on-accent);
 
-  /* No counter-accent in Mineral — the mint pops resolve to light verdigris */
-  --accent-2: var(--color-verdigris-300);
+  /* Counter-accent rides the active ramp so it follows the accent picker */
+  --accent-2: var(--accent-300);
   --accent-2-tint: var(--color-accent-wash);
   --on-accent-2: var(--color-on-accent);
 
