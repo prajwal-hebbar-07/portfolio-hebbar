@@ -1,54 +1,100 @@
 ---
 import { projects } from '../data/portfolio';
+import { githubSvg } from '../data/brandIcons';
+import SectionRail from './SectionRail.astro';
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
 <section class="section" id="projects">
+  <SectionRail label="Projects" />
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Projects</span>
       <h2>Local-first desktop software, <span class="accent">built to last.</span></h2>
     </div>
 
-    <div class="projects">
-      {
-        projects.map((project, index) => (
-          <article class="pj reveal" data-delay="1">
-            <span class="pj-index" aria-hidden="true">{pad(index + 1)}</span>
-            <div class="card pj-card">
-              <div class="pj-summary">
-                <h3 class="pj-name">{project.name}</h3>
-                {project.repo && (
-                  <a
-                    class="pj-repo"
-                    href={project.repo}
-                    target="_blank"
-                    rel="noopener"
-                    aria-label={`${project.name} source on GitHub — ${project.repoLabel}`}
-                  >
-                    <svg class="ic" data-lucide="github"></svg>
-                    <span class="pj-repo-label">{project.repoLabel}</span>
-                    <svg class="ic pj-repo-out" data-lucide="arrow-up-right"></svg>
-                  </a>
-                )}
-                <p class="pj-tagline">{project.tagline}</p>
-                <span class:list={['pj-status', project.shipped && 'is-shipped']}>{project.status}</span>
-                <div class="pj-kind">{project.kind}</div>
-              </div>
+    <div class="pj-switch reveal">
+      <div class="pj-rail">
+        <div class="pj-rail-head">
+          <span class="pj-rail-title">All work</span>
+          <span class="pj-rail-count">{pad(projects.length)}</span>
+        </div>
 
-              <div class="pj-body">
-                <ul class="xp-points">
-                  {project.points.map((point) => <li set:html={point} />)}
-                </ul>
+        <div class="pj-rail-list" role="tablist" aria-label="Projects" aria-orientation="vertical">
+          {
+            projects.map((project, index) => (
+              <button
+                class="pj-rail-row"
+                type="button"
+                role="tab"
+                id={`pj-tab-${index}`}
+                aria-controls={`pj-panel-${index}`}
+                aria-selected={index === 0 ? 'true' : 'false'}
+                tabindex={index === 0 ? '0' : '-1'}
+              >
+                <span class="pj-rail-num">{pad(index + 1)}</span>
+                <span class="pj-rail-name">{project.name}</span>
+                <span class:list={['pj-rail-status', project.shipped && 'is-shipped']}>
+                  {project.status}
+                </span>
+              </button>
+            ))
+          }
+        </div>
 
-                <div class="tech-row" aria-label="Technologies used">
-                  {project.tech.map((technology) => <span class="tech-tag">{technology}</span>)}
+        <p class="pj-rail-hint">
+          <span class="pj-rail-rule" aria-hidden="true"></span>Pick one to read it
+        </p>
+      </div>
+
+      <div class="pj-detail">
+        {
+          projects.map((project, index) => (
+            <article
+              class="pj-panel"
+              role="tabpanel"
+              id={`pj-panel-${index}`}
+              aria-labelledby={`pj-tab-${index}`}
+              hidden={index !== 0}
+            >
+              <header class="pj-panel-head">
+                <span class="pj-panel-num">{pad(index + 1)}</span>
+                <h3 class="pj-panel-name">{project.name}</h3>
+                <span class:list={['pj-panel-status', project.shipped && 'is-shipped']}>
+                  {project.status}
+                </span>
+              </header>
+
+              {project.repo && (
+                <a
+                  class="pj-repo"
+                  href={project.repo}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={`${project.name} source on GitHub — ${project.repoLabel}`}
+                >
+                  <span class="pj-repo-mark" set:html={githubSvg} />
+                  <span class="pj-repo-label">{project.repoLabel}</span>
+                  <svg class="ic pj-repo-out" data-lucide="arrow-up-right"></svg>
+                </a>
+              )}
+
+              <p class="pj-panel-tagline">{project.tagline}</p>
+
+              <ul class="pj-panel-points">
+                {project.points.map((point) => <li set:html={point} />)}
+              </ul>
+
+              <footer class="pj-panel-foot">
+                <div class="pj-panel-tech" aria-label="Technologies used">
+                  {project.tech.map((technology) => <span class="pj-chip">{technology}</span>)}
                 </div>
-              </div>
-            </div>
-          </article>
-        ))
-      }
+                <span class="pj-panel-year">{project.year ?? '\u2014'}</span>
+              </footer>
+            </article>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>

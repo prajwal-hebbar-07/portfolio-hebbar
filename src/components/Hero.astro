@@ -1,8 +1,11 @@
 ---
 import { profile } from '../data/portfolio';
+import { githubSvg, linkedinSvg } from '../data/brandIcons';
+import SectionRail from './SectionRail.astro';
 ---
 
 <section class="hero" id="hero">
+  <SectionRail label="Hero" />
   <div class="hero-bg" aria-hidden="true">
     <div class="grid"></div>
   </div>
@@ -37,10 +40,10 @@ import { profile } from '../data/portfolio';
 
         <div class="hero-socials reveal in" data-delay="4">
           <a href={profile.github} target="_blank" rel="noopener">
-            <svg class="ic" data-lucide="github"></svg> GitHub
+            <span class="hero-social-mark" set:html={githubSvg} /> GitHub
           </a>
           <a href={profile.linkedin} target="_blank" rel="noopener">
-            <svg class="ic" data-lucide="linkedin"></svg> LinkedIn
+            <span class="hero-social-mark" set:html={linkedinSvg} /> LinkedIn
           </a>
         </div>
       </div>

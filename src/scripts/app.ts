@@ -2,6 +2,9 @@
    Prajwal Hebbar — Portfolio · client interactions
    Site behaviour + AI assistant (calls /api/portfolio/ask).
    ============================================================ */
+import { initPersonalize } from './personalize';
+import { initProjects } from './projects';
+
 type LucideGlobal = { createIcons: () => void };
 declare global {
   interface Window {
@@ -16,36 +19,16 @@ const $$ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const refreshIcons = () => window.lucide?.createIcons();
 
-/* ---------------- Theme ---------------- */
-const root = document.documentElement;
-const THEME_KEY = 'ph_theme';
-function applyTheme(t: string) {
-  root.setAttribute('data-theme', t);
-  const ic = $('#theme-ic');
-  if (ic) ic.setAttribute('data-lucide', t === 'dark' ? 'sun' : 'moon');
-  refreshIcons();
-}
-(function initTheme() {
-  let saved: string | null = null;
-  try {
-    saved = localStorage.getItem(THEME_KEY);
-  } catch {
-    /* ignore */
-  }
-  const sys = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-  applyTheme(saved || sys);
-})();
-document.addEventListener('click', (e) => {
-  const t = (e.target as Element)?.closest('#theme-toggle');
-  if (!t) return;
-  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  applyTheme(next);
-  try {
-    localStorage.setItem(THEME_KEY, next);
-  } catch {
-    /* ignore */
-  }
-});
+/* ---------------- Personalization ----------------
+   Theme, accent, typeface and section order all live in one record;
+   see src/scripts/personalize.ts. The nav's #theme-toggle is wired in
+   there so it writes to the same store as the panel. */
+initPersonalize();
+
+/* ---------------- Projects switcher ----------------
+   Rail + detail tablist in the Projects section; see
+   src/scripts/projects.ts. */
+initProjects();
 
 /* ---------------- Nav: condense + active section ---------------- */
 const nav = $('#nav');

@@ -1,9 +1,11 @@
 ---
 import { experiences } from '../data/portfolio';
+import SectionRail from './SectionRail.astro';
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
 <section class="section" id="experience">
+  <SectionRail label="Experience" />
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Experience</span>

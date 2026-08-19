@@ -19,6 +19,9 @@ const last = rest.join(' ');
   </nav>
 
   <div class="nav-actions">
+    <button class="icon-btn" id="personalize-toggle" type="button" aria-label="Personalize this site" title="Personalize" aria-haspopup="dialog" aria-expanded="false" aria-controls="personalize">
+      <svg class="ic" data-lucide="sliders-horizontal"></svg>
+    </button>
     <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
       <svg class="ic" id="theme-ic" data-lucide="sun"></svg>
     </button>
@@ -51,4 +54,12 @@ const last = rest.join(' ');
     rel="noopener"
     style="justify-content:center;"
   ><svg class="ic" data-lucide="file-text"></svg> View / download résumé</a>
+  <button
+    class="btn btn-secondary"
+    id="personalize-toggle-mobile"
+    type="button"
+    aria-haspopup="dialog"
+    aria-controls="personalize"
+    style="justify-content:center;"
+  ><svg class="ic" data-lucide="sliders-horizontal"></svg> Personalize</button>
 </div>

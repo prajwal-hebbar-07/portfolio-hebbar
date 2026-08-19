@@ -8,11 +8,12 @@ import Projects from '../components/Projects.astro';
 import Skills from '../components/Skills.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
+import PersonalizePanel from '../components/PersonalizePanel.astro';
 ---
 
 <Layout>
   <Nav />
-  <main>
+  <main id="sections">
     <Hero />
     <About />
     <Experience />
@@ -21,4 +22,5 @@ import Footer from '../components/Footer.astro';
     <Contact />
   </main>
   <Footer />
+  <PersonalizePanel />
 </Layout>
