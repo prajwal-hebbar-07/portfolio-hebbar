@@ -76,6 +76,7 @@ export interface Project {
   repo?: string; // omitted for private repositories
   repoLabel?: string;
   status: string;
+  year?: string; // shown in the project panel footer; em dash when absent
   shipped?: boolean; // solid accent pill vs tinted "in progress" pill
   points: string[]; // may contain <b>…</b> for emphasis
   tech: string[];

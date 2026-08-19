@@ -9,7 +9,14 @@ const description = `${profile.name} — ${profile.role} building configurable, 
 ---
 
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" data-accent="verdigris" data-font="grotesk">
+<html
+  lang="en"
+  data-theme="dark"
+  data-accent="verdigris"
+  data-font="mineral"
+  data-ground="limestone"
+  data-primary="basalt"
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,8 +43,11 @@ const description = `${profile.name} — ${profile.role} building configurable, 
         } catch (e) {}
         if (typeof s !== 'object' || s === null) s = {};
 
+        /* 'system' (and an absent value) defer to the OS. Only an explicit
+           'light' / 'dark' short-circuits, and only that case may be
+           overridden by the legacy single-purpose key. */
         var theme = s.theme === 'light' || s.theme === 'dark' ? s.theme : null;
-        if (!theme) {
+        if (!theme && s.theme !== 'system') {
           try {
             var old = localStorage.getItem(LEGACY);
             if (old === 'light' || old === 'dark') theme = old;
@@ -49,6 +59,8 @@ const description = `${profile.name} — ${profile.role} building configurable, 
         d.setAttribute('data-theme', theme);
         if (typeof s.accent === 'string') d.setAttribute('data-accent', s.accent);
         if (typeof s.font === 'string') d.setAttribute('data-font', s.font);
+        if (typeof s.ground === 'string') d.setAttribute('data-ground', s.ground);
+        if (typeof s.primary === 'string') d.setAttribute('data-primary', s.primary);
         if (s.accent === 'custom' && typeof s.seed === 'string') {
           d.style.setProperty('--accent-seed', s.seed);
         }

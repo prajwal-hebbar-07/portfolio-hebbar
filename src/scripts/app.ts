@@ -3,6 +3,7 @@
    Site behaviour + AI assistant (calls /api/portfolio/ask).
    ============================================================ */
 import { initPersonalize } from './personalize';
+import { initProjects } from './projects';
 
 type LucideGlobal = { createIcons: () => void };
 declare global {
@@ -23,6 +24,11 @@ const refreshIcons = () => window.lucide?.createIcons();
    see src/scripts/personalize.ts. The nav's #theme-toggle is wired in
    there so it writes to the same store as the panel. */
 initPersonalize();
+
+/* ---------------- Projects switcher ----------------
+   Rail + detail tablist in the Projects section; see
+   src/scripts/projects.ts. */
+initProjects();
 
 /* ---------------- Nav: condense + active section ---------------- */
 const nav = $('#nav');

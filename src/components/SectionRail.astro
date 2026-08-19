@@ -1,0 +1,41 @@
+---
+/* In-page section reorder rail.
+   Design frame: "Hero/ReorderRail — hover" on page v2-design.
+
+   The design draws this once, on the hero, but page order is a whole-page
+   concern — the Personalize panel already lists all six sections as
+   reorderable — so the same rail is rendered on every reorderable section
+   rather than making the hero the only movable one.
+
+   It writes through the same record as the panel: the click is handled by the
+   delegated [data-section-move] listener in src/scripts/personalize.ts, so the
+   rail, the panel arrows and the panel's drag can never disagree. */
+interface Props {
+  /** Section name, used only for the button labels. */
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="sr-rail" aria-label={`Reorder ${label}`}>
+  <span class="sr-grip" aria-hidden="true">
+    <svg class="ic" data-lucide="grip-vertical"></svg>
+  </span>
+  <button
+    class="sr-move"
+    type="button"
+    data-section-move="up"
+    aria-label={`Move ${label} section up`}
+  >
+    <svg class="ic" data-lucide="chevron-up"></svg>
+  </button>
+  <button
+    class="sr-move"
+    type="button"
+    data-section-move="down"
+    aria-label={`Move ${label} section down`}
+  >
+    <svg class="ic" data-lucide="chevron-down"></svg>
+  </button>
+</div>

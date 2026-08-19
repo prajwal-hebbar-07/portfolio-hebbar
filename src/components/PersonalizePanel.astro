@@ -3,8 +3,11 @@ import {
   ACCENTS,
   DEFAULT_SEED,
   FONTS,
+  GROUNDS,
+  PRIMARIES,
   SECTION_IDS,
   SECTION_LABELS,
+  THEMES,
 } from '../data/personalize';
 
 /* The list ships in default order and is re-sorted on boot from the saved
@@ -23,9 +26,12 @@ const sections = SECTION_IDS;
   aria-hidden="true"
 >
   <header class="pz-head">
+    <span class="pz-head-ic" aria-hidden="true">
+      <svg class="ic" data-lucide="sliders-horizontal"></svg>
+    </span>
     <div>
       <h2 class="pz-title" id="pz-title">Personalize</h2>
-      <p class="pz-sub">Yours only — saved in this browser.</p>
+      <p class="pz-sub">Type, colour and order · saved locally</p>
     </div>
     <button class="icon-btn" id="pz-close" type="button" aria-label="Close personalize panel">
       <svg class="ic" data-lucide="x"></svg>
@@ -34,19 +40,91 @@ const sections = SECTION_IDS;
 
   <div class="pz-body">
     <section class="pz-group">
-      <h3 class="pz-legend">Appearance</h3>
-      <div class="pz-seg" role="group" aria-label="Colour scheme">
-        <button class="pz-seg-btn" type="button" data-theme-id="dark" aria-pressed="true">
-          <svg class="ic" data-lucide="moon"></svg> Dark
-        </button>
-        <button class="pz-seg-btn" type="button" data-theme-id="light" aria-pressed="false">
-          <svg class="ic" data-lucide="sun"></svg> Light
-        </button>
+      <div class="pz-eyebrow">
+        <h3 class="pz-legend">Typeface</h3>
+        <span class="pz-value" id="pz-font-value"></span>
+      </div>
+      <div class="pz-fonts" role="group" aria-label="Typeface">
+        {
+          FONTS.map((f) => (
+            <button class="pz-font" type="button" data-font-id={f.id} aria-pressed="false">
+              <span class={`pz-font-aa pz-font-${f.id}`} aria-hidden="true">
+                {f.specimen}
+              </span>
+              <span class="pz-font-name">{f.label}</span>
+              <span class="pz-font-note">{f.note}</span>
+            </button>
+          ))
+        }
       </div>
     </section>
 
     <section class="pz-group">
-      <h3 class="pz-legend">Accent</h3>
+      <div class="pz-eyebrow">
+        <h3 class="pz-legend">Appearance</h3>
+        <span class="pz-value" id="pz-theme-value"></span>
+      </div>
+      <div class="pz-seg" role="group" aria-label="Colour scheme">
+        {
+          THEMES.map((t) => (
+            <button class="pz-seg-btn" type="button" data-theme-id={t.id} aria-pressed="false">
+              <svg class="ic" data-lucide={t.icon} /> {t.label}
+            </button>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="pz-group">
+      <div class="pz-eyebrow">
+        <h3 class="pz-legend">Ground</h3>
+        <span class="pz-value" id="pz-ground-value"></span>
+      </div>
+      <p class="pz-hint">Ground and ink apply to the light theme.</p>
+      <div class="pz-swatches pz-swatches-flat" role="group" aria-label="Page background">
+        {
+          GROUNDS.map((g) => (
+            <button
+              class="pz-sw pz-sw-outlined"
+              type="button"
+              data-ground-id={g.id}
+              aria-pressed="false"
+              aria-label={g.label}
+              title={g.label}
+              style={`--sw-flat:${g.hex}`}
+            />
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="pz-group">
+      <div class="pz-eyebrow">
+        <h3 class="pz-legend">Primary</h3>
+        <span class="pz-value" id="pz-primary-value"></span>
+      </div>
+      <div class="pz-swatches pz-swatches-flat" role="group" aria-label="Display ink">
+        {
+          PRIMARIES.map((p) => (
+            <button
+              class="pz-sw"
+              type="button"
+              data-primary-id={p.id}
+              aria-pressed="false"
+              aria-label={p.label}
+              title={p.label}
+              style={`--sw-flat:${p.hex}`}
+            />
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="pz-group">
+      <div class="pz-eyebrow">
+        <h3 class="pz-legend">Accent</h3>
+        <span class="pz-value" id="pz-accent-value"></span>
+      </div>
       <div class="pz-swatches" role="group" aria-label="Accent colour">
         {
           ACCENTS.map((a) => (
@@ -58,7 +136,7 @@ const sections = SECTION_IDS;
               aria-label={a.label}
               title={a.label}
               style={`--sw-dark:${a.dark};--sw-light:${a.light}`}
-            ></button>
+            />
           ))
         }
       </div>
@@ -69,28 +147,16 @@ const sections = SECTION_IDS;
     </section>
 
     <section class="pz-group">
-      <h3 class="pz-legend">Typeface</h3>
-      <div class="pz-fonts" role="group" aria-label="Typeface">
-        {
-          FONTS.map((f) => (
-            <button class="pz-font" type="button" data-font-id={f.id} aria-pressed="false">
-              <span class={`pz-font-name pz-font-${f.id}`}>{f.label}</span>
-              <span class="pz-font-note">{f.note}</span>
-            </button>
-          ))
-        }
+      <div class="pz-eyebrow">
+        <h3 class="pz-legend">Section order</h3>
+        <span class="pz-value">drag or use arrows</span>
       </div>
-    </section>
-
-    <section class="pz-group">
-      <h3 class="pz-legend">Section order</h3>
-      <p class="pz-hint">Drag a row, or use the arrows.</p>
       <ul class="pz-list" id="pz-order">
         {
           sections.map((id) => (
             <li class="pz-row" data-section={id} draggable="true">
               <span class="pz-grip" aria-hidden="true">
-                <svg class="ic" data-lucide="grip-vertical"></svg>
+                <svg class="ic" data-lucide="grip-vertical" />
               </span>
               <span class="pz-row-name">{SECTION_LABELS[id]}</span>
               <span class="pz-row-moves">
@@ -100,7 +166,7 @@ const sections = SECTION_IDS;
                   data-move="up"
                   aria-label={`Move ${SECTION_LABELS[id]} up`}
                 >
-                  <svg class="ic" data-lucide="chevron-up"></svg>
+                  <svg class="ic" data-lucide="chevron-up" />
                 </button>
                 <button
                   class="pz-move"
@@ -108,7 +174,7 @@ const sections = SECTION_IDS;
                   data-move="down"
                   aria-label={`Move ${SECTION_LABELS[id]} down`}
                 >
-                  <svg class="ic" data-lucide="chevron-down"></svg>
+                  <svg class="ic" data-lucide="chevron-down" />
                 </button>
               </span>
             </li>
@@ -119,8 +185,13 @@ const sections = SECTION_IDS;
   </div>
 
   <footer class="pz-foot">
-    <button class="btn btn-secondary btn-sm" id="pz-reset" type="button">
+    <button class="pz-reset" id="pz-reset" type="button">
       <svg class="ic" data-lucide="rotate-ccw"></svg> Reset to defaults
+    </button>
+    <button class="pz-save" id="pz-save" type="button">
+      <svg class="ic" data-lucide="check"></svg>
+      <span class="pz-save-label">Save for this browser</span>
+      <span class="pz-save-done">Saved</span>
     </button>
   </footer>
 </aside>

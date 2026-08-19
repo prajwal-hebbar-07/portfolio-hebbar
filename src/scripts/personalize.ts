@@ -13,18 +13,25 @@
    ============================================================ */
 
 import {
+  ACCENTS,
   DEFAULT_SEED,
+  FONTS,
+  GROUNDS,
   HEX,
   LEGACY_THEME_KEY,
+  PRIMARIES,
   SECTION_IDS,
   STORE_KEY,
   defaults,
   normalize,
+  resolveTheme,
   type AccentId,
   type FontId,
+  type GroundId,
   type Personalization,
+  type PrimaryId,
   type SectionId,
-  type ThemeMode,
+  type ThemePref,
 } from '../data/personalize';
 
 const root = document.documentElement;
@@ -32,13 +39,14 @@ const root = document.documentElement;
 /* ---------------- Store ---------------- */
 
 export function read(): Personalization {
-  let fallback: ThemeMode = 'dark';
+  /* 'system' is also the default, so a first visit tracks the OS without
+     storing anything. The legacy key only ever held an explicit choice. */
+  let fallback: ThemePref = 'system';
   try {
     const legacy = localStorage.getItem(LEGACY_THEME_KEY);
     if (legacy === 'light' || legacy === 'dark') fallback = legacy;
-    else if (window.matchMedia('(prefers-color-scheme: light)').matches) fallback = 'light';
   } catch {
-    /* storage blocked — the dark default stands */
+    /* storage blocked — 'system' stands */
   }
   try {
     const raw = localStorage.getItem(STORE_KEY);
@@ -60,10 +68,17 @@ export function write(state: Personalization): void {
 
 /* ---------------- Apply ---------------- */
 
-export function applyTheme(theme: ThemeMode): void {
-  root.setAttribute('data-theme', theme);
+/* Held as the MediaQueryList itself, not a boolean: `theme: 'system'` also
+   subscribes to it in initPersonalize so the page follows the OS live. */
+export const SYSTEM_LIGHT = window.matchMedia('(prefers-color-scheme: light)');
+
+export function applyTheme(pref: ThemePref): void {
+  const mode = resolveTheme(pref, SYSTEM_LIGHT.matches);
+  root.setAttribute('data-theme', mode);
+  /* The nav toggle offers the opposite of what is on screen, so its icon
+     tracks the resolved mode rather than the stored preference. */
   const ic = document.getElementById('theme-ic');
-  if (ic) ic.setAttribute('data-lucide', theme === 'dark' ? 'sun' : 'moon');
+  if (ic) ic.setAttribute('data-lucide', mode === 'dark' ? 'sun' : 'moon');
 }
 
 export function applyAccent(accent: AccentId, seed: string): void {
@@ -72,6 +87,17 @@ export function applyAccent(accent: AccentId, seed: string): void {
      ships its ramp as a static block, so the inline property must be cleared. */
   if (accent === 'custom') root.style.setProperty('--accent-seed', seed);
   else root.style.removeProperty('--accent-seed');
+}
+
+/* Ground and primary each re-point one token, and only under the light
+   theme (tokens.css §2b). The attribute is still written in dark mode so the
+   choice is waiting when the visitor switches back. */
+export function applyGround(ground: GroundId): void {
+  root.setAttribute('data-ground', ground);
+}
+
+export function applyPrimary(primary: PrimaryId): void {
+  root.setAttribute('data-primary', primary);
 }
 
 /**
@@ -106,6 +132,8 @@ export function applyOrder(order: SectionId[]): void {
 export function applyAll(state: Personalization): void {
   applyTheme(state.theme);
   applyAccent(state.accent, state.seed);
+  applyGround(state.ground);
+  applyPrimary(state.primary);
   root.setAttribute('data-font', state.font);
   applyOrder(state.order);
 }
@@ -135,6 +163,15 @@ export function initPersonalize(): void {
   const scrim = document.getElementById('personalize-scrim');
   const list = document.getElementById('pz-order');
   const custom = document.getElementById('pz-custom') as HTMLInputElement | null;
+  const readouts: Record<string, HTMLElement | null> = {
+    theme: document.getElementById('pz-theme-value'),
+    font: document.getElementById('pz-font-value'),
+    ground: document.getElementById('pz-ground-value'),
+    primary: document.getElementById('pz-primary-value'),
+    accent: document.getElementById('pz-accent-value'),
+  };
+  const save = document.getElementById('pz-save');
+  let savedFor = 0;
 
   /* Reflect state back into the panel controls. No-ops when the panel is not
      on the page, so the nav theme toggle below still works everywhere. */
@@ -149,7 +186,41 @@ export function initPersonalize(): void {
     for (const el of panel.querySelectorAll<HTMLElement>('[data-theme-id]')) {
       el.setAttribute('aria-pressed', String(el.dataset.themeId === state.theme));
     }
+    for (const el of panel.querySelectorAll<HTMLElement>('[data-ground-id]')) {
+      el.setAttribute('aria-pressed', String(el.dataset.groundId === state.ground));
+    }
+    for (const el of panel.querySelectorAll<HTMLElement>('[data-primary-id]')) {
+      el.setAttribute('aria-pressed', String(el.dataset.primaryId === state.primary));
+    }
     if (custom) custom.value = state.accent === 'custom' ? state.seed : DEFAULT_SEED;
+
+    /* Each group's eyebrow carries a readout of the current value, so the
+       chosen swatch is named rather than left to be inferred from a ring. */
+    const ground = GROUNDS.find((g) => g.id === state.ground);
+    const primary = PRIMARIES.find((p) => p.id === state.primary);
+    const font = FONTS.find((f) => f.id === state.font);
+    const accent = ACCENTS.find((a) => a.id === state.accent);
+    if (readouts.accent) {
+      readouts.accent.textContent =
+        state.accent === 'custom'
+          ? `Custom · ${state.seed.toUpperCase()}`
+          : accent
+            ? `${accent.label} · ${accent.light.toUpperCase()}`
+            : '';
+    }
+    if (readouts.ground && ground) readouts.ground.textContent = `${ground.label} · ${ground.hex}`;
+    if (readouts.primary && primary) {
+      readouts.primary.textContent = `${primary.label} · ${primary.hex}`;
+    }
+    if (readouts.font && font) readouts.font.textContent = `${font.label} + Plex`;
+    if (readouts.theme) {
+      readouts.theme.textContent =
+        state.theme === 'system'
+          ? `System · ${SYSTEM_LIGHT.matches ? 'Light' : 'Dark'}`
+          : state.theme === 'light'
+            ? 'Light'
+            : 'Dark';
+    }
 
     const rows = Array.from(list.querySelectorAll<HTMLElement>('.pz-row'));
     rows.forEach((row, i) => {
@@ -177,7 +248,47 @@ export function initPersonalize(): void {
      working on pages that do not mount one. */
   document.addEventListener('click', (e) => {
     if (!(e.target as Element | null)?.closest('#theme-toggle')) return;
-    commit({ theme: state.theme === 'dark' ? 'light' : 'dark' });
+    /* Flips what is on screen, so it resolves 'system' to an explicit choice
+       rather than toggling the preference string. */
+    const painted = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    commit({ theme: painted === 'dark' ? 'light' : 'dark' });
+  });
+
+  /* `theme: 'system'` is a standing subscription, not a one-off read: the OS
+     can flip while the page is open. Registered before the panel guard below
+     so it also works on pages that mount no panel. */
+  SYSTEM_LIGHT.addEventListener('change', () => {
+    if (state.theme !== 'system') return;
+    applyTheme('system');
+    syncControls();
+    window.lucide?.createIcons();
+  });
+
+  /* In-page reorder rail (SectionRail.astro). Swaps the section with its
+     neighbour in the saved order, then re-sorts the panel rows to match so the
+     two controls never show different orders. Delegated, and registered before
+     the panel guard, because the rails exist whether or not a panel is mounted. */
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as Element | null)?.closest<HTMLElement>('[data-section-move]');
+    if (!btn) return;
+    const id = btn.closest<HTMLElement>('#sections > section')?.id as SectionId | undefined;
+    if (!id || !SECTION_IDS.includes(id)) return;
+    const from = state.order.indexOf(id);
+    const to = btn.dataset.sectionMove === 'up' ? from - 1 : from + 1;
+    if (from < 0 || to < 0 || to >= state.order.length) return;
+    const next = [...state.order];
+    next[from] = next[to]!;
+    next[to] = id;
+    if (list) {
+      for (const sid of next) {
+        const row = list.querySelector<HTMLElement>(`.pz-row[data-section="${sid}"]`);
+        if (row) list.appendChild(row);
+      }
+    }
+    commit({ order: next });
+    /* The section just moved out from under the pointer; keeping focus on the
+       button lets a keyboard user press again without re-finding the rail. */
+    btn.focus();
   });
 
   if (!panel || !scrim || !list) return;
@@ -281,7 +392,17 @@ export function initPersonalize(): void {
     }
     const themeBtn = el.closest<HTMLElement>('[data-theme-id]');
     if (themeBtn?.dataset.themeId) {
-      commit({ theme: themeBtn.dataset.themeId as ThemeMode });
+      commit({ theme: themeBtn.dataset.themeId as ThemePref });
+      return;
+    }
+    const groundBtn = el.closest<HTMLElement>('[data-ground-id]');
+    if (groundBtn?.dataset.groundId) {
+      commit({ ground: groundBtn.dataset.groundId as GroundId });
+      return;
+    }
+    const primaryBtn = el.closest<HTMLElement>('[data-primary-id]');
+    if (primaryBtn?.dataset.primaryId) {
+      commit({ primary: primaryBtn.dataset.primaryId as PrimaryId });
       return;
     }
     if (el.closest('#pz-reset')) {
@@ -291,6 +412,16 @@ export function initPersonalize(): void {
         if (row) list.appendChild(row);
       }
       commit(fresh);
+      return;
+    }
+    if (el.closest('#pz-save')) {
+      /* Every control already persists on change, so this re-writes the same
+         record and exists to confirm that out loud — visitors reasonably
+         assume an unsaved form until told otherwise. */
+      write(state);
+      save?.classList.add('is-saved');
+      window.clearTimeout(savedFor);
+      savedFor = window.setTimeout(() => save?.classList.remove('is-saved'), 1600);
       return;
     }
 

@@ -1,8 +1,9 @@
 /* ============================================================
    MINERAL — design tokens
    ------------------------------------------------------------
-   Source of truth: Paper file "Portfolio Website" / page
-   "Design - V1" (tokens contentHash 90b4f665).
+   Source of truth: Paper file "portfolio" (tokens contentHash
+   90b4f665). Sections 1-3 came from page "Design - V1"; section
+   2b came from page "v2-design".
    Implementation plan: docs/paper-design-plan.md
 
    Light is the design's primary artboard; dark is the same
@@ -262,12 +263,6 @@
   --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
 }
 
-[data-font='mono'] {
-  --font-display: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
-  --font-sans: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
-}
-
 /* ============================================================
    2. SEMANTIC TOKENS — theme-aware
    Paper's --color-dark-* ramp is applied here by re-pointing the
@@ -328,6 +323,59 @@
 
   --overlay-hover: oklch(0 0 0 / 0.035);
   --overlay-active: oklch(0 0 0 / 0.06);
+}
+
+/* ============================================================
+   2b. GROUND + PRIMARY OVERRIDES
+   ------------------------------------------------------------
+   The panel's Ground and Primary pickers each re-point exactly
+   ONE semantic token — the page background and the ink used for
+   display type. Surface, sunken and hairline keep coming from
+   the theme, so a ground swap cannot desaturate the whole ramp.
+
+   Light-theme only, and deliberately so: the design draws these
+   two groups under Appearance = Light and specifies no dark
+   counterpart for any swatch (every ground value is a near-white
+   and every primary value a near-black). Applying them to the
+   dark theme would mean inventing twelve colours the design does
+   not contain. The panel says as much in its group hint.
+   ============================================================ */
+[data-theme='light'][data-ground='limestone'] {
+  --color-ground: var(--color-limestone-100);
+}
+[data-theme='light'][data-ground='paper'] {
+  --color-ground: #ffffff;
+}
+[data-theme='light'][data-ground='fog'] {
+  --color-ground: #edeff1;
+}
+[data-theme='light'][data-ground='bone'] {
+  --color-ground: #f2ede3;
+}
+[data-theme='light'][data-ground='dust'] {
+  --color-ground: var(--color-limestone-200);
+}
+[data-theme='light'][data-ground='patina'] {
+  --color-ground: #e4e9e7;
+}
+
+[data-theme='light'][data-primary='basalt'] {
+  --color-ink: var(--color-basalt-900);
+}
+[data-theme='light'][data-primary='slate'] {
+  --color-ink: var(--color-slate-800);
+}
+[data-theme='light'][data-primary='navy'] {
+  --color-ink: #16233a;
+}
+[data-theme='light'][data-primary='oxblood'] {
+  --color-ink: #3a1c1c;
+}
+[data-theme='light'][data-primary='bistre'] {
+  --color-ink: #241c14;
+}
+[data-theme='light'][data-primary='graphite'] {
+  --color-ink: var(--color-slate-700);
 }
 
 /* ============================================================
