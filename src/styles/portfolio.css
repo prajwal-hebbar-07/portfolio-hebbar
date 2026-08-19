@@ -522,7 +522,8 @@ svg.ic { width: 1em; height: 1em; stroke-width: 1.75; flex: none; }
 }
 .pj-repo:hover { color: var(--color-accent); border-color: var(--color-accent); background: var(--color-accent-wash); }
 .pj-repo svg { width: 15px; height: 15px; }
-.pj-repo .pj-repo-out, .pj-repo svg:last-of-type { width: 13px; height: 13px; opacity: 0.7; }
+.pj-repo .pj-repo-mark { display: flex; flex: none; }
+.pj-repo .pj-repo-out { width: 13px; height: 13px; opacity: 0.7; }
 .pj-panel-tagline {
   margin: 16px 0 0; padding-left: 36px;
   font-family: var(--font-sans); font-size: var(--text-base); line-height: var(--leading-base);
@@ -532,13 +533,16 @@ svg.ic { width: 1em; height: 1em; stroke-width: 1.75; flex: none; }
   display: flex; flex-direction: column; gap: 10px;
   margin: 18px 0 0; padding: 0; list-style: none;
 }
+/* Block, not flex: the point HTML is inline (<b>, <code>, bare text), and a
+   flex li would turn every run into its own column. Bullet is absolute so the
+   text still hangs at a 20px indent. */
 .pj-panel-points li {
-  display: flex; gap: 14px;
+  position: relative; padding-left: 20px;
   font-family: var(--font-sans); font-size: var(--text-base); line-height: var(--leading-base);
   color: var(--color-body);
 }
 .pj-panel-points li::before {
-  content: ''; width: 6px; height: 6px; flex-shrink: 0; margin-top: 9px;
+  content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px;
   border-radius: var(--radius-xs); background: var(--color-accent);
 }
 /* Carried over from the shared point list the projects used before: emphasis

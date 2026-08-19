@@ -1,5 +1,6 @@
 ---
 import { projects } from '../data/portfolio';
+import { githubSvg } from '../data/brandIcons';
 import SectionRail from './SectionRail.astro';
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
@@ -72,7 +73,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
                   rel="noopener"
                   aria-label={`${project.name} source on GitHub — ${project.repoLabel}`}
                 >
-                  <svg class="ic" data-lucide="github"></svg>
+                  <span class="pj-repo-mark" set:html={githubSvg} />
                   <span class="pj-repo-label">{project.repoLabel}</span>
                   <svg class="ic pj-repo-out" data-lucide="arrow-up-right"></svg>
                 </a>
