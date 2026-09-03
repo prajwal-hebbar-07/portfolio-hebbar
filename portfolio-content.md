@@ -34,10 +34,11 @@
 
 ## About
 
-Specializes in ReactJS, Next.js, TypeScript, and Web3/AI integrations. At LYIK Technologies,
-currently architects configurable enterprise form-filling infrastructure, dashboard layouts,
-and ERP workflows. Freelance experience includes AI-powered DeFi platforms and Web3 portfolio
-tools.
+Specializes in ReactJS, Next.js, and TypeScript, with deep experience in schema-driven, configurable
+frontend architecture. At LYIK Technologies he works across three products — the v2 form-filling
+platform, the v3 configurable platform and admin dashboard, and a regulatory compliance dashboard
+he owned end to end. Client-facing throughout: gathers requirements directly from customers, leads
+discussions across backend, QA and product teams, and mentors juniors and interns.
 
 - **Education:** B.E. in Computer Science Engineering, VVCE Mysuru
 - **Notable achievement:** 30%+ efficiency gains through client-facing platform development
@@ -46,23 +47,46 @@ tools.
 
 ## Work Experience
 
-### 1. Enterprise Engineer — LYIK Technologies Private Limited
-- **Duration:** April 2023 – Present
+### 1. Senior Engineer — LYIK Technologies Private Limited
+- **Duration:** April 2026 – Present (Enterprise Engineer, April 2023 – March 2026)
 - **Location:** On-site, Bengaluru
-- **Highlights:**
-  - Completed v2 of the form-filling application using Redux for complete state management
-  - Currently developing v3 as a more configurable form-filling platform
-  - Built the shared form layout and functionality as a separately maintained monorepo package,
-    while the main application repository handles product-specific components
-  - Structured the platform around a rule engine for field editability and visibility, a derive
-    engine for data derivation and auto-filling, and an actions engine for scenario-based actions
-  - Developing JSON-driven configuration for dashboard layouts
-  - Built Frappe-based ERP system with configurable workflows
-  - Docker/Nginx containerization and GitHub Actions CI/CD pipeline
-  - ServiceNow integration POC
-  - Contributed to first enterprise client acquisition
-- **Tech:** React, Redux, TypeScript, Material UI, JSON, Monorepo Architecture, Frappe, Docker,
-  Nginx, GitHub Actions, Azure
+- **Ownership & communication:**
+  - Gathers requirements directly from customers and runs the discussions that align backend, QA
+    and product teams; translates the outcomes into the JSON configuration models the platforms ship with
+  - Owned a regulatory compliance dashboard for a financial-services client (monthly reporting)
+    end to end — requirement gathering through architecture, build, production deployment and
+    handover documentation
+  - Explained the domain and codebase to an intern and had him deliver the provider-comparison view,
+    per-provider analysis section and the data-exclusion toggles on that dashboard
+- **Compliance dashboard:** React 19 + Vite 7 + Tailwind 4 front end, Node API on
+  `node:sqlite` with Zod-validated Excel (xlsx) ingestion, email/password auth with in-memory bearer
+  tokens, admin user management, monthly report persistence, two-container Docker Compose stack
+  served under a configurable base path behind nginx
+- **v2 form-filling platform:** top contributor (~330 commits), from project initialization to
+  production — axios client and interceptors, Tailwind→Material UI migration, Redux Toolkit store and
+  theme slice, login and protected routes, forms/records APIs migrated to RTK Query, DigiLocker OAuth2,
+  MediaPipe liveness, e-sign v1/v2, trusted APIs and LOV dropdowns, checker and submit flows,
+  theme.json theming with a theme generator, SSO, request encryption, and GitHub Actions workflows
+  building Docker images into Azure Container Registry for dev, staging, BFSI and production
+- **v3 configurable platform (~440 commits):**
+  - Restructured the repo into a Turborepo/pnpm monorepo, extracting types, auth, the API client,
+    form core, the form transformer, the shared UI component library and the live e2e suite into
+    workspace packages
+  - Built the admin dashboard: config-driven widget renderer fed by `dashboard.json`, form-management
+    console over the forms API, and a user-management tree-table modelling the org as a hierarchy/DAG
+    with full user and relationship CRUD, structure-preserving search and relationship CSV download
+  - Bulk CSV/ZIP user onboarding, `GuardRail` permission gating and permission-gated routes
+  - Maker-checker workflow state machine (BOA persona, role × section-type resolution, COMPLETED
+    terminal state, checker messages, verify state) and trusted API records
+  - Worked across the shared form engines — actions, rules, derive, navigator — with their unit,
+    integration and Playwright e2e suites
+  - SSO, client-side encryption, JSON-driven theming, funcex expressions, liveness/KYC pose
+    challenges, multi-file/ZIP upload, PWA and runtime nginx config, architecture documentation
+- **Also:** Frappe-based ERP with configurable workflows, ServiceNow integration POC, contributed to
+  the company's first enterprise client acquisition
+- **Tech:** React 19, TypeScript, Redux Toolkit, RTK Query, TanStack Query, Material UI, Material
+  React Table, Tailwind CSS 4, Vite, Node.js, SQLite, Zod, Turborepo/pnpm monorepo, Vitest, Playwright,
+  Docker, Nginx, GitHub Actions, Azure, Frappe
 
 ### 2. Full Stack Consultant — Freelance (Web3 & AI dApps)
 - **Duration:** Ongoing (Remote)
@@ -84,11 +108,13 @@ tools.
 
 ## Skills
 
-- **Frontend Core:** ReactJS, Next.js, TypeScript, JavaScript, Redux
-- **UI & Styling:** Material UI, TailwindCSS, Bootstrap 5, CSS/HTML, Responsive Design
-- **Web3 & AI:** OpenAI API, Prompt Engineering, LLM Integration, WalletConnect, dApp Development
-- **Backend & DevOps:** Node.js, Docker, Nginx, GitHub Actions, AWS, Vercel, Azure
-- **Tools & Other:** Git/GitHub, Frappe ERP, Figma, Adobe XD, ServiceNow, System Architecture
+- **Frontend Core:** ReactJS, Next.js, TypeScript, JavaScript, Redux Toolkit
+- **UI & Styling:** Material UI, TailwindCSS, Design Tokens, Bootstrap 5, CSS/HTML, Responsive Design
+- **Architecture:** Schema-driven UI, Rule/Derive/Actions engines, Monorepo, JSON Logic/JSONPath, System Design
+- **State, Data & Testing:** TanStack Query, RTK Query, React Hook Form, Zod, SQLite, Vitest, Playwright
+- **Backend & DevOps:** Node.js, Docker, Nginx, GitHub Actions, AWS, Vercel, Azure, Client-side Encryption, SSO
+- **Delivery & Ownership:** Requirement gathering, client communication, cross-team coordination, mentoring, production deployment, technical documentation
+- **Tools & Other:** Git/GitHub, Frappe ERP, Figma, Paper, ServiceNow
 
 ---
 

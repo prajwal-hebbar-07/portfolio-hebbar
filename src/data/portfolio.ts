@@ -48,12 +48,14 @@ export const experiences: Experience[] = [
     locationIcon: 'map-pin',
     current: true,
     points: [
-      'Built the v3 <b>admin dashboard</b>: form management over the forms API and a <b>user-management tree-table</b> modeling the organization as a hierarchy/DAG, with complete user and relationship CRUD.',
-      'Added bulk <b>CSV/ZIP onboarding</b>, permission-gated routes and dashboards, the <b>maker-checker</b> approval workflow, and trusted API records protected against user overwrite.',
-      'Worked across the shared form <b>engines</b>—actions, rules, derive, and navigator—and wrote their unit and integration tests in the monorepo package.',
-      'Delivered SSO, client-side encryption, JSON-driven theming, liveness/KYC and file workflows; shipped with <b>Docker/Nginx</b> and <b>GitHub Actions</b>, and contributed to the company\'s first enterprise client acquisition.',
+      'Owned a <b>regulatory compliance dashboard</b> for a financial-services client end to end — requirement gathering with the client through architecture, build and production deployment — and <b>mentored the intern</b> who shipped its provider-comparison and data-exclusion features.',
+      'Top contributor on the <b>v2 form-filling platform</b>, from project init to production: Redux Toolkit → RTK Query data layer, MUI theming, records and checker flows, DigiLocker, liveness/KYC, e-sign and trusted APIs, shipped to Azure via GitHub Actions.',
+      'Restructured <b>v3</b> into a Turborepo/pnpm monorepo — types, auth, API client, form core, transformer and shared UI split into workspace packages — and built its <b>admin dashboard</b>: a config-driven widget renderer, form management, and a <b>user-management tree-table</b> modelling the org as a hierarchy/DAG with full CRUD.',
+      'Built the persona/permission model behind both apps — <b>maker-checker</b> workflow state machine, <code>GuardRail</code> permission gating, bulk <b>CSV/ZIP onboarding</b>, trusted API records — and worked across the shared form <b>engines</b> (actions, rules, derive, navigator) with their unit, integration and e2e suites.',
+      'Ran <b>customer requirement discussions</b> and drove alignment across backend, QA and product teams, turning the outcomes into the JSON configuration models the platform ships with.',
+      'Delivered SSO, client-side encryption, JSON-driven theming and PWA/runtime config; shipped with <b>Docker/Nginx</b> and <b>GitHub Actions</b>, and contributed to the company\'s first enterprise client acquisition.',
     ],
-    tech: ['React 19', 'TypeScript', 'Redux Toolkit', 'TanStack Query', 'Material UI', 'Vitest', 'Docker', 'GitHub Actions'],
+    tech: ['React 19', 'TypeScript', 'Redux Toolkit', 'TanStack Query', 'Material UI', 'Turborepo', 'Node.js', 'SQLite', 'Vitest', 'Docker', 'GitHub Actions'],
   },
   {
     role: 'Associate Web Developer',
@@ -145,8 +147,9 @@ export const skillGroups: SkillGroup[] = [
   { icon: 'code-2', title: 'Frontend Core', skills: ['ReactJS', 'Next.js', 'TypeScript', 'JavaScript', 'Redux Toolkit'] },
   { icon: 'palette', title: 'UI & Design Systems', skills: ['Material UI', 'TailwindCSS', 'Design Tokens', 'Responsive Design', 'Figma', 'Paper'] },
   { icon: 'cpu', title: 'Architecture', alt: true, skills: ['Schema-driven UI', 'Rule / Derive / Actions Engines', 'Monorepo', 'JSON Logic / JSONPath', 'Local-first Desktop', 'System Design'] },
-  { icon: 'database', title: 'State, Data & Testing', skills: ['TanStack Query', 'React Hook Form', 'Zod', 'SQLite', 'Vitest', 'React Testing Library'] },
+  { icon: 'database', title: 'State, Data & Testing', skills: ['TanStack Query', 'RTK Query', 'React Hook Form', 'Zod', 'SQLite', 'Vitest', 'Playwright'] },
   { icon: 'server', title: 'Backend, DevOps & Security', full: true, skills: ['Node.js', 'Rust / Tauri 2', 'Docker', 'Nginx', 'GitHub Actions', 'Frappe ERP', 'Client-side Encryption', 'SSO', 'REST APIs', 'Azure'] },
+  { icon: 'users', title: 'Delivery & Ownership', alt: true, full: true, skills: ['Requirement Gathering', 'Client Communication', 'Cross-team Coordination', 'Mentoring', 'Production Deployment', 'Technical Documentation'] },
 ];
 
 /* ── AI assistant grounding ──────────────────────────────────────────────── */
@@ -162,22 +165,25 @@ PROFILE
 - Headline: Senior Engineer building configurable, enterprise-grade web platforms with React, TypeScript, and thoughtful design systems.
 
 ABOUT
-Specializes in ReactJS, Next.js, and TypeScript, with deep experience in schema-driven, configurable frontend architecture. At LYIK Technologies he architects a configurable enterprise form-filling platform, its admin dashboard, and ERP workflows — turning complex requirements into systems that feel effortless to use.
+Specializes in ReactJS, Next.js, and TypeScript, with deep experience in schema-driven, configurable frontend architecture. At LYIK Technologies he works across three products — the v2 form-filling platform, the v3 configurable platform and admin dashboard, and a regulatory compliance dashboard for a financial-services client that he owned end to end — and is client-facing: he gathers requirements directly from customers, leads discussions across backend, QA and product teams, and mentors juniors. The thread: turning complex requirements into systems that feel effortless to use.
 - Education: B.E. in Computer Science Engineering, VVCE Mysuru
 - Notable achievement: 30%+ efficiency gains through client-facing platform development
 
 EXPERIENCE
 1) Senior Engineer — LYIK Technologies Private Limited (April 2026 – Present; previously Enterprise Engineer, April 2023 – March 2026; On-site, Bengaluru)
    - Promoted to Senior Engineer in April 2026, after shipping v2 and driving much of the v3 configurable form platform
-   - Shipped v2 of the enterprise form-filling application (React 19, Redux Toolkit, TypeScript, Material UI), then contributed heavily to v3 as a configurable, schema-driven platform
-   - Built the v3 admin dashboard: a form-management console (Material React Table over the forms management API, with create/delete and confirmation flows) and a user-management tree-table that models the org as a hierarchy/DAG (buildUserTree, multi-parent edges), with full user and relationship CRUD wired to REST APIs (create/edit/delete users, add/remove relationship edges)
-   - Added bulk user onboarding via client-side CSV/ZIP upload (jszip), and a permission guardrail system: permission-gated routes, a reusable GuardRail component, form-list guards, and rule-driven dashboard widgets configured through dashboard.json
-   - Built the maker-checker approval workflow (checker flow, checker messages, verify state, submit confirmation modal) and trusted API records (tokenized nodes protected against user overwrite)
-   - Worked across the core form engines in the @lyikadmin/lyik-form monorepo package — actions, rules (persona/permission-based hide and disable), derive (array handling) and navigator (array-boundary navigation) — and wrote their unit/integration test suites
-   - Delivered an SSO login flow, client-side encryption, JSON-driven theming (theme.json, custom themes, logo fallback), funcex expression support, liveness/KYC detection, ID obfuscation, and multi-file upload
-   - Set up Docker/Nginx containerization and a GitHub Actions CI/CD pipeline; built a Frappe-based ERP and a ServiceNow integration POC
+   - Client-facing throughout: gathers requirements directly from customers, runs the discussions that align backend, QA and product teams, and turns the outcomes into the JSON configuration models the platforms ship with
+   - Regulatory compliance dashboard for a financial-services client (monthly reporting) — owned the product end to end, from requirement gathering with the client through architecture, build, production deployment and the handover documentation. React 19 + Vite 7 + Tailwind 4 front end, a small Node API on node:sqlite with Zod-validated Excel (xlsx) ingestion, email/password auth with in-memory bearer tokens, admin user management, and a two-container Docker Compose stack served under a configurable base path behind nginx. He explained the domain and the codebase to an intern and had him build the provider-comparison view, per-provider analysis section and the data-exclusion toggles on top of it
+   - v2 form-filling platform — top contributor with ~330 commits, from project initialization to production: axios client and interceptors, Tailwind→Material UI migration, Redux Toolkit store and theme slice, login and protected routes, forms/records APIs migrated to RTK Query, DigiLocker OAuth2, MediaPipe liveness, e-sign v1/v2, trusted APIs and LOV dropdowns, checker and submit flows, theme.json theming with a theme generator, SSO login/logout, request encryption, and GitHub Actions workflows building Docker images into Azure Container Registry for dev, staging and production
+   - v3 configurable platform — ~440 commits: restructured the repo into a Turborepo/pnpm monorepo, extracting types, auth, the API client, form core, the form transformer and the shared UI component library into workspace packages, and moving the live end-to-end suite into its own package
+   - Built the v3 admin dashboard: a config-driven widget rendering engine fed by dashboard.json (recursive group layout, records/activity widgets, status pie, skeletons), a form-management console (Material React Table over the forms API with create/delete and confirmation flows), and a user-management tree-table that models the org as a hierarchy/DAG (buildUserTree, multi-parent edges) with full user and relationship CRUD, search that keeps the tree structure, and relationship CSV download
+   - Added bulk user onboarding via client-side CSV/ZIP upload (jszip), and a permission guardrail system: permission-gated routes, a reusable GuardRail component, form-list guards, and persona-based permissions
+   - Built the maker-checker approval workflow and its state machine (BOA persona, role × section-type permission resolution, COMPLETED terminal state, checker messages, verify state, submit confirmation modal) and trusted API records (tokenized nodes protected against user overwrite)
+   - Worked across the core form engines in the shared form package — actions, rules (persona/permission-based hide and disable), derive (array handling) and navigator (array-boundary navigation) — and wrote their unit/integration test suites
+   - Delivered an SSO login flow, client-side encryption, JSON-driven theming (theme.json, custom themes, logo fallback), funcex expression support, liveness/KYC detection with pose challenges, ID obfuscation, multi-file/ZIP upload, PWA and runtime nginx config, plus the architecture and plain-English documentation set
+   - Set up Docker/Nginx containerization and GitHub Actions CI/CD; built a Frappe-based ERP and a ServiceNow integration POC
    - Contributed to the company's first enterprise client acquisition
-   - Tech: React 19, TypeScript, Redux Toolkit, Material UI, TanStack Query, Material React Table, REST APIs, JSON-driven config, Monorepo, Vitest, Docker, Nginx, GitHub Actions, Frappe
+   - Tech: React 19, TypeScript, Redux Toolkit, RTK Query, TanStack Query, Material UI, Material React Table, Tailwind CSS 4, Vite, Node.js, SQLite, Zod, Turborepo/pnpm monorepo, JSON-driven config, Vitest, Playwright, Docker, Nginx, GitHub Actions, Azure, Frappe
 
 2) Associate Web Developer — Content Enablers Inc. (March 2022 – March 2023, Remote, Bengaluru)
    - Website revamp using ReactJS and Bootstrap 5
@@ -216,8 +222,9 @@ SKILLS
 - Frontend Core: ReactJS, Next.js, TypeScript, JavaScript, Redux Toolkit
 - UI & Design Systems: Material UI, TailwindCSS, Design Tokens, Responsive Design, Figma, Paper
 - Architecture: Schema-driven UI, Rule/Derive/Actions engines, Monorepo, JSON Logic/JSONPath, Local-first desktop (Tauri), System Design
-- State, Data & Testing: TanStack Query, React Hook Form, Zod, SQLite, Vitest, React Testing Library
+- State, Data & Testing: TanStack Query, RTK Query, React Hook Form, Zod, SQLite, Vitest, Playwright, React Testing Library
 - Backend, DevOps & Security: Node.js, Rust/Tauri 2, Docker, Nginx, GitHub Actions, Frappe ERP, Client-side Encryption, SSO, REST APIs, Azure
+- Delivery & Ownership: Requirement gathering with customers, client communication, cross-team coordination (backend, QA, product), mentoring juniors and interns, production deployment and handover documentation
 
 CONTACT
 - Email: prajwalhebbaras@gmail.com

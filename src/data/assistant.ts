@@ -53,7 +53,7 @@ export const answers: Record<AnswerId, string> = {
 A Senior Engineer with nearly 5 years of experience, based in Bengaluru. He's open to new opportunities and specializes in React, Next.js, TypeScript, and configurable, schema-driven frontend architecture.
 
 **Current role**
-Senior Engineer at **LYIK Technologies** (promoted in April 2026; Enterprise Engineer, Apr 2023 – Mar 2026). He shipped v2 of the enterprise form platform and drove much of v3: the admin dashboard (form management plus a user-management tree-table with full REST CRUD), a permission guardrail system, the maker-checker approval flow, and the core form engines (rules, derive, actions, navigator) with their test suites — plus SSO, client-side encryption, and JSON-driven theming, with DevOps via Docker, Nginx, and GitHub Actions. He contributed to the company's first enterprise client win.
+Senior Engineer at **LYIK Technologies** (promoted in April 2026; Enterprise Engineer, Apr 2023 – Mar 2026). He works across three products: the v2 enterprise form platform (top contributor, from project init to production), the v3 configurable platform — Turborepo monorepo, config-driven admin dashboard, user-management tree-table, permission guardrails, maker-checker workflow, and the form engines (rules, derive, actions, navigator) with their test suites — and a regulatory compliance dashboard for a financial-services client, which he owned end to end from requirement gathering through deployment, mentoring an intern on it along the way. He's client-facing: he runs requirement discussions with customers and aligns backend, QA and product teams. He contributed to the company's first enterprise client win.
 
 **Prior experience**
 - **Associate Web Developer at Content Enablers Inc.** (Mar 2022 – Mar 2023) — led a React + Bootstrap 5 site revamp with GA/GTM integration.
@@ -77,7 +77,7 @@ Want me to go deeper into any specific role, project, or skill set?`,
 **Nearly 5 years** across enterprise and agency roles:
 
 - **Senior Engineer — LYIK Technologies** (Apr 2026 – Present; Enterprise Engineer, Apr 2023 – Mar 2026)
-  Builds configurable, enterprise-grade form and ERP platforms. Shipped v2, then drove much of v3: built the admin dashboard (form management + a user-management tree-table with full REST CRUD), a permission guardrail system, and the maker-checker approval flow; worked across the form engines (rules, derive, actions, navigator) with their test suites; delivered SSO, client-side encryption, and JSON-driven theming; set up Docker/Nginx and CI/CD; contributed to the company's first enterprise client win.
+  Builds configurable, enterprise-grade form and ERP platforms, and owns delivery end to end. Top contributor on the v2 platform (project init → production: RTK Query data layer, MUI theming, DigiLocker, liveness/KYC, e-sign, trusted APIs, checker flows, Azure CI/CD). On v3: restructured it into a Turborepo monorepo, built the admin dashboard (config-driven widgets, form management, user-management tree-table with full REST CRUD), the permission guardrail system and the maker-checker workflow, plus the form engines and their tests. Separately owned a regulatory compliance dashboard for a financial-services client, from requirement gathering to production deployment, and mentored the intern who built features on it.
 
 - **Associate Web Developer — Content Enablers Inc.** (Mar 2022 – Mar 2023)
   Led a website revamp with React and Bootstrap 5, plus GA/GTM integration for product analytics.
@@ -96,20 +96,24 @@ A clear pattern: complex, configurable frontend systems with real production sca
 - Schema-driven UI, Rule/Derive/Actions engines, Monorepo, JSON Logic/JSONPath, System Design
 
 **State, Data & Testing**
-- TanStack Query, React Hook Form, Zod, Vitest, React Testing Library
+- TanStack Query, RTK Query, React Hook Form, Zod, SQLite, Vitest, Playwright, React Testing Library
 
 **Backend, DevOps & Security**
 - Node.js, Docker, Nginx, GitHub Actions, Frappe ERP, Client-side Encryption, SSO, REST APIs, Azure
 
-His strongest areas are the React/TypeScript stack and configurable, schema-driven architecture. Want me to dig into how he's applied these in specific projects? Reach him at **prajwalhebbaras@gmail.com** for the full picture.`,
+**Delivery & Ownership**
+- Requirement gathering with customers, cross-team coordination (backend, QA, product), mentoring, production deployment, handover documentation
+
+His strongest areas are the React/TypeScript stack, configurable schema-driven architecture, and owning a product from the first client conversation to production. Want me to dig into how he's applied these in specific projects? Reach him at **prajwalhebbaras@gmail.com** for the full picture.`,
 
   current: `Prajwal currently works as a **Senior Engineer at LYIK Technologies Pvt. Ltd.** in Bengaluru (on-site). He joined as an Enterprise Engineer in April 2023 and was **promoted to Senior Engineer in April 2026**.
 
 There, he:
-- Shipped v2 of the form-filling app (React 19 + Redux Toolkit) and drove much of v3 as a configurable, schema-driven platform
-- Built the v3 admin dashboard: form management (Material React Table) and a user-management tree-table (org hierarchy/DAG) with full user & relationship CRUD over REST
-- Added bulk CSV/ZIP user onboarding, a permission guardrail system, the maker-checker approval flow, and trusted API records
-- Worked across the form engines (rules, derive, actions, navigator) with their test suites; delivered SSO, client-side encryption and JSON-driven theming; set up Docker/Nginx and GitHub Actions CI/CD`,
+- Owns a **regulatory compliance dashboard** for a financial-services client end to end — requirements gathered directly from the client, then architecture, build, deployment and handover docs (React 19 + Vite + Tailwind, a small Node/SQLite API with Excel ingestion, Docker Compose behind nginx) — and mentored the intern who added the provider-comparison view and data-exclusion toggles
+- Was the top contributor on the **v2** form-filling platform, from project initialization to production (RTK Query, Material UI theming, DigiLocker, liveness/KYC, e-sign, trusted APIs, checker flows, GitHub Actions → Azure)
+- Restructured **v3** into a Turborepo/pnpm monorepo and built its admin dashboard: config-driven widgets from dashboard.json, form management, and a user-management tree-table (org hierarchy/DAG) with full user & relationship CRUD
+- Built the permission guardrail system, bulk CSV/ZIP onboarding and the maker-checker workflow state machine; worked across the form engines (rules, derive, actions, navigator) with their unit, integration and Playwright suites
+- Runs customer requirement discussions and aligns backend, QA and product teams; delivered SSO, client-side encryption and JSON-driven theming, with Docker/Nginx and GitHub Actions CI/CD`,
 
   contact: `You can reach Prajwal through any of these channels:
 
