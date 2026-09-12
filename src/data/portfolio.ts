@@ -86,6 +86,22 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    name: 'Prompt Burn',
+    tagline: 'Local dashboard for OMP and Cursor token usage, shown as estimated public pay-as-you-go cost; nothing leaves the machine.',
+    kind: 'Tauri 2 desktop app, same UI in a VS Code editor tab, shared local SQLite',
+    repo: 'https://github.com/prajwal-hebbar-07/prompt-burn',
+    repoLabel: 'prajwal-hebbar-07/prompt-burn',
+    status: 'Active build',
+    points: [
+      'Calculates what OMP session logs and Cursor usage would cost if billed at <b>public pay-as-you-go rates</b>, strictly for comparison and not an invoice.',
+      'Desktop app and VS Code editor tab share <b>one local database</b> at <code>~/.prompt-burn/db.sqlite</code>, with no web app, account, or cloud.',
+      'Usage is read on this machine from OMP session logs and Cursor, then priced from a <b>bundled versioned public rate table</b>; unknown models show an em dash (&mdash;), never <code>$0</code>.',
+      '<b>Provider usage clocks</b> (Claude 5-hour/7-day, Ollama Cloud, Cursor included pools) are quoted on their own panel and never mixed into estimated cost.',
+      '<b>Non-blocking local fetch</b> runs on launch and when asked; previous numbers stay on screen while a fetch runs.',
+    ],
+    tech: ['Tauri 2', 'VS Code Extension', 'React', 'TypeScript', 'Tailwind CSS', 'SQLite', 'Node.js', 'pnpm workspace'],
+  },
+  {
     name: 'LedgerFlow',
     tagline: 'Local-first desktop expense tracker — no account, no server, no sync.',
     kind: 'Tauri 2 · React 19 · Rust · SQLite',
@@ -190,8 +206,16 @@ EXPERIENCE
    - Google Analytics and Google Tag Manager integration
    - Tech: React, Bootstrap 5, Strapi CMS, Google Analytics, GTM
 
-PROJECTS (personal; the two open-source ones are at github.com/prajwal-hebbar-07)
-1) LedgerFlow — local-first desktop expense tracker (https://github.com/prajwal-hebbar-07/ledger-flow)
+PROJECTS (personal; open-source repositories at github.com/prajwal-hebbar-07)
+1) Prompt Burn — local dashboard for AI coding token usage (https://github.com/prajwal-hebbar-07/prompt-burn)
+   - Tauri 2 desktop app, same UI in a VS Code editor tab, shared local SQLite (~/.prompt-burn/db.sqlite); no web app, account, or cloud
+   - Dollar figure is an estimate of what OMP session logs and Cursor usage would cost if billed at public pay-as-you-go rates, strictly for comparison and not an invoice
+   - Usage is read on this machine from OMP session logs and Cursor, then priced from a bundled versioned public rate table; unknown models show an em dash, never $0, and price retroactively when added
+   - Provider usage clocks (Claude 5-hour and 7-day windows, Ollama Cloud, Cursor included pools) are quoted on their own panel and never mixed into estimated cost
+   - Fetch runs on open and when asked, and previous numbers stay on screen while a fetch runs
+   - Tech: Tauri 2, VS Code Extension, React, TypeScript, Tailwind CSS, SQLite, Node.js, pnpm workspace
+
+2) LedgerFlow — local-first desktop expense tracker (https://github.com/prajwal-hebbar-07/ledger-flow)
    - Tauri 2 + React 19 + Rust desktop app for macOS, Linux and Windows; single-user, offline, one SQLite file on the machine, no account/server/sync/telemetry
    - One row per money movement in a single expense table: spend, income, transfer between own accounts and credit-card charge differ only by direction and which of account/card/to-account is set; amounts are positive integers in minor units
    - Balances are derived in SQL (opening balance plus every transaction that touched the account) — no stored running total that can drift
@@ -200,7 +224,7 @@ PROJECTS (personal; the two open-source ones are at github.com/prajwal-hebbar-07
    - Release engineering: GitHub Actions cuts macOS/Linux/Windows builds sequentially, minisign-signed manifest drives in-app auto-update; disk and network access live in Rust #[tauri::command]s, the webview never fetches
    - Tech: Tauri 2, React 19, TypeScript, Rust, SQLite, Tailwind CSS 4, Ollama, pnpm workspace, Turborepo, GitHub Actions, node:test
 
-2) Flex State — offline gamified home-workout desktop app (https://github.com/prajwal-hebbar-07/flex-state)
+3) Flex State — offline gamified home-workout desktop app (https://github.com/prajwal-hebbar-07/flex-state)
    - pnpm + Turborepo monorepo: a Tauri 2 + React 19 desktop app, a published framework-agnostic store package (flex-state), a React UI package, and a shared TypeScript config
    - Deterministic offline plan generation: identical profile + catalog + locations produce an identical weekly plan; the generator version is stamped on every saved plan and a mismatch forces a regeneration flow
    - Personalization by training ground — each location carries its own equipment set and per-place exercise exclusions, so exercise eligibility is computed per location, not from global flags
@@ -209,7 +233,7 @@ PROJECTS (personal; the two open-source ones are at github.com/prajwal-hebbar-07
    - flex-state itself: createStore<T> with Object.is dedupe and detachable methods, bound to React 19 through useSyncExternalStore
    - Tech: Tauri 2, React 19, TypeScript, Rust, SQLite, pnpm workspace, Turborepo, Vitest, node --experimental-strip-types --test, Biome 2
 
-3) GrowthOS — local-first study-plan tracker (private repository, no public link)
+4) GrowthOS — local-first study-plan tracker (private repository, no public link)
    - Ships as a macOS desktop app (Tauri 2 + React 19) and an Android/iOS app (Expo 57 / React Native), preloaded with an eight-week AI-backend curriculum; no account, no server, nothing uploaded
    - pnpm + Turborepo monorepo whose shared package (@growth-os/learning) is consumed as TypeScript source with no build step, so both clients share one model, one set of validators and the eight bundled courses
    - Desktop persistence is SQLite through rusqlite (bundled): one dated row per finished task, so totals and the consecutive-day streak are derived from the ordered completion history and re-ticking never rewrites the original date
