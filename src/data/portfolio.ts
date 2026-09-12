@@ -102,6 +102,21 @@ export const projects: Project[] = [
     tech: ['Tauri 2', 'VS Code Extension', 'React', 'TypeScript', 'Tailwind CSS', 'SQLite', 'Node.js', 'pnpm workspace'],
   },
   {
+    name: 'anime-list',
+    tagline: 'Personal offline-first anime tracker — catalogue, per-episode progress, optional self-hosted sync between desktop and Android.',
+    kind: 'Tauri 2 + React desktop, Expo Android, shared TypeScript model, optional Node + SQLite sync server',
+    repo: 'https://github.com/prajwal-hebbar-07/anime-list',
+    repoLabel: 'prajwal-hebbar-07/anime-list',
+    status: 'Active build',
+    points: [
+      'Both desktop and mobile clients operate <b>fully offline on local SQLite</b>, tracking catalogue entries, seasons, categories, and per-episode watch progress.',
+      'Core schema, migrations, CRUD helpers, and sync protocol live in a <b>shared TypeScript package</b> consumed directly as source across all apps.',
+      'Sync is <b>optional and self-hosted</b> with an outbox and last-write-wins conflict resolution — no third-party accounts, cloud tracking, or subscriptions.',
+      'Optional <b>Ollama extraction</b> on the sync server converts public anime URLs into structured metadata and synopsis, caching posters locally for offline viewing.',
+    ],
+    tech: ['Tauri 2', 'React 19', 'Expo 57', 'React Native', 'TypeScript', 'SQLite', 'Node.js', 'Ollama', 'Docker', 'pnpm workspace'],
+  },
+  {
     name: 'LedgerFlow',
     tagline: 'Local-first desktop expense tracker — no account, no server, no sync.',
     kind: 'Tauri 2 · React 19 · Rust · SQLite',
@@ -215,7 +230,15 @@ PROJECTS (personal; open-source repositories at github.com/prajwal-hebbar-07)
    - Fetch runs on open and when asked, and previous numbers stay on screen while a fetch runs
    - Tech: Tauri 2, VS Code Extension, React, TypeScript, Tailwind CSS, SQLite, Node.js, pnpm workspace
 
-2) LedgerFlow — local-first desktop expense tracker (https://github.com/prajwal-hebbar-07/ledger-flow)
+2) anime-list — personal offline-first anime tracker (https://github.com/prajwal-hebbar-07/anime-list)
+   - Tauri 2 + React desktop, Expo Android, shared TypeScript model, optional Node + SQLite sync server
+   - Both clients work fully offline on local SQLite: catalogue, per-episode watch progress, seasons and custom categories
+   - Schema, migrations, CRUD helpers and sync protocol live in one shared TypeScript package consumed as source with no build step
+   - Sync is optional, self-hosted, outbox + last-write-wins conflict resolution, with no third-party account
+   - Optional Ollama extraction on the server converts public anime URLs into structured metadata, caching posters locally for offline viewing
+   - Tech: Tauri 2, React 19, Expo 57, React Native, TypeScript, SQLite, Node.js, Ollama, Docker, pnpm workspace
+
+3) LedgerFlow — local-first desktop expense tracker (https://github.com/prajwal-hebbar-07/ledger-flow)
    - Tauri 2 + React 19 + Rust desktop app for macOS, Linux and Windows; single-user, offline, one SQLite file on the machine, no account/server/sync/telemetry
    - One row per money movement in a single expense table: spend, income, transfer between own accounts and credit-card charge differ only by direction and which of account/card/to-account is set; amounts are positive integers in minor units
    - Balances are derived in SQL (opening balance plus every transaction that touched the account) — no stored running total that can drift
@@ -224,7 +247,7 @@ PROJECTS (personal; open-source repositories at github.com/prajwal-hebbar-07)
    - Release engineering: GitHub Actions cuts macOS/Linux/Windows builds sequentially, minisign-signed manifest drives in-app auto-update; disk and network access live in Rust #[tauri::command]s, the webview never fetches
    - Tech: Tauri 2, React 19, TypeScript, Rust, SQLite, Tailwind CSS 4, Ollama, pnpm workspace, Turborepo, GitHub Actions, node:test
 
-3) Flex State — offline gamified home-workout desktop app (https://github.com/prajwal-hebbar-07/flex-state)
+4) Flex State — offline gamified home-workout desktop app (https://github.com/prajwal-hebbar-07/flex-state)
    - pnpm + Turborepo monorepo: a Tauri 2 + React 19 desktop app, a published framework-agnostic store package (flex-state), a React UI package, and a shared TypeScript config
    - Deterministic offline plan generation: identical profile + catalog + locations produce an identical weekly plan; the generator version is stamped on every saved plan and a mismatch forces a regeneration flow
    - Personalization by training ground — each location carries its own equipment set and per-place exercise exclusions, so exercise eligibility is computed per location, not from global flags
@@ -233,7 +256,7 @@ PROJECTS (personal; open-source repositories at github.com/prajwal-hebbar-07)
    - flex-state itself: createStore<T> with Object.is dedupe and detachable methods, bound to React 19 through useSyncExternalStore
    - Tech: Tauri 2, React 19, TypeScript, Rust, SQLite, pnpm workspace, Turborepo, Vitest, node --experimental-strip-types --test, Biome 2
 
-4) GrowthOS — local-first study-plan tracker (private repository, no public link)
+5) GrowthOS — local-first study-plan tracker (private repository, no public link)
    - Ships as a macOS desktop app (Tauri 2 + React 19) and an Android/iOS app (Expo 57 / React Native), preloaded with an eight-week AI-backend curriculum; no account, no server, nothing uploaded
    - pnpm + Turborepo monorepo whose shared package (@growth-os/learning) is consumed as TypeScript source with no build step, so both clients share one model, one set of validators and the eight bundled courses
    - Desktop persistence is SQLite through rusqlite (bundled): one dated row per finished task, so totals and the consecutive-day streak are derived from the ordered completion history and re-ticking never rewrites the original date
