@@ -72,9 +72,10 @@
 <h2>Summary</h2>
 <p>Senior Engineer with nearly 5 years building configurable, enterprise-grade web platforms. Specializes in
 <b>React, TypeScript and schema-driven frontend architecture</b> — admin dashboards, permission systems and
-reusable rules/actions engines, shipped with the DevOps to run in production. Promoted to Senior Engineer at LYIK
-in April 2026 after shipping v2 and driving much of the v3 form platform. Outside work I ship <b>local-first
-Tauri 2 desktop and Expo mobile apps</b> in TypeScript and Rust, release pipeline included.</p>
+reusable rules/actions engines, shipped with the DevOps to run in production. Client-facing: gathers requirements
+directly from customers, aligns backend, QA and product, and <b>mentors juniors</b>. Promoted to Senior Engineer
+at LYIK in April 2026 after shipping v2 and driving much of the v3 form platform. Outside work I ship
+<b>local-first Tauri 2 desktop and Expo mobile apps</b> in TypeScript and Rust, release pipeline included.</p>
 
 <h2>Experience</h2>
 
@@ -85,24 +86,31 @@ Tauri 2 desktop and Expo mobile apps</b> in TypeScript and Rust, release pipelin
   </div>
   <div class="job-meta">On-site · Bengaluru · Previously Enterprise Engineer (Apr 2023 – Mar 2026)</div>
   <ul>
-    <li><b>Promoted to Senior Engineer</b> in April 2026 after shipping v2 and driving much of the <b>v3</b>
-      configurable, schema-driven form platform (React 19 · Redux Toolkit · TypeScript · MUI).</li>
-    <li>Built the v3 <b>admin dashboard</b>: a form-management console (Material React Table over the forms API)
-      and a <b>user-management tree-table</b> modeling the org as a hierarchy/DAG, with full <b>user &amp;
-      relationship CRUD</b> wired to REST APIs.</li>
-    <li>Added <b>bulk user onboarding</b> via client-side <b>CSV/ZIP</b> upload, a permission <b>guardrail</b>
-      system (permission-gated routes, rule-driven widgets from <code>dashboard.json</code>), the
-      <b>maker-checker approval workflow</b>, and <b>trusted API records</b> protected against user overwrite.</li>
-    <li>Worked across the core form <b>engines</b> in the <code>@lyikadmin/lyik-form</code> monorepo — actions,
-      rules (persona/permission-based hide &amp; disable), derive and navigator — and wrote their
-      <b>unit/integration test suites</b>.</li>
-    <li>Delivered <b>SSO login</b>, <b>client-side encryption</b>, <b>JSON-driven theming</b>, funcex expressions,
-      <b>liveness/KYC</b> detection and multi-file upload.</li>
-    <li>Set up <b>Docker/Nginx</b> containerization and <b>GitHub Actions</b> CI/CD; built a <b>Frappe-based
-      ERP</b> and a ServiceNow POC. Contributed to the company's <b>first enterprise client acquisition</b>.</li>
+    <li>Owned a <b>regulatory compliance dashboard</b> for a financial-services client end to end —
+      requirement gathering through architecture, build, production deployment and handover docs (React 19 ·
+      Vite 7 · Tailwind 4, Node API on <code>node:sqlite</code> with Zod-validated Excel ingestion, two-container
+      Docker Compose behind nginx) — and <b>mentored the intern</b> who built its provider-comparison and
+      data-exclusion features on top.</li>
+    <li><b>Top contributor on the v2 form-filling platform</b> (~330 commits), from project init to production:
+      Redux Toolkit → <b>RTK Query</b> data layer, Tailwind→MUI migration, records and checker flows, DigiLocker
+      OAuth2, liveness/KYC, e-sign and trusted APIs, shipped to <b>Azure</b> via GitHub Actions.</li>
+    <li>Restructured <b>v3</b> into a <b>Turborepo/pnpm monorepo</b> — types, auth, API client, form core,
+      transformer and shared UI as workspace packages — and built its <b>admin dashboard</b>: a config-driven
+      widget renderer fed by <code>dashboard.json</code>, a form-management console (Material React Table) and a
+      <b>user-management tree-table</b> modeling the org as a hierarchy/DAG with full CRUD.</li>
+    <li>Built the persona/permission model behind both apps — <b>maker-checker</b> workflow state machine,
+      <code>GuardRail</code> permission gating, bulk <b>CSV/ZIP onboarding</b>, trusted API records — and worked
+      across the shared form <b>engines</b> (actions, rules, derive, navigator) with their unit, integration and
+      e2e suites.</li>
+    <li>Ran <b>customer requirement discussions</b> and drove alignment across backend, QA and product, turning
+      the outcomes into the JSON configuration models the platform ships with.</li>
+    <li>Delivered <b>SSO</b>, <b>client-side encryption</b>, <b>JSON-driven theming</b> and PWA/runtime config;
+      set up <b>Docker/Nginx</b> and <b>GitHub Actions</b> CI/CD; built a <b>Frappe-based ERP</b> and a
+      ServiceNow POC. Contributed to the company's <b>first enterprise client acquisition</b>.</li>
   </ul>
-  <div class="stack"><b>Stack:</b> React 19, TypeScript, Redux Toolkit, Material UI, TanStack Query,
-    Material React Table, REST APIs, JSON-driven config, Monorepo, Vitest, Docker, Nginx, GitHub Actions, Frappe</div>
+  <div class="stack"><b>Stack:</b> React 19, TypeScript, Redux Toolkit, RTK Query, TanStack Query, Material UI,
+    Material React Table, Tailwind CSS 4, Turborepo/pnpm, Node.js, SQLite, Zod, Vitest, Playwright, Docker,
+    Nginx, GitHub Actions, Azure, Frappe</div>
 </div>
 
 <div class="job">
@@ -216,12 +224,31 @@ Tauri 2 desktop and Expo mobile apps</b> in TypeScript and Rust, release pipelin
     pnpm workspace, Turborepo</div>
 </div>
 
+<div class="job">
+  <div class="job-head">
+    <div class="job-title">Portfolio — <span class="co">personal site with a grounded AI assistant</span></div>
+    <div class="job-when">portfolio.hebbars.in · github.com/prajwal-hebbar-07/portfolio-hebbar</div>
+  </div>
+  <div class="job-meta">Astro · TypeScript · Go assistant API — static site, runtime personalization, Ask AI</div>
+  <ul>
+    <li>One content module is the <b>single source of truth</b> for the rendered sections, the resume and the
+      assistant's grounding, so a fact is written once and cannot drift between the page and the answers.</li>
+    <li><b>Ask AI</b> posts through a same-origin Astro endpoint to a Go assistant API; when that backend is
+      unreachable the endpoint serves a <b>keyword-routed grounded answer</b> instead of an error, and an
+      off-topic prompt gets the same guardrail refusal either way. Prompts are validated and capped server-side.</li>
+    <li><b>Personalize panel</b> re-themes the site live — ground and primary colour, typeface and section order
+      — over CSS design tokens, with the whole site prerendered static except the one assistant route.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> Astro, TypeScript, CSS design tokens, Go API, Vercel</div>
+</div>
+
 <h2>Skills</h2>
 <dl class="skills">
-  <dt>Frontend Core</dt><dd>ReactJS, Next.js, TypeScript, JavaScript, Redux Toolkit, React Native</dd>
-  <dt>UI &amp; Design Systems</dt><dd>Material UI, TailwindCSS, Design Tokens, Figma, Paper</dd>
-  <dt>Architecture &amp; Testing</dt><dd>Schema-driven UI, Rule/Derive/Actions engines, Monorepo, TanStack Query, Zod, Vitest</dd>
-  <dt>Backend, DevOps &amp; Security</dt><dd>Node.js, Rust/Tauri 2, SQLite, Docker, Nginx, GitHub Actions, SSO, Client-side Encryption</dd>
+  <dt>Frontend Core</dt><dd>ReactJS, Next.js, Astro, TypeScript, JavaScript, Redux Toolkit, React Native</dd>
+  <dt>UI &amp; Design Systems</dt><dd>Material UI, TailwindCSS, Design Tokens, Responsive Design, Figma, Paper</dd>
+  <dt>Architecture &amp; Testing</dt><dd>Schema-driven UI, Rule/Derive/Actions engines, Monorepo, Local-first desktop, TanStack Query, RTK Query, Zod, Vitest, Playwright</dd>
+  <dt>Backend, DevOps &amp; Security</dt><dd>Node.js, Rust/Tauri 2, SQLite, Docker, Nginx, GitHub Actions, Azure, SSO, Client-side Encryption, Ollama</dd>
+  <dt>Delivery &amp; Ownership</dt><dd>Requirement gathering, client communication, cross-team coordination, mentoring, production deployment, technical documentation</dd>
 </dl>
 
 <h2>Education</h2>
