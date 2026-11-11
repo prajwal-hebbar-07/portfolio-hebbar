@@ -148,24 +148,6 @@ at LYIK in April 2026 after shipping v2 and driving much of the v3 form platform
 
 <div class="job">
   <div class="job-head">
-    <div class="job-title">anime-list — <span class="co">personal offline-first anime tracker</span></div>
-    <div class="job-when">github.com/prajwal-hebbar-07/anime-list</div>
-  </div>
-  <div class="job-meta">Tauri 2 · React 19 · Expo 57 · SQLite · Node.js — Active build · desktop, Android and sync</div>
-  <ul>
-    <li>Desktop and mobile clients operate <b>fully offline on local SQLite</b>, tracking catalogue entries,
-      seasons, custom categories, and per-episode watch progress.</li>
-    <li>Core schema, migrations, CRUD helpers, and sync protocol live in a <b>shared TypeScript package</b>
-      consumed directly as source across all applications.</li>
-    <li>Sync is <b>optional and self-hosted</b> (outbox + last-write-wins); optional <b>Ollama extraction</b>
-      on the server turns public anime URLs into structured metadata and synopsis with cached posters.</li>
-  </ul>
-  <div class="stack"><b>Stack:</b> Tauri 2, React 19, Expo 57, React Native, TypeScript, SQLite, Node.js, Ollama,
-    Docker, pnpm workspace</div>
-</div>
-
-<div class="job">
-  <div class="job-head">
     <div class="job-title">LedgerFlow — <span class="co">local-first desktop expense tracker</span></div>
     <div class="job-when">github.com/prajwal-hebbar-07/ledger-flow</div>
   </div>
@@ -182,26 +164,6 @@ at LYIK in April 2026 after shipping v2 and driving much of the v3 form platform
   </ul>
   <div class="stack"><b>Stack:</b> Tauri 2, React 19, TypeScript, Rust, SQLite, Tailwind CSS 4, Ollama,
     pnpm workspace, Turborepo, GitHub Actions</div>
-</div>
-
-<div class="job">
-  <div class="job-head">
-    <div class="job-title">Flex State — <span class="co">offline gamified workout app + reactive store</span></div>
-    <div class="job-when">github.com/prajwal-hebbar-07/flex-state</div>
-  </div>
-  <div class="job-meta">pnpm + Turborepo monorepo · Tauri 2 · React 19 — app, UI package and published store</div>
-  <ul>
-    <li><b>Deterministic plan generation</b>: identical profile, catalog and locations always yield an identical
-      weekly plan, with equipment and exclusions resolved <b>per training ground</b>; the stamped generator
-      version forces explicit regeneration.</li>
-    <li>XP, level, rank and streak are <b>derived from the ordered completion history</b> — an
-      <code>INSERT OR IGNORE</code> on the date key makes a repeat claim idempotent, and every persisted value
-      passes a shape guard that fails closed.</li>
-    <li>Published <code>flex-state</code>, a framework-agnostic store with <code>Object.is</code> dedupe, bound to
-      React 19 through <code>useSyncExternalStore</code>; covered by Vitest and Node&rsquo;s test runner.</li>
-  </ul>
-  <div class="stack"><b>Stack:</b> Tauri 2, React 19, TypeScript, Rust, SQLite, pnpm workspace, Turborepo,
-    Vitest, Biome</div>
 </div>
 
 <div class="job">
