@@ -1,0 +1,41 @@
+---
+interface Props { kind: string }
+const { kind } = Astro.props;
+---
+<div class:list={['project-preview', `preview-${kind}`]} aria-hidden="true">
+  <span class="sketch-label">INTERFACE STUDY</span>
+  {kind === 'logbook' && <div class="mini-app logbook-app">
+    <div class="app-topbar"><span class="mini-logo">l.</span><span>Logbook</span><span class="mini-dots">···</span></div>
+    <div class="mini-app-body"><div class="mini-kicker">A LITTLE MORE PRESENT</div><div class="mini-title">One day at a time.</div>
+      <div class="calendar-top"><b>Your month</b><span>‹ &nbsp; ›</span></div>
+      <div class="calendar-grid">{['M', 'T', 'W', 'T', 'F', 'S', 'S'].map(day => <span class="calendar-day">{day}</span>)}{Array.from({length: 28}, (_, i) => <span class:list={['calendar-cell', { 'logged': [0,1,2,3,4,7,8,9,10,11,14,15,16,17,18].includes(i), 'today': i === 18 }]}>{i + 1}</span>)}</div>
+      <div class="mini-bottom"><span><i class="mini-dot"></i> A good day’s work</span><b>✓ Logged</b></div>
+    </div>
+  </div>}
+  {kind === 'prompt-burn' && <div class="mini-app prompt-app">
+    <div class="app-topbar"><span class="mini-logo">p<span>↗</span></span><span>Prompt Burn</span><span class="mini-dots">···</span></div>
+    <div class="mini-app-body"><div class="mini-kicker">KNOW YOUR USAGE</div><div class="mini-title">Less guessing. More clarity.</div>
+      <div class="usage-summary"><div><span>Token activity</span><strong>A week in view <span>↗</span></strong></div><span class="mini-pill">Local only</span></div>
+      <div class="usage-chart">{[34,56,43,78,62,92,70,45,84,68,100,80,59,88,73,95,63,78].map((height, i) => <div style={`--bar-height:${height}%`} class:list={{'bar-accent': i > 12}}></div>)}</div>
+      <div class="chart-axis"><span>MON</span><span>WED</span><span>FRI</span><span>SUN</span></div>
+      <div class="mini-bottom"><span><i class="mini-dot"></i> On your machine. Always.</span></div>
+    </div>
+  </div>}
+  {kind === 'ledgerflow' && <div class="mini-app ledger-app">
+    <div class="app-topbar"><span class="mini-logo">≋</span><span>LedgerFlow</span><span class="mini-dots">···</span></div>
+    <div class="mini-app-body"><div class="mini-kicker">A CLEARER PICTURE</div><div class="mini-title">Make sense of your spending.</div>
+      <div class="ledger-summary"><div class="donut"><span>All in<br /><b>one place</b></span></div><div class="ledger-legend"><span><i></i> Everyday</span><span><i></i> Home & living</span><span><i></i> The good stuff</span></div></div>
+      <div class="ledger-row"><span class="row-symbol">↗</span><div>Income<span>Room for what matters</span></div><span class="ledger-line"></span></div>
+      <div class="ledger-row"><span class="row-symbol">↙</span><div>Expenses<span>Every little thing, accounted for</span></div><span class="ledger-line short"></span></div>
+    </div>
+  </div>}
+  {kind === 'growthos' && <div class="mini-app growth-app">
+    <div class="app-topbar"><span class="mini-logo">✳</span><span>GrowthOS</span><span class="mini-dots">···</span></div>
+    <div class="mini-app-body"><div class="mini-kicker">KEEP SHOWING UP</div><div class="mini-title">Small steps. Lasting progress.</div>
+      <div class="growth-week">{['M','T','W','T','F','S','S'].map((day, i) => <span><span>{day}</span><b class:list={{complete: i < 4}}>{i < 4 ? '✓' : '·'}</b></span>)}</div>
+      <div class="course-row"><span class="course-icon">⌘</span><div><b>Learn something new</b><span class="course-track"><i></i></span></div><span>↗</span></div>
+      <div class="task-row"><span class="task-check">✓</span> Read. Try. Understand.</div>
+      <div class="task-row"><span class="task-check pending"></span> A little better than yesterday</div>
+    </div>
+  </div>}
+</div>

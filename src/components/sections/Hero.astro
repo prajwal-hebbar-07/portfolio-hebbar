@@ -1,62 +1,27 @@
 ---
-import { highlightJson } from '../../lib/json';
-import { site } from '../../config/site';
-
-interface Props {
-  status: string;
-  headline: string;
-  lede: string;
-  claim: string;
-  actions: { label: string; href: string; primary?: boolean; external?: boolean }[];
-  links: { label: string; href: string }[];
-}
-
-const { status, headline, lede, claim, actions, links } = Astro.props;
-
-/* The pane's first paint: the defaults. src/scripts/app.ts re-renders it from
-   the visitor's stored config on load and after every change. */
-const runtime = {
-  theme: 'system',
-  accent: 'blueprint',
-  density: 'comfortable',
-  sections: site.sections.map((s) => ({ id: s.id, variant: s.variants?.[0] })),
-};
+import { introduction } from '../../config/site';
+import { profile } from '../../data/portfolio';
 ---
-
-<div class="hero">
+<div class="hero-grid">
   <div class="hero-copy">
-    <p class="status"><span class="dot" aria-hidden="true"></span>{status}</p>
-    <h1 set:html={headline} />
-    <p class="hero-lede">{lede}</p>
-    <p class="hero-claim">{claim}</p>
+    <p class="eyebrow greeting"><span class="tiny-spark" aria-hidden="true">✳</span> {introduction.greeting}</p>
+    <h1>{introduction.headline}<br /><em>{introduction.accent}</em></h1>
+    <p class="hero-description">{introduction.description}</p>
     <div class="hero-actions">
-      {
-        actions.map((a) => (
-          <a
-            class:list={['btn', a.primary && 'btn-primary']}
-            href={a.href}
-            target={a.external ? '_blank' : undefined}
-            rel={a.external ? 'noopener' : undefined}
-          >
-            {a.label}
-          </a>
-        ))
-      }
-      {
-        links.map((l) => (
-          <a class="link" href={l.href} target="_blank" rel="noopener">
-            {l.label} ↗
-          </a>
-        ))
-      }
+      <a class="button" href="#projects">Explore my work <span aria-hidden="true">↘</span></a>
+      <a class="text-link" href={profile.resume} target="_blank" rel="noreferrer">Résumé <span class="file-label">PDF</span><span aria-hidden="true">↗</span></a>
     </div>
+    <div class="hero-footnote"><span class="status-dot" aria-hidden="true"></span>{profile.status}<span class="footnote-divider">/</span><span>Based in Bengaluru</span></div>
   </div>
-
-  <aside class="pane hero-pane" aria-label="This page's current config">
-    <div class="pane-head">
-      <span>runtime config</span>
-      <button class="tool" type="button" data-open-editor>edit</button>
+  <aside class="hello-card" aria-label="A little about me">
+    <div class="hello-card-top"><span class="eyebrow">A LITTLE ABOUT ME</span><span aria-hidden="true">↗</span></div>
+    <div class="orbit-art" aria-hidden="true">
+      <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+      <span class="orbit-node node-one">web</span><span class="orbit-node node-two">mobile</span><span class="orbit-node node-three">desktop</span>
+      <span class="orbit-center">ph<span>.</span></span><span class="art-spark">✳</span>
     </div>
-    <pre class="json" id="live-config" tabindex="0" set:html={highlightJson(runtime)} />
+    <h2>A builder at heart.<br />Full stack by trade.</h2>
+    <p>Nearly five years of connecting the dots between people, products and code.</p>
+    <div class="hello-card-bottom"><span class="status-dot" aria-hidden="true"></span>Currently at LYIK Technologies</div>
   </aside>
 </div>

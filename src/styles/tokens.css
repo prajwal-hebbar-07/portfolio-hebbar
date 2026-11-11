@@ -1,93 +1,40 @@
-/* ============================================================
-   SPEC — design tokens
-   A precise, flat, tool-like system: one sans, one mono, hairline
-   rules, square corners, a single accent. Direction and reasons:
-   docs/design-direction.md.
-
-   Three orthogonal attributes on <html>, all set from the runtime
-   config (src/config/prefs.ts):
-     data-theme    dark | light
-     data-accent   blueprint | signal | phosphor | violet
-     data-density  comfortable | compact
-   ============================================================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap');
+@font-face {
+  font-family: Geist;
+  src: url('/geist-latin.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
-  --font-sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-
-  --text-mono: 12px;
-  --text-sm: 14px;
-  --text-base: 15px;
-  --text-md: 17px;
-
-  --container: 1180px;
-  --gut: 32px;
-  --nav-h: 48px;
-
-  /* Density multiplier for vertical rhythm. */
-  --d: 1;
-}
-
-[data-density='compact'] {
-  --d: 0.55;
-}
-
-/* ---------- Accent ramps: -d is the dark-theme face, -l the light one.
-   Keep in sync with the swatches in src/config/prefs.ts. ---------- */
-:root,
-[data-accent='blueprint'] {
-  --accent-d: #6ea8ff;
-  --accent-l: #1f5fd6;
-}
-[data-accent='signal'] {
-  --accent-d: #ff8a4c;
-  --accent-l: #c8491a;
-}
-[data-accent='phosphor'] {
-  --accent-d: #5fd38d;
-  --accent-l: #1b7f45;
-}
-[data-accent='violet'] {
-  --accent-d: #a78bfa;
-  --accent-l: #6540c9;
-}
-
-/* ---------- Themes ---------- */
-:root,
-[data-theme='dark'] {
-  color-scheme: dark;
-  --ground: #0b0c0e;
-  --surface: #121418;
-  --sunken: #07080a;
-  --line: #23262b;
-  --line-strong: #3a3f47;
-  --ink: #eceef1;
-  --body: #a9afb8;
-  --muted: #747b86;
-  --accent: var(--accent-d);
-  --on-accent: #0b0c0e;
-  --num: #e5b567;
-  --error: #ff7a6b;
-}
-
-[data-theme='light'] {
   color-scheme: light;
-  --ground: #f6f6f4;
-  --surface: #ffffff;
-  --sunken: #ededea;
-  --line: #dcdcd7;
-  --line-strong: #b4b4ad;
-  --ink: #121316;
-  --body: #3f434a;
-  --muted: #6d727b;
-  --accent: var(--accent-l);
-  --on-accent: #ffffff;
-  --num: #8a5a00;
-  --error: #b3261e;
+  --canvas: #f8f7f2;
+  --surface: #fffefa;
+  --ink: #292e29;
+  --muted: #696d63;
+  --accent: #315d48;
+  --accent-hover: #234934;
+  --line: #dedfd5;
+  --soft: #eeefe6;
+  --green: #e5ebdf;
+  --lavender: #eee9f3;
+  --peach: #f4e8dc;
+  --yellow: #f1efd9;
+  --radius: 22px;
 }
 
-:root {
-  --accent-wash: color-mix(in oklab, var(--accent) 12%, var(--ground));
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --canvas: #1c211e;
+  --surface: #252b26;
+  --ink: #edf0e6;
+  --muted: #b0b7a9;
+  --accent: #b1ceb3;
+  --accent-hover: #c9e0c9;
+  --line: #3b443c;
+  --soft: #2b332b;
+  --green: #303f33;
+  --lavender: #3c3545;
+  --peach: #45392f;
+  --yellow: #3d3d2c;
 }

@@ -1,36 +1,8 @@
 ---
-interface Props {
-  bio: string[];
-  capabilities: { title: string; proof: string }[];
-  facts: { key: string; value: string }[];
-}
-
-const { bio, capabilities, facts } = Astro.props;
+import { profile } from '../../data/portfolio';
 ---
-
-<div class="about">
-  <div class="about-bio">
-    {bio.map((paragraph) => <p set:html={paragraph} />)}
-    <dl class="kv">
-      {
-        facts.map((f) => (
-          <div>
-            <dt class="k">{f.key}</dt>
-            <dd>{f.value}</dd>
-          </div>
-        ))
-      }
-    </dl>
-  </div>
-
-  <ul class="caps">
-    {
-      capabilities.map((c) => (
-        <li>
-          <h3>{c.title}</h3>
-          <p>{c.proof}</p>
-        </li>
-      ))
-    }
-  </ul>
+<div class="about-grid">
+  <div class="about-note"><span class="eyebrow">MY DEFAULT APPROACH</span><span class="about-spark" aria-hidden="true">✳</span><p>Stay curious.<br />Keep it simple.<br /><em>See it through.</em></p><span class="note-signature">— Prajwal</span></div>
+  <div class="about-copy"><p class="large-copy">I’m happiest when I can take something complicated and make it feel straightforward.</p><p>My work spans React and Next.js interfaces, Node.js APIs, SQL databases, and the infrastructure that brings them together. I enjoy joining the dots as much as getting the details right.</p><p>That also means talking to customers, working through decisions with a team, and helping newer engineers find their feet. Outside work, I build local-first apps for the small problems in my own day.</p><div class="about-facts"><div><span>BASED IN</span><b>{profile.location}</b></div><div><span>EDUCATION</span><b>B.E. Computer Science · VVCE</b></div><div><span>LANGUAGES</span><b>English, Kannada & Hindi</b></div></div></div>
 </div>
+<div class="toolbox"><span class="eyebrow">MY EVERYDAY TOOLBOX</span><div>{['TypeScript', 'React', 'Next.js', 'Node.js', 'PostgreSQL', 'SQLite', 'Docker', 'GitHub Actions'].map(tool => <span>{tool}</span>)}</div></div>

@@ -1,47 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
-import Section from '../components/Section.astro';
 import Footer from '../components/Footer.astro';
-import ConfigEditor from '../components/ConfigEditor.astro';
 import Hero from '../components/sections/Hero.astro';
-import FormDemo from '../components/sections/FormDemo.astro';
-import Evolution from '../components/sections/Evolution.astro';
-import Timeline from '../components/sections/Timeline.astro';
 import Projects from '../components/sections/Projects.astro';
-import Skills from '../components/sections/Skills.astro';
+import Experience from '../components/sections/Experience.astro';
 import About from '../components/sections/About.astro';
 import Contact from '../components/sections/Contact.astro';
-import { site, type SectionType } from '../config/site';
-
-/* type → component. A section in the config renders only through this map. */
-/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-const registry: Record<SectionType, any> = {
-  hero: Hero,
-  'form-demo': FormDemo,
-  evolution: Evolution,
-  timeline: Timeline,
-  projects: Projects,
-  skills: Skills,
-  about: About,
-  contact: Contact,
-};
+import { sections } from '../config/site';
+const registry = { hero: Hero, projects: Projects, experience: Experience, about: About, contact: Contact };
 ---
-
-<Layout>
-  <Nav />
-  <main id="sections" data-default-order={site.sections.map((s) => s.id).join(' ')}>
-    {
-      site.sections.map((section) => {
-        const Body = registry[section.type];
-        return (
-          <Section section={section}>
-            <Body {...section.props} />
-          </Section>
-        );
-      })
-    }
-  </main>
-  <Footer />
-  <ConfigEditor />
-</Layout>
+<Layout><Nav /><main class="wrap">{sections.map(section => {
+  const Content = registry[section.type];
+  return <section id={section.id} class:list={['section', `section-${section.type}`]} aria-labelledby={section.type === 'hero' ? undefined : `${section.id}-title`}>
+    {section.type !== 'hero' && <div class="section-heading"><div class="section-label"><span>{section.number}</span>{section.label}</div><h2 id={`${section.id}-title`}>{section.title}</h2></div>}
+    <Content />
+  </section>;
+})}</main><Footer /></Layout>

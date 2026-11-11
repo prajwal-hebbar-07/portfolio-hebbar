@@ -2,73 +2,35 @@
 import '../styles/tokens.css';
 import '../styles/site.css';
 import { profile } from '../data/portfolio';
-
 const title = `${profile.name} — ${profile.title}`;
-const description = `${profile.name} — ${profile.title} building configurable, enterprise-grade software end to end: React and TypeScript interfaces, Node.js APIs, SQL databases, and the pipelines that ship them. Based in ${profile.location}.`;
+const description = 'Senior full-stack engineer in Bengaluru. Thoughtful enterprise software and local-first apps, built from end to end.';
 ---
-
 <!doctype html>
-<html lang="en" data-theme="dark" data-accent="blueprint" data-density="comfortable">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f8f7f2" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-
-    {/* Pre-paint: theme, accent and density from the stored runtime config.
-        Inline and non-module so it runs before first paint. Mirrors
-        normalize() in src/config/prefs.ts; an unknown accent or density
-        matches no CSS block and so falls back to the default. */}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/geist-latin.ttf" as="font" type="font/ttf" crossorigin />
     <script is:inline>
-      (function () {
-        var d = document.documentElement;
-        var s = null;
-        try {
-          s = JSON.parse(localStorage.getItem('ph_config') || 'null');
-        } catch (e) {}
-        if (typeof s !== 'object' || s === null) s = {};
-        window.__cfg = s;
-        var theme = s.theme === 'light' || s.theme === 'dark' ? s.theme : null;
-        if (!theme) theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-        d.setAttribute('data-theme', theme);
-        if (typeof s.accent === 'string') d.setAttribute('data-accent', s.accent);
-        if (typeof s.density === 'string') d.setAttribute('data-density', s.density);
-      })();
+      try {
+        if (localStorage.getItem('ph_theme') === 'dark') {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {
+        // Storage can be unavailable; keep the default theme.
+      }
     </script>
   </head>
   <body>
+    <a class="skip-link" href="#intro">Skip to content</a>
     <slot />
-
-    {/* Pre-paint, part two: section order and variants need the sections to
-        exist, so this runs at the end of the body. src/scripts/app.ts then
-        takes over with the same record. */}
-    <script is:inline>
-      (function () {
-        var s = window.__cfg || {};
-        var main = document.getElementById('sections');
-        if (!main) return;
-        var kids = [].slice.call(main.children);
-        var ids = kids.map(function (k) { return k.id; });
-        var order = (Array.isArray(s.order) ? s.order : []).filter(function (id, i, a) {
-          return ids.indexOf(id) > -1 && a.indexOf(id) === i;
-        });
-        ids.forEach(function (id) { if (order.indexOf(id) < 0) order.push(id); });
-        if (order.join() !== ids.join()) {
-          order.forEach(function (id) { main.appendChild(document.getElementById(id)); });
-        }
-        var v = typeof s.variants === 'object' && s.variants !== null ? s.variants : {};
-        kids.forEach(function (k) {
-          var options = (k.getAttribute('data-variants') || '').split(' ');
-          if (options.indexOf(v[k.id]) > -1) k.setAttribute('data-variant', v[k.id]);
-        });
-      })();
-    </script>
-    <script>
-      import '../scripts/app.ts';
-    </script>
+    <script>import '../scripts/theme';</script>
   </body>
 </html>

@@ -1,26 +1,20 @@
 ---
-import { RESUME_URL, site } from '../config/site';
-
-const [first, ...rest] = site.sections;
+import { sections } from '../config/site';
+import { profile } from '../data/portfolio';
 ---
-
-<header class="nav">
-  <div class="wrap nav-in">
-    <a class="brand" href={`#${first.id}`} aria-label="Prajwal Hebbar, top of page">
-      <span class="brand-mark" aria-hidden="true">PH</span>prajwal.hebbar
-    </a>
-
-    <nav class="nav-links" aria-label="Sections">
-      {rest.map((s) => <a href={`#${s.id}`} data-order-item={s.id}>{s.label.toLowerCase()}</a>)}
-    </nav>
-
-    <div class="nav-tools">
-      <button class="tool tool-wide" type="button" id="schema-all" aria-pressed="false" title="Show every section's config">
-        {'{ }'} all
-      </button>
-      <button class="tool" type="button" data-open-editor aria-haspopup="dialog">config</button>
-      <button class="tool tool-sq" type="button" id="theme-toggle" aria-label="Switch between light and dark theme">◐</button>
-      <a class="tool" href={RESUME_URL} target="_blank" rel="noopener" aria-label="Résumé (PDF)">résumé ↓</a>
-    </div>
+<header class="site-header wrap">
+  <a class="brand" href="#intro" aria-label="Prajwal Hebbar, back to introduction">
+    <span class="brand-mark" aria-hidden="true">ph<span>.</span></span>
+    <span>Prajwal Hebbar<span class="brand-subtitle">Engineer & curious builder</span></span>
+  </a>
+  <nav aria-label="Main navigation">
+    {sections.filter((section) => !['hero', 'contact'].includes(section.type)).map((section) => <a href={`#${section.id}`}>{section.label}</a>)}
+  </nav>
+  <div class="nav-actions">
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Use dark theme" aria-pressed="false" hidden>
+      <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z" /></svg>
+      <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" /></svg>
+    </button>
+    <a class="button button-small nav-contact" href={`mailto:${profile.email}`}>Let’s talk <span aria-hidden="true">↗</span></a>
   </div>
 </header>

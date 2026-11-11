@@ -1,86 +1,18 @@
 ---
-import type { Project } from '../../data/portfolio';
-
-interface Props {
-  items: Project[];
-}
-
-const { items } = Astro.props;
+import { projects } from '../../data/portfolio';
+import ProjectPreview from '../ProjectPreview.astro';
 ---
-
-<div class="pj">
-  <div class="pj-tabs" role="tablist" aria-label="Projects" aria-orientation="vertical">
-    {
-      items.map((project, index) => (
-        <button
-          type="button"
-          role="tab"
-          id={`pj-tab-${index}`}
-          aria-controls={`pj-panel-${index}`}
-          aria-selected={index === 0 ? 'true' : 'false'}
-          tabindex={index === 0 ? '0' : '-1'}
-        >
-          <span class="pj-tab-name">{project.name}</span>
-          <span class="k">{project.status}</span>
-        </button>
-      ))
-    }
-  </div>
-
-  <div class="pj-panels">
-    {
-      items.map((project, index) => (
-        <article
-          class="pj-panel"
-          role="tabpanel"
-          id={`pj-panel-${index}`}
-          aria-labelledby={`pj-tab-${index}`}
-          hidden={index !== 0}
-        >
-          <header class="pj-head">
-            <h3>{project.name}</h3>
-            {project.repo ? (
-              <a class="link" href={project.repo} target="_blank" rel="noopener">
-                {project.repoLabel} ↗
-              </a>
-            ) : (
-              <span class="k">private repository</span>
-            )}
-          </header>
-          <p class="pj-tagline">{project.tagline}</p>
-          <p class="k">{project.kind}</p>
-
-          {project.media && (
-            <div class="pj-media">
-              {project.media.map((m) => (
-                <img src={m.src} alt={m.alt} loading="lazy" />
-              ))}
-            </div>
-          )}
-
-          <ul class="points">
-            {project.points.slice(0, 2).map((point) => (
-              <li set:html={point} />
-            ))}
-          </ul>
-          {project.points.length > 2 && (
-            <details class="more">
-              <summary>How it's built</summary>
-              <ul class="points">
-                {project.points.slice(2).map((point) => (
-                  <li set:html={point} />
-                ))}
-              </ul>
-            </details>
-          )}
-
-          <ul class="tags" aria-label="Technologies used">
-            {project.tech.map((technology) => (
-              <li>{technology}</li>
-            ))}
-          </ul>
-        </article>
-      ))
-    }
-  </div>
+<div class="section-intro"><p>Things I wanted to exist, so I built them.<br />Local-first apps for work, money and everyday life.</p><span class="section-aside">FOUR PROJECTS · ALL SHIPPED</span></div>
+<div class="projects-grid">
+  {projects.map((project, index) => <article class:list={['project-card', `project-${project.id}`]}>
+    <ProjectPreview kind={project.id} />
+    <div class="project-body">
+      <div class="project-meta"><span>{project.category}</span><span class="shipped"><span class="status-dot"></span>Shipped</span></div>
+      <div class="project-title"><h3>{project.name}</h3>{'repo' in project && <a class="project-repo" href={project.repo} target="_blank" rel="noreferrer" aria-label={`${project.name} source on GitHub`}>↗</a>}</div>
+      <p>{project.description}</p>
+      <div class="tech-tags">{project.tech.map(tech => <span>{tech}</span>)}</div>
+      <details><summary>Under the hood <span class="disclosure-plus" aria-hidden="true">+</span></summary><div class="project-details">{project.details.map(detail => <p>{detail}</p>)}{!('repo' in project) && <p class="private-note">Private repository.</p>}</div></details>
+      <span class="project-index" aria-hidden="true">0{index + 1}</span>
+    </div>
+  </article>)}
 </div>
