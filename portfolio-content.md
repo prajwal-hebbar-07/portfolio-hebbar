@@ -36,9 +36,9 @@
 
 Full-stack engineer working mainly in TypeScript: React and Next.js interfaces, Node.js APIs,
 PostgreSQL and SQLite, Docker, Nginx and GitHub Actions. Deep experience in schema-driven, configurable
-frontend architecture. At LYIK Technologies he works across three products — the v2 form-filling
-platform, the v3 configurable platform and admin dashboard, and a regulatory compliance dashboard
-he owned end to end. Client-facing throughout: gathers requirements directly from customers, leads
+frontend architecture. At LYIK Technologies he has worked across four products — three generations of the forms
+platform (started v1, top contributor on the v2 rewrite, core contributor on v3) and a regulatory
+compliance dashboard he owned end to end. Client-facing throughout: gathers requirements directly from customers, leads
 discussions across backend, QA and product teams, and mentors juniors and interns.
 
 - **Education:** B.E. in Computer Science Engineering, VVCE Mysuru
@@ -63,13 +63,19 @@ discussions across backend, QA and product teams, and mentors juniors and intern
   `node:sqlite` with Zod-validated Excel (xlsx) ingestion, email/password auth with in-memory bearer
   tokens, admin user management, monthly report persistence, two-container Docker Compose stack
   served under a configurable base path behind nginx
-- **v2 form-filling platform:** top contributor (~330 commits), from project initialization to
+- **Forms platform v1 (from Oct 2024):** started the original schema-driven React form app and wrote
+  most of it — forms rendered from server-sent JSON, DigiLocker, verification, e-sign, liveness,
+  maker-checker, Docker/Nginx, GitHub Actions to Azure
+- **v2 form-filling platform (from Mar 2025):** top contributor, from project initialization to
   production — axios client and interceptors, Tailwind→Material UI migration, Redux Toolkit store and
   theme slice, login and protected routes, forms/records APIs migrated to RTK Query, DigiLocker OAuth2,
   MediaPipe liveness, e-sign v1/v2, trusted APIs and LOV dropdowns, checker and submit flows,
   theme.json theming with a theme generator, SSO, request encryption, and GitHub Actions workflows
   building Docker images into Azure Container Registry for dev, staging, BFSI and production
-- **v3 configurable platform (~440 commits):**
+- **v3 configurable platform (from Feb 2026, second-largest contributor):**
+  - Multi-organisation sign-in with organisation-scoped tokens and per-tenant branding; versioned
+    v1/v2 API client with wire-level tests; tenant and configuration management; template-driven CSV
+    uploads with a formula/script cell guard; JSON-authored video-KYC journey
   - Restructured the repo into a Turborepo/pnpm monorepo, extracting types, auth, the API client,
     form core, the form transformer, the shared UI component library and the live e2e suite into
     workspace packages
