@@ -1,5 +1,5 @@
 ---
-import { profile } from '../data/portfolio';
+import { profile, capabilities } from '../data/portfolio';
 import SectionRail from './SectionRail.astro';
 ---
 
@@ -7,34 +7,39 @@ import SectionRail from './SectionRail.astro';
   <SectionRail label="About" />
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">About</span>
+      <span class="eyebrow">What I do</span>
       <h2>Full-stack engineer who owns products <span class="accent">end to end</span>.</h2>
+      <p>
+        I take a product from the first client conversation to production, in whichever layer the
+        problem lives. Five areas I can own, each with one piece of proof:
+      </p>
     </div>
+
+    <ul class="cap-grid">
+      {
+        capabilities.map((c, i) => (
+          <li class="card cap-card reveal" data-delay={String((i % 3) + 1)}>
+            <span class="cap-ic"><svg class="ic" data-lucide={c.icon}></svg></span>
+            <h3 class="cap-title">{c.title}</h3>
+            <p class="cap-proof">{c.proof}</p>
+          </li>
+        ))
+      }
+    </ul>
 
     <div class="about-grid">
       <div class="about-bio reveal" data-delay="1">
         <p>
-          I'm a <b>full-stack engineer</b> working mainly in TypeScript: <b>React and Next.js</b>
-          interfaces, <b>Node.js APIs</b> with <b>PostgreSQL and SQLite</b> behind them, and Docker,
-          Nginx and GitHub Actions to ship. At <b>LYIK Technologies</b> — where I was recently
-          promoted to Senior Engineer — I work across three products: the v2 form-filling platform,
-          the v3 configurable platform and its admin dashboard, and a compliance dashboard I owned
-          across the whole stack, from UI and API to database and deployment.
+          I work mainly in TypeScript: <b>React and Next.js</b> interfaces, <b>Node.js APIs</b> with
+          <b>PostgreSQL and SQLite</b> behind them, and Docker, Nginx and GitHub Actions to ship. At
+          <b>LYIK Technologies</b>, where I was recently promoted to Senior Engineer, I started v1
+          of the forms platform, led the v2 rewrite, and now build v3.
         </p>
         <p>
-          That ownership is the part I care about most: <b>gathering requirements directly from
-          customers</b>, leading the discussions that align backend, QA and product, taking a product
-          from that first conversation through architecture, build and <b>production deployment</b>,
-          and <b>mentoring</b> the intern who built features on top of it. The engineering underneath —
-          a config-driven dashboard renderer, a permission <b>guardrail</b> system, the
-          <b>maker-checker</b> workflow, the form <b>engines</b> (rules, derive, actions, navigator) and
-          their test suites — exists to make complex requirements feel effortless to use.
-        </p>
-        <p>
-          Outside work I go wider on purpose: a central <b>authentication service</b> (OIDC, MFA and
-          an audit trail on ZITADEL and PostgreSQL), <b>local-first desktop apps</b> in Tauri and
-          Rust, <b>Android apps</b> in Expo, and command-line tools. Whichever layer the problem
-          lives in, I can pick it up and ship it.
+          The part I care about most is ownership: <b>gathering requirements directly from
+          customers</b>, aligning backend, QA and product, and <b>mentoring</b> the people who build
+          on top of my work. Outside work I ship local-first desktop and mobile apps, and I am
+          building a central authentication service on ZITADEL and PostgreSQL.
         </p>
       </div>
 

@@ -32,9 +32,36 @@ export interface Experience {
   location: string;
   locationIcon: 'map-pin' | 'globe';
   current?: boolean;
+  /** One-line summary shown above the products / points. */
+  summary?: string;
+  /** Products worked on; each is one row with its points behind a disclosure. */
+  products?: Product[];
   points: string[]; // may contain <b>…</b> for emphasis
   tech: string[];
 }
+
+export interface Product {
+  name: string;
+  role: string;
+  when: string;
+  summary: string;
+  points: string[]; // may contain <b>…</b> for emphasis
+}
+
+export interface Capability {
+  icon: string; // lucide name
+  title: string;
+  proof: string; // one line of evidence
+}
+
+/** The skim layer: what he can own, each with one line of proof. */
+export const capabilities: Capability[] = [
+  { icon: 'code-2', title: 'Frontend', proof: 'Started a schema-driven form platform and carried it through three generations in React and TypeScript.' },
+  { icon: 'server', title: 'Backend & data', proof: 'Built the Node.js API, SQLite schema and audit tables behind a compliance dashboard used for monthly reporting.' },
+  { icon: 'shield-check', title: 'Auth & security', proof: 'Built multi-organisation sign-in, permission gating and client-side encryption for an enterprise platform.' },
+  { icon: 'cloud', title: 'DevOps & delivery', proof: 'Ships with Docker, Nginx and GitHub Actions to Azure; personal apps release as signed, self-updating builds.' },
+  { icon: 'monitor-smartphone', title: 'Mobile & desktop', proof: 'Four shipped local-first apps across Android, macOS, Windows and Linux with Expo, Tauri and Rust.' },
+];
 
 export const experiences: Experience[] = [
   {
@@ -48,14 +75,52 @@ export const experiences: Experience[] = [
     location: 'On-site · Bengaluru',
     locationIcon: 'map-pin',
     current: true,
-    points: [
-      'Owned a <b>regulatory compliance dashboard</b> for a financial-services client across the <b>full stack</b> — requirements with the client, React front end, Node.js API on SQLite with validated Excel ingestion, auth, and a Docker/nginx production deployment — and <b>mentored the intern</b> who shipped its provider-comparison and data-exclusion features.',
-      'Top contributor on the <b>v2 form-filling platform</b>, from project init to production: Redux Toolkit → RTK Query data layer, MUI theming, records and checker flows, DigiLocker, liveness/KYC, e-sign and trusted APIs, shipped to Azure via GitHub Actions.',
-      'Restructured <b>v3</b> into a Turborepo/pnpm monorepo — types, auth, API client, form core, transformer and shared UI split into workspace packages — and built its <b>admin dashboard</b>: a config-driven widget renderer, form management, and a <b>user-management tree-table</b> modelling the org as a hierarchy/DAG with full CRUD.',
-      'Built the persona/permission model behind both apps — <b>maker-checker</b> workflow state machine, <code>GuardRail</code> permission gating, bulk <b>CSV/ZIP onboarding</b>, trusted API records — and worked across the shared form <b>engines</b> (actions, rules, derive, navigator) with their unit, integration and e2e suites.',
-      'Ran <b>customer requirement discussions</b> and drove alignment across backend, QA and product teams, turning the outcomes into the JSON configuration models the platform ships with.',
-      'Delivered SSO, client-side encryption, JSON-driven theming and PWA/runtime config; shipped with <b>Docker/Nginx</b> and <b>GitHub Actions</b>, and contributed to the company\'s first enterprise client acquisition.',
+    summary: 'Three generations of an enterprise form platform, plus a compliance dashboard owned across the full stack. Client-facing throughout: requirements gathered directly with customers.',
+    products: [
+      {
+        name: 'Forms platform v3',
+        role: 'Core contributor',
+        when: 'Feb 2026 — Present',
+        summary: 'Configurable, multi-tenant form platform: one login, many organisations, every form driven by configuration.',
+        points: [
+          'Restructured it into a <b>Turborepo/pnpm monorepo</b> of one web app and eight packages, and built <b>multi-organisation sign-in</b> where one login is exchanged for an organisation-scoped token with per-tenant branding.',
+          'Built the <b>admin area</b> — tenant management, configuration settings and a <b>user-management tree</b> modelling the org as a hierarchy — on the persona/permission model behind it: <b>maker-checker</b> workflow, <code>GuardRail</code> permission gating, and template-driven bulk CSV uploads with a guard that rejects formula and script cells.',
+          'Split the API client into <b>versioned v1/v2 surfaces</b> with wire-level tests pinning every endpoint, built a JSON-authored <b>video-KYC journey</b> (ID capture, liveness, recording timeline), and wrote a large share of the unit, integration and <b>Playwright</b> suites plus the architecture docs.',
+        ],
+      },
+      {
+        name: 'Regulatory compliance dashboard',
+        role: 'Owner, full stack',
+        when: 'Feb 2026 — Oct 2026',
+        summary: 'Monthly regulatory reporting for a financial-services client, owned from the first client conversation to production.',
+        points: [
+          'Owned across the <b>full stack</b>: React front end, Node.js API on SQLite, and a Docker Compose deployment behind nginx, with requirements gathered directly from the client.',
+          'Report data arrives as Excel, is <b>validated with Zod</b> and previewed before it replaces a month; email/password login with admin user management restricts uploads and deletions by role.',
+          'Every upload and deletion is recorded, with database-level delete guards and <b>trigger-enforced append-only audit tables</b>; <b>mentored the intern</b> who built the provider-comparison and data-exclusion features on top.',
+        ],
+      },
+      {
+        name: 'Forms platform v2',
+        role: 'Top contributor',
+        when: 'Mar 2025 — Oct 2026',
+        summary: 'TypeScript rewrite of the form-filling app, taken from project init to production.',
+        points: [
+          'Built the data layer on <b>Redux Toolkit and RTK Query</b> behind an axios client with interceptors and request encryption.',
+          'Delivered DigiLocker sign-in, liveness/KYC, e-sign, trusted-API autofill, checker flows, SSO and JSON-driven theming, shipped to Azure via <b>GitHub Actions</b>.',
+        ],
+      },
+      {
+        name: 'Forms platform v1',
+        role: 'Started it',
+        when: 'Oct 2024 — Aug 2026',
+        summary: 'The original schema-driven form app: whole onboarding forms rendered from server-sent JSON, with no per-form code.',
+        points: [
+          'Started the project and wrote most of it: a <b>rendering engine</b> for sections, cards, tables and field types, with default values and visibility rules resolved through JSONPath.',
+          'Integrated DigiLocker, document verification, e-sign, payments and face-based liveness; added the maker-checker review flow; containerised with <b>Docker/Nginx</b> and deployed through GitHub Actions.',
+        ],
+      },
     ],
+    points: [],
     tech: ['React 19', 'TypeScript', 'Redux Toolkit', 'TanStack Query', 'Material UI', 'Turborepo', 'Node.js', 'SQLite', 'Vitest', 'Docker', 'GitHub Actions'],
   },
   {
@@ -188,7 +253,7 @@ PROFILE
 - Headline: Senior Full-Stack Engineer building configurable, enterprise-grade software end to end — React and TypeScript interfaces, Node.js APIs, SQL databases, and the Docker and CI/CD pipelines that ship them.
 
 ABOUT
-A full-stack engineer working mainly in TypeScript: React and Next.js interfaces, Node.js APIs, PostgreSQL and SQLite behind them, and Docker, Nginx and GitHub Actions to ship. Deepest experience is schema-driven, configurable frontend architecture, and he is comfortable owning the whole stack. At LYIK Technologies he works across three products — the v2 form-filling platform, the v3 configurable platform and admin dashboard, and a regulatory compliance dashboard for a financial-services client that he owned end to end — and is client-facing: he gathers requirements directly from customers, leads discussions across backend, QA and product teams, and mentors juniors. The thread: turning complex requirements into systems that feel effortless to use.
+A full-stack engineer working mainly in TypeScript: React and Next.js interfaces, Node.js APIs, PostgreSQL and SQLite behind them, and Docker, Nginx and GitHub Actions to ship. Deepest experience is schema-driven, configurable frontend architecture, and he is comfortable owning the whole stack. At LYIK Technologies he has worked across four products — three generations of the forms platform (v1, which he started and wrote most of; v2, the TypeScript rewrite where he is top contributor; and v3, the current configurable multi-tenant platform) and a regulatory compliance dashboard for a financial-services client that he owned end to end — and is client-facing: he gathers requirements directly from customers, leads discussions across backend, QA and product teams, and mentors juniors. The thread: turning complex requirements into systems that feel effortless to use.
 - Education: B.E. in Computer Science Engineering, VVCE Mysuru
 - Notable achievement: 30%+ efficiency gains through client-facing platform development
 
@@ -196,9 +261,11 @@ EXPERIENCE
 1) Senior Engineer — LYIK Technologies Private Limited (April 2026 – Present; previously Enterprise Engineer, April 2023 – March 2026; On-site, Bengaluru)
    - Promoted to Senior Engineer in April 2026, after shipping v2 and driving much of the v3 configurable form platform
    - Client-facing throughout: gathers requirements directly from customers, runs the discussions that align backend, QA and product teams, and turns the outcomes into the JSON configuration models the platforms ship with
-   - Regulatory compliance dashboard for a financial-services client (monthly reporting) — owned the product end to end, from requirement gathering with the client through architecture, build, production deployment and the handover documentation. React 19 + Vite 7 + Tailwind 4 front end, a small Node API on node:sqlite with Zod-validated Excel (xlsx) ingestion, email/password auth with in-memory bearer tokens, admin user management, and a two-container Docker Compose stack served under a configurable base path behind nginx. He explained the domain and the codebase to an intern and had him build the provider-comparison view, per-provider analysis section and the data-exclusion toggles on top of it
-   - v2 form-filling platform — top contributor with ~330 commits, from project initialization to production: axios client and interceptors, Tailwind→Material UI migration, Redux Toolkit store and theme slice, login and protected routes, forms/records APIs migrated to RTK Query, DigiLocker OAuth2, MediaPipe liveness, e-sign v1/v2, trusted APIs and LOV dropdowns, checker and submit flows, theme.json theming with a theme generator, SSO login/logout, request encryption, and GitHub Actions workflows building Docker images into Azure Container Registry for dev, staging and production
-   - v3 configurable platform — ~440 commits: restructured the repo into a Turborepo/pnpm monorepo, extracting types, auth, the API client, form core, the form transformer and the shared UI component library into workspace packages, and moving the live end-to-end suite into its own package
+   - Regulatory compliance dashboard for a financial-services client (monthly reporting) — owned the product end to end, from requirement gathering with the client through architecture, build, production deployment and the handover documentation. React 19 + Vite 7 + Tailwind 4 front end, a small Node API on node:sqlite with Zod-validated Excel (xlsx) ingestion, email/password auth with in-memory bearer tokens, admin user management, role-restricted uploads and deletions, a preview before an upload replaces a month, recorded uploads and deletions with database-level delete guards and trigger-enforced append-only audit tables, and a two-container Docker Compose stack served under a configurable base path behind nginx. He explained the domain and the codebase to an intern and had him build the provider-comparison view, per-provider analysis section and the data-exclusion toggles on top of it
+   - Forms platform v1 (from October 2024) — started the original schema-driven React form app and wrote most of it: a rendering engine that builds whole onboarding forms (sections, cards, tables, field types, default values, visibility rules via JSONPath) from server-sent JSON with no per-form code; DigiLocker Aadhaar fetch, bank and document verification, OTP, e-sign, payment redirects, face-based liveness, multi-file and ZIP upload; persona-based navigation, maker-checker review flow, token refresh and encrypted browser storage; Docker/Nginx with GitHub Actions deploying dev, stage and production to Azure
+   - v2 form-filling platform (from March 2025; the TypeScript rewrite) — top contributor, from project initialization to production: axios client and interceptors, Tailwind→Material UI migration, Redux Toolkit store and theme slice, login and protected routes, forms/records APIs migrated to RTK Query, DigiLocker OAuth2, MediaPipe liveness, e-sign v1/v2, trusted APIs and LOV dropdowns, checker and submit flows, theme.json theming with a theme generator, SSO login/logout, request encryption, and GitHub Actions workflows building Docker images into Azure Container Registry for dev, staging and production
+   - v3 configurable platform (from February 2026; the current, most stable version) — second-largest contributor: built multi-organisation sign-in (one login, organisation picker, identity token exchanged for an organisation-scoped access token, per-tenant branding and theme), split the API client into versioned v1/v2 surfaces chosen by configuration with wire-level tests pinning every endpoint, built tenant management and configuration settings in the admin area, made bulk CSV uploads template-driven with a guard that rejects formula and script cells, and built a JSON-authored video-KYC journey (camera/microphone/location gating, ID auto-capture, liveness, recording timeline)
+   - Also on v3: restructured the repo into a Turborepo/pnpm monorepo, extracting types, auth, the API client, form core, the form transformer and the shared UI component library into workspace packages, and moving the live end-to-end suite into its own package
    - Built the v3 admin dashboard: a config-driven widget rendering engine fed by dashboard.json (recursive group layout, records/activity widgets, status pie, skeletons), a form-management console (Material React Table over the forms API with create/delete and confirmation flows), and a user-management tree-table that models the org as a hierarchy/DAG (buildUserTree, multi-parent edges) with full user and relationship CRUD, search that keeps the tree structure, and relationship CSV download
    - Added bulk user onboarding via client-side CSV/ZIP upload (jszip), and a permission guardrail system: permission-gated routes, a reusable GuardRail component, form-list guards, and persona-based permissions
    - Built the maker-checker approval workflow and its state machine (BOA persona, role × section-type permission resolution, COMPLETED terminal state, checker messages, verify state, submit confirmation modal) and trusted API records (tokenized nodes protected against user overwrite)
@@ -295,10 +362,10 @@ export function fallbackAnswer(q: string): string {
     return 'Prajwal is a **full-stack engineer** working mainly in TypeScript. Highlights:\n- **Frontend:** React, Next.js, TypeScript, Redux Toolkit, TanStack Query\n- **Backend & data:** Node.js, Hono, REST APIs, PostgreSQL, SQLite, Rust (Tauri)\n- **Auth & security:** OIDC/OAuth2, SSO, MFA, permission models, client-side encryption\n- **DevOps:** Docker, Nginx, GitHub Actions, Azure\n- **Mobile & desktop:** React Native/Expo, Tauri 2\n- **Architecture & testing:** schema-driven UI, rule/derive/actions engines, monorepo, Vitest, Playwright\n\nSee the Skills section for the full breakdown.';
   }
   if (/experience|summary|summar|30|background|do\b|who/.test(s)) {
-    return 'The 30-second version: Prajwal is a **Senior Full-Stack Engineer** with nearly 5 years\' experience, based in Bengaluru — frontend, APIs, databases, auth and deployment. At **LYIK Technologies** — where he was **promoted to Senior Engineer in April 2026** — he shipped v2 of the enterprise form platform and drove much of v3: the admin dashboard (form + user management), a permission guardrail system, the maker-checker approval flow, and the core form engines. He\'s driven **30%+ efficiency gains** through client-facing platforms.';
+    return 'The 30-second version: Prajwal is a **Senior Full-Stack Engineer** with nearly 5 years\' experience, based in Bengaluru — frontend, APIs, databases, auth and deployment. At **LYIK Technologies** — where he was **promoted to Senior Engineer in April 2026** — he started v1 of the enterprise form platform, led the v2 rewrite and drove much of v3: the admin dashboard (form + user management), a permission guardrail system, the maker-checker approval flow, and the core form engines. He\'s driven **30%+ efficiency gains** through client-facing platforms.';
   }
   if (/lyik/.test(s)) {
-    return 'At **LYIK Technologies** (Senior Engineer since April 2026; Enterprise Engineer, April 2023 – March 2026) Prajwal:\n- Shipped v2 of the form-filling app (React 19 + Redux Toolkit) and drove much of **v3** as a configurable, schema-driven platform\n- Built the v3 **admin dashboard** — form management (Material React Table) and a **user-management tree-table** (org hierarchy/DAG) with full user & relationship CRUD over REST\n- Added bulk CSV/ZIP user onboarding, a permission **guardrail** system, the **maker-checker** approval flow, and trusted API records\n- Worked across the form **engines** (rules, derive, actions, navigator) with their test suites, plus SSO, client-side encryption and JSON-driven theming; set up Docker/Nginx and GitHub Actions CI/CD';
+    return 'At **LYIK Technologies** (Senior Engineer since April 2026; Enterprise Engineer, April 2023 – March 2026) Prajwal:\n- Started **v1** of the form-filling app, was top contributor on the **v2** TypeScript rewrite, and drove much of **v3** as a configurable, multi-tenant platform\n- Built the v3 **admin dashboard** — form management (Material React Table) and a **user-management tree-table** (org hierarchy/DAG) with full user & relationship CRUD over REST\n- Added bulk CSV/ZIP user onboarding, a permission **guardrail** system, the **maker-checker** approval flow, and trusted API records\n- Worked across the form **engines** (rules, derive, actions, navigator) with their test suites, plus SSO, client-side encryption and JSON-driven theming; set up Docker/Nginx and GitHub Actions CI/CD';
   }
   return 'I can summarize Prajwal\'s experience, his skills, specific roles (like LYIK), or how to contact him. What would you like to know? For anything not on the site, email him at prajwalhebbaras@gmail.com.';
 }

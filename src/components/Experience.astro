@@ -41,9 +41,32 @@ const pad = (n: number) => String(n).padStart(2, '0');
               </div>
 
               <div class="xp-body">
-                <ul class="xp-points">
-                  {xp.points.map((point) => <li set:html={point} />)}
-                </ul>
+                {xp.summary && <p class="xp-lede">{xp.summary}</p>}
+
+                {xp.products && (
+                  <div class="prod-list">
+                    {xp.products.map((product) => (
+                      <details class="prod">
+                        <summary>
+                          <span class="prod-head">
+                            <span class="prod-name">{product.name}</span>
+                            <span class="prod-role">{product.role}</span>
+                          </span>
+                          <span class="prod-summary">{product.summary}</span>
+                        </summary>
+                        <ul class="xp-points">
+                          {product.points.map((point) => <li set:html={point} />)}
+                        </ul>
+                      </details>
+                    ))}
+                  </div>
+                )}
+
+                {xp.points.length > 0 && (
+                  <ul class="xp-points">
+                    {xp.points.map((point) => <li set:html={point} />)}
+                  </ul>
+                )}
 
                 <div class="tech-row" aria-label="Technologies used">
                   {xp.tech.map((technology) => <span class="tech-tag">{technology}</span>)}

@@ -10,7 +10,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Projects</span>
-      <h2>Local-first desktop software, <span class="accent">built to last.</span></h2>
+      <h2>Local-first apps, <span class="accent">shipped and installable.</span></h2>
     </div>
 
     <div class="pj-switch reveal">
@@ -82,8 +82,17 @@ const pad = (n: number) => String(n).padStart(2, '0');
               <p class="pj-panel-tagline">{project.tagline}</p>
 
               <ul class="pj-panel-points">
-                {project.points.map((point) => <li set:html={point} />)}
+                {project.points.slice(0, 2).map((point) => <li set:html={point} />)}
               </ul>
+
+              {project.points.length > 2 && (
+                <details class="more">
+                  <summary>How it's built</summary>
+                  <ul class="pj-panel-points">
+                    {project.points.slice(2).map((point) => <li set:html={point} />)}
+                  </ul>
+                </details>
+              )}
 
               <footer class="pj-panel-foot">
                 <div class="pj-panel-tech" aria-label="Technologies used">
