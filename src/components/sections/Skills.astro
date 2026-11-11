@@ -1,0 +1,24 @@
+---
+interface Props {
+  groups: { title: string; skills: string[] }[];
+}
+
+const { groups } = Astro.props;
+---
+
+<dl class="sk">
+  {
+    groups.map((g) => (
+      <div class="sk-group">
+        <dt>{g.title}</dt>
+        <dd>
+          <ul class="tags">
+            {g.skills.map((s) => (
+              <li>{s}</li>
+            ))}
+          </ul>
+        </dd>
+      </div>
+    ))
+  }
+</dl>

@@ -1,6 +1,6 @@
 /* ============================================================
    Prajwal Hebbar — Portfolio content (single source of truth).
-   Drives the rendered sections AND the AI assistant's grounding.
+   Referenced by src/config/site.ts, which decides what renders where.
    All facts come from portfolio-content.md — do not invent any.
    ============================================================ */
 
@@ -146,6 +146,8 @@ export interface Project {
   status: string;
   year?: string; // shown in the project panel footer; em dash when absent
   shipped?: boolean; // solid accent pill vs tinted "in progress" pill
+  /** Screenshots or clips, served from /public. Rendered only when present. */
+  media?: { src: string; alt: string }[];
   points: string[]; // may contain <b>…</b> for emphasis
   tech: string[];
 }
@@ -239,133 +241,49 @@ export const skillGroups: SkillGroup[] = [
   { icon: 'users', title: 'Delivery & Ownership', alt: true, full: true, skills: ['Requirement Gathering', 'Client Communication', 'Cross-team Coordination', 'Mentoring', 'Production Deployment', 'Technical Documentation'] },
 ];
 
-/* ── AI assistant grounding ──────────────────────────────────────────────── */
+/* ── Forms platform, three generations ───────────────────────────────────── */
 
-export const PORTFOLIO_CONTENT = `
-PROFILE
-- Name: Prajwal Hebbar
-- Role: Senior Engineer (at LYIK Technologies)
-- Status: Available for opportunities
-- Location: Bengaluru, India
-- Experience: Nearly 5 years
-- Languages: English, Kannada, Hindi
-- Positioning: Senior Full-Stack Engineer — works across frontend, backend APIs, databases, authentication, DevOps, and mobile/desktop apps
-- Headline: Senior Full-Stack Engineer building configurable, enterprise-grade software end to end — React and TypeScript interfaces, Node.js APIs, SQL databases, and the Docker and CI/CD pipelines that ship them.
-
-ABOUT
-A full-stack engineer working mainly in TypeScript: React and Next.js interfaces, Node.js APIs, PostgreSQL and SQLite behind them, and Docker, Nginx and GitHub Actions to ship. Deepest experience is schema-driven, configurable frontend architecture, and he is comfortable owning the whole stack. At LYIK Technologies he has worked across four products — three generations of the forms platform (v1, which he started and wrote most of; v2, the TypeScript rewrite where he is top contributor; and v3, the current configurable multi-tenant platform) and a regulatory compliance dashboard for a financial-services client that he owned end to end — and is client-facing: he gathers requirements directly from customers, leads discussions across backend, QA and product teams, and mentors juniors. The thread: turning complex requirements into systems that feel effortless to use.
-- Education: B.E. in Computer Science Engineering, VVCE Mysuru
-- Notable achievement: 30%+ efficiency gains through client-facing platform development
-
-EXPERIENCE
-1) Senior Engineer — LYIK Technologies Private Limited (April 2026 – Present; previously Enterprise Engineer, April 2023 – March 2026; On-site, Bengaluru)
-   - Promoted to Senior Engineer in April 2026, after shipping v2 and driving much of the v3 configurable form platform
-   - Client-facing throughout: gathers requirements directly from customers, runs the discussions that align backend, QA and product teams, and turns the outcomes into the JSON configuration models the platforms ship with
-   - Regulatory compliance dashboard for a financial-services client (monthly reporting) — owned the product end to end, from requirement gathering with the client through architecture, build, production deployment and the handover documentation. React 19 + Vite 7 + Tailwind 4 front end, a small Node API on node:sqlite with Zod-validated Excel (xlsx) ingestion, email/password auth with in-memory bearer tokens, admin user management, role-restricted uploads and deletions, a preview before an upload replaces a month, recorded uploads and deletions with database-level delete guards and trigger-enforced append-only audit tables, and a two-container Docker Compose stack served under a configurable base path behind nginx. He explained the domain and the codebase to an intern and had him build the provider-comparison view, per-provider analysis section and the data-exclusion toggles on top of it
-   - Forms platform v1 (from October 2024) — started the original schema-driven React form app and wrote most of it: a rendering engine that builds whole onboarding forms (sections, cards, tables, field types, default values, visibility rules via JSONPath) from server-sent JSON with no per-form code; DigiLocker Aadhaar fetch, bank and document verification, OTP, e-sign, payment redirects, face-based liveness, multi-file and ZIP upload; persona-based navigation, maker-checker review flow, token refresh and encrypted browser storage; Docker/Nginx with GitHub Actions deploying dev, stage and production to Azure
-   - v2 form-filling platform (from March 2025; the TypeScript rewrite) — top contributor, from project initialization to production: axios client and interceptors, Tailwind→Material UI migration, Redux Toolkit store and theme slice, login and protected routes, forms/records APIs migrated to RTK Query, DigiLocker OAuth2, MediaPipe liveness, e-sign v1/v2, trusted APIs and LOV dropdowns, checker and submit flows, theme.json theming with a theme generator, SSO login/logout, request encryption, and GitHub Actions workflows building Docker images into Azure Container Registry for dev, staging and production
-   - v3 configurable platform (from February 2026; the current, most stable version) — second-largest contributor: built multi-organisation sign-in (one login, organisation picker, identity token exchanged for an organisation-scoped access token, per-tenant branding and theme), split the API client into versioned v1/v2 surfaces chosen by configuration with wire-level tests pinning every endpoint, built tenant management and configuration settings in the admin area, made bulk CSV uploads template-driven with a guard that rejects formula and script cells, and built a JSON-authored video-KYC journey (camera/microphone/location gating, ID auto-capture, liveness, recording timeline)
-   - Also on v3: restructured the repo into a Turborepo/pnpm monorepo, extracting types, auth, the API client, form core, the form transformer and the shared UI component library into workspace packages, and moving the live end-to-end suite into its own package
-   - Built the v3 admin dashboard: a config-driven widget rendering engine fed by dashboard.json (recursive group layout, records/activity widgets, status pie, skeletons), a form-management console (Material React Table over the forms API with create/delete and confirmation flows), and a user-management tree-table that models the org as a hierarchy/DAG (buildUserTree, multi-parent edges) with full user and relationship CRUD, search that keeps the tree structure, and relationship CSV download
-   - Added bulk user onboarding via client-side CSV/ZIP upload (jszip), and a permission guardrail system: permission-gated routes, a reusable GuardRail component, form-list guards, and persona-based permissions
-   - Built the maker-checker approval workflow and its state machine (BOA persona, role × section-type permission resolution, COMPLETED terminal state, checker messages, verify state, submit confirmation modal) and trusted API records (tokenized nodes protected against user overwrite)
-   - Worked across the core form engines in the shared form package — actions, rules (persona/permission-based hide and disable), derive (array handling) and navigator (array-boundary navigation) — and wrote their unit/integration test suites
-   - Delivered an SSO login flow, client-side encryption, JSON-driven theming (theme.json, custom themes, logo fallback), funcex expression support, liveness/KYC detection with pose challenges, ID obfuscation, multi-file/ZIP upload, PWA and runtime nginx config, plus the architecture and plain-English documentation set
-   - Set up Docker/Nginx containerization and GitHub Actions CI/CD; built a Frappe-based ERP and a ServiceNow integration POC
-   - Contributed to the company's first enterprise client acquisition
-   - Tech: React 19, TypeScript, Redux Toolkit, RTK Query, TanStack Query, Material UI, Material React Table, Tailwind CSS 4, Vite, Node.js, SQLite, Zod, Turborepo/pnpm monorepo, JSON-driven config, Vitest, Playwright, Docker, Nginx, GitHub Actions, Azure, Frappe
-
-2) Associate Web Developer — Content Enablers Inc. (March 2022 – March 2023, Remote, Bengaluru)
-   - Website revamp using ReactJS and Bootstrap 5
-   - Google Analytics and Google Tag Manager integration
-   - Tech: React, Bootstrap 5, Strapi CMS, Google Analytics, GTM
-
-PROJECTS (personal; open-source repositories at github.com/prajwal-hebbar-07)
-1) Logbook — personal attendance and leave log (https://github.com/prajwal-hebbar-07/tracker-mobile), shipped with releases
-   - Android app (Expo), Mac desktop widget (Tauri 2 + React, plus a native SwiftUI WidgetKit widget) and a command-line tool (Ink terminal UI) in one npm workspaces monorepo
-   - One platform-free core package (@logbook/core) holds dates, summaries, leave spans, reports and CSV/Excel export, shared unchanged by all three clients
-   - Widget and CLI share one log file kept outside the app bundle so updates never touch the data; a JSON backup moves the log between phone and Mac
-   - Month heatmap, year totals, leave by type, planning leave in advance over a date range, Excel workbook export
-   - Released through GitHub Actions; the widget self-updates after verifying the download's signature
-   - Tech: Expo, React Native, Tauri 2, React, TypeScript, Rust, Ink, SwiftUI, npm workspaces, GitHub Actions
-
-2) Prompt Burn — local dashboard for AI coding token usage (https://github.com/prajwal-hebbar-07/prompt-burn)
-   - Shipped, with versioned GitHub releases; Tauri 2 desktop app, same UI in a VS Code editor tab, shared local SQLite (~/.prompt-burn/db.sqlite); no web app, account, or cloud
-   - Dollar figure is an estimate of what OMP session logs and Cursor usage would cost if billed at public pay-as-you-go rates, strictly for comparison and not an invoice
-   - Usage is read on this machine from OMP session logs and Cursor, then priced from a bundled versioned public rate table; unknown models show an em dash, never $0, and price retroactively when added
-   - Provider usage clocks (Claude 5-hour and 7-day windows, Ollama Cloud, Cursor included pools) are quoted on their own panel and never mixed into estimated cost
-   - Fetch runs on open and when asked, and previous numbers stay on screen while a fetch runs
-   - Tech: Tauri 2, VS Code Extension, React, TypeScript, Tailwind CSS, SQLite, Node.js, pnpm workspace
-
-3) LedgerFlow — local-first desktop expense tracker (https://github.com/prajwal-hebbar-07/ledger-flow)
-   - Tauri 2 + React 19 + Rust desktop app for macOS, Linux and Windows; single-user, offline, one SQLite file on the machine, no account/server/sync/telemetry
-   - One row per money movement in a single expense table: spend, income, transfer between own accounts and credit-card charge differ only by direction and which of account/card/to-account is set; amounts are positive integers in minor units
-   - Balances are derived in SQL (opening balance plus every transaction that touched the account) — no stored running total that can drift
-   - Five screens (Overview, Transactions, Analytics, Report, Settings): period-over-period deltas, charts built from CSS boxes rather than a charting library, fixed-charge holdout on the daily series, and a rules-based report generator that needs no model
-   - Optional Ollama integration (cloud or local daemon) categorises transactions in batches against a closed 14-category vocabulary and rewrites the report prose; the model writes sentences, never figures, and results are stamped with the model that wrote them
-   - Release engineering: GitHub Actions cuts macOS/Linux/Windows builds sequentially, minisign-signed manifest drives in-app auto-update; disk and network access live in Rust #[tauri::command]s, the webview never fetches
-   - Tech: Tauri 2, React 19, TypeScript, Rust, SQLite, Tailwind CSS 4, Ollama, pnpm workspace, Turborepo, GitHub Actions, node:test
-
-4) GrowthOS — local-first study-plan tracker (private repository, no public link)
-   - Ships as a macOS desktop app (Tauri 2 + React 19) and an Android/iOS app (Expo 57 / React Native), preloaded with an eight-week AI-backend curriculum; no account, no server, nothing uploaded
-   - pnpm + Turborepo monorepo whose shared package (@growth-os/learning) is consumed as TypeScript source with no build step, so both clients share one model, one set of validators and the eight bundled courses
-   - Desktop persistence is SQLite through rusqlite (bundled): one dated row per finished task, so totals and the consecutive-day streak are derived from the ordered completion history and re-ticking never rewrites the original date
-   - Task chat and day summaries call Ollama from Rust rather than the webview, so the API key never reaches the frontend; the system prompt is rebuilt from the current path on every send
-   - Day summaries are written from that day's own ticks and task conversations, never stored, and saved as markdown into a folder you pick — appended under a dated heading so an earlier note or hand edit is never overwritten
-   - Versioned JSON backup/restore merges into the device and preserves the dates tasks were finished; a newer format version is rejected whole rather than partially losing ticks
-   - Tech: Tauri 2, React 19, TypeScript, Rust, SQLite, Expo 57, React Native, Ollama, pnpm workspace, Turborepo, GitHub Actions
-
-SKILLS
-- Frontend: React, Next.js, Astro, TypeScript, JavaScript, Redux Toolkit, TanStack Query, RTK Query, React Hook Form
-- Backend & APIs: Node.js, Hono, REST APIs, Zod-validated contracts, Rust (Tauri commands), Frappe ERP, LLM integration (Ollama)
-- Databases & Data: PostgreSQL, SQLite, SQL migrations, schema design, offline sync (outbox, last-write-wins), Excel/CSV ingestion
-- Auth & Security: OIDC/OAuth2, SSO, ZITADEL, MFA (TOTP, passkeys), role and permission models, audit logging, client-side encryption
-- DevOps & Cloud: Docker, Docker Compose, Nginx, GitHub Actions, Azure, Vercel, signed release pipelines
-- Mobile, Desktop & CLI: React Native, Expo, Tauri 2, Rust, VS Code extension, terminal UI (Ink), local-first apps
-- Architecture & Testing: System design, schema-driven UI, rule/derive/actions engines, monorepo (Turborepo, pnpm), architecture decision records, Vitest, Playwright, React Testing Library
-- UI & Design Systems: Material UI, Tailwind CSS, Design Tokens, Responsive Design, Figma, Paper
-- Delivery & Ownership: Requirement gathering with customers, client communication, cross-team coordination (backend, QA, product), mentoring juniors and interns, production deployment and handover documentation
-
-FULL-STACK WORK BEYOND THE LISTED PROJECTS (personal, private repositories)
-- Central authentication service: a Hono (Node.js, TypeScript) backend and React login frontend in front of self-hosted ZITADEL, with OIDC for registered apps, a client-credentials account API, password/TOTP/passkey/email-code sign-in, lockout, an app registry with a separate admin console, a hash-chained audit log in PostgreSQL, Docker Compose deployment, Vitest and Playwright suites, and architecture decision records
-- Auth Quest: a gamified learning app — Hono API, pure rules engine (XP, streaks, SM-2 spaced repetition), node:sqlite with versioned migrations, React + Vite UI, answers checked on the server
-
-CONTACT
-- Email: prajwalhebbaras@gmail.com
-- Phone: +91 9483924880
-- LinkedIn: https://www.linkedin.com/in/prajwal-hebbar-a-s-a213b121a/
-- GitHub: https://github.com/prajwal-hebbar-07
-`.trim();
-
-export const SYSTEM_PROMPT = `You are Prajwal's AI assistant, embedded on his portfolio site. You help visitors (often recruiters) quickly learn about Prajwal Hebbar.
-
-VOICE: sharp, warm, and concise — like a helpful friend who handles the boring part. Confident and calm, never hyper or corporate, no exclamation-point hype, no emoji. Sentence case. Get to the point in 2–5 short sentences; use a tight bullet list only when it genuinely helps.
-
-GROUNDING: Answer ONLY from the PORTFOLIO CONTENT below. Do not invent facts, dates, numbers, employers, or projects. If something isn't covered, say so plainly (e.g. "That's not on the site — but you can ask Prajwal directly at prajwalhebbaras@gmail.com.") and point to the best section or contact method.
-
-STYLE: Refer to him as "Prajwal" or "he". When useful, point to the relevant section (About, Experience, Skills, Contact). For contact questions, give the actual email / links from the content. Keep it skimmable. Use simple markdown: **bold** for emphasis, "- " bullets, and plain URLs.
-
-PORTFOLIO CONTENT
-${PORTFOLIO_CONTENT}`;
-
-/**
- * Deterministic, still-grounded reply used when no ANTHROPIC_API_KEY is set
- * (or the model call fails). Mirrors the prototype's offline behaviour so the
- * assistant never invents facts and the site stays usable without a key.
- */
-export function fallbackAnswer(q: string): string {
-  const s = (q || '').toLowerCase();
-  if (/contact|email|reach|hire|touch|phone|linkedin|github/.test(s)) {
-    return 'Easiest ways to reach Prajwal:\n- **Email** prajwalhebbaras@gmail.com\n- **Phone** +91 9483924880\n- **LinkedIn** https://www.linkedin.com/in/prajwal-hebbar-a-s-a213b121a/\n- **GitHub** https://github.com/prajwal-hebbar-07\n\nHe\'s currently open to opportunities.';
-  }
-  if (/skill|stack|tech|proficien/.test(s)) {
-    return 'Prajwal is a **full-stack engineer** working mainly in TypeScript. Highlights:\n- **Frontend:** React, Next.js, TypeScript, Redux Toolkit, TanStack Query\n- **Backend & data:** Node.js, Hono, REST APIs, PostgreSQL, SQLite, Rust (Tauri)\n- **Auth & security:** OIDC/OAuth2, SSO, MFA, permission models, client-side encryption\n- **DevOps:** Docker, Nginx, GitHub Actions, Azure\n- **Mobile & desktop:** React Native/Expo, Tauri 2\n- **Architecture & testing:** schema-driven UI, rule/derive/actions engines, monorepo, Vitest, Playwright\n\nSee the Skills section for the full breakdown.';
-  }
-  if (/experience|summary|summar|30|background|do\b|who/.test(s)) {
-    return 'The 30-second version: Prajwal is a **Senior Full-Stack Engineer** with nearly 5 years\' experience, based in Bengaluru — frontend, APIs, databases, auth and deployment. At **LYIK Technologies** — where he was **promoted to Senior Engineer in April 2026** — he started v1 of the enterprise form platform, led the v2 rewrite and drove much of v3: the admin dashboard (form + user management), a permission guardrail system, the maker-checker approval flow, and the core form engines. He\'s driven **30%+ efficiency gains** through client-facing platforms.';
-  }
-  if (/lyik/.test(s)) {
-    return 'At **LYIK Technologies** (Senior Engineer since April 2026; Enterprise Engineer, April 2023 – March 2026) Prajwal:\n- Started **v1** of the form-filling app, was top contributor on the **v2** TypeScript rewrite, and drove much of **v3** as a configurable, multi-tenant platform\n- Built the v3 **admin dashboard** — form management (Material React Table) and a **user-management tree-table** (org hierarchy/DAG) with full user & relationship CRUD over REST\n- Added bulk CSV/ZIP user onboarding, a permission **guardrail** system, the **maker-checker** approval flow, and trusted API records\n- Worked across the form **engines** (rules, derive, actions, navigator) with their test suites, plus SSO, client-side encryption and JSON-driven theming; set up Docker/Nginx and GitHub Actions CI/CD';
-  }
-  return 'I can summarize Prajwal\'s experience, his skills, specific roles (like LYIK), or how to contact him. What would you like to know? For anything not on the site, email him at prajwalhebbaras@gmail.com.';
+export interface Generation {
+  version: string;
+  when: string;
+  role: string;
+  scope: string;
+  /** What is rendered from configuration rather than written per client. */
+  configDrives: string[];
+  architecture: string;
+  access: string;
+  delivery: string;
 }
+
+export const evolution: Generation[] = [
+  {
+    version: 'v1',
+    when: 'Oct 2024',
+    role: 'Started it, wrote most of it',
+    scope: 'The original schema-driven form app: whole onboarding forms rendered from server-sent JSON, with no per-form code.',
+    configDrives: ['Forms'],
+    architecture: 'A rendering engine for sections, cards, tables and field types, with default values and visibility rules resolved through JSONPath.',
+    access: 'Persona-based navigation, maker-checker review, token refresh and encrypted browser storage.',
+    delivery: 'Docker and Nginx; GitHub Actions deploying dev, stage and production to Azure.',
+  },
+  {
+    version: 'v2',
+    when: 'Mar 2025',
+    role: 'Top contributor, init to production',
+    scope: 'The TypeScript rewrite of the form-filling app.',
+    configDrives: ['Forms', 'Themes'],
+    architecture: 'Redux Toolkit and RTK Query behind an axios client with interceptors and request encryption; Tailwind migrated to Material UI; theming from theme.json with a theme generator.',
+    access: 'Login and protected routes, DigiLocker OAuth2, SSO, checker and submit flows.',
+    delivery: 'GitHub Actions building Docker images into Azure Container Registry for dev, staging and production.',
+  },
+  {
+    version: 'v3',
+    when: 'Feb 2026',
+    role: 'Core contributor',
+    scope: 'Configurable, multi-tenant platform: one login, many organisations, every form driven by configuration.',
+    configDrives: ['Forms', 'Themes', 'Dashboard widgets', 'Video-KYC journey', 'API version', 'Tenant branding'],
+    architecture: 'Turborepo/pnpm monorepo of one web app and eight packages; shared form engines (actions, rules, derive, navigator); versioned v1/v2 API client with wire-level tests pinning every endpoint.',
+    access: 'Organisation-scoped tokens, GuardRail permission gating, and a maker-checker workflow state machine.',
+    delivery: 'PWA with runtime nginx config; unit, integration and Playwright end-to-end suites; architecture documentation.',
+  },
+];

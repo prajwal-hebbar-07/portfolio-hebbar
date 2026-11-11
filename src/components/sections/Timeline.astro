@@ -1,0 +1,75 @@
+---
+import type { Experience } from '../../data/portfolio';
+
+interface Props {
+  entries: Omit<Experience, 'locationIcon'>[];
+}
+
+const { entries } = Astro.props;
+---
+
+<div class="tl">
+  {
+    entries.map((xp) => (
+      <article class="tl-row">
+        <div class="tl-meta">
+          <h3>{xp.role}</h3>
+          <p class="tl-company">{xp.company}</p>
+          <p class="k">
+            {xp.when}
+            <br />
+            {xp.location}
+          </p>
+          {xp.progression && (
+            <ol class="tl-track" aria-label="Role progression">
+              {xp.progression.map((step) => (
+                <li>
+                  <span>{step.role}</span>
+                  <span class="k">{step.when}</span>
+                </li>
+              ))}
+            </ol>
+          )}
+        </div>
+
+        <div class="tl-body">
+          {xp.summary && <p class="tl-lede">{xp.summary}</p>}
+
+          {xp.products && (
+            <div class="prods">
+              {xp.products.map((product) => (
+                <details class="prod">
+                  <summary>
+                    <span class="prod-name">{product.name}</span>
+                    <span class="k">{product.role}</span>
+                    <span class="k prod-when">{product.when}</span>
+                    <span class="prod-summary">{product.summary}</span>
+                  </summary>
+                  <ul class="points">
+                    {product.points.map((point) => (
+                      <li set:html={point} />
+                    ))}
+                  </ul>
+                </details>
+              ))}
+            </div>
+          )}
+
+          {xp.points.length > 0 && (
+            <ul class="points">
+              {xp.points.map((point) => (
+                <li set:html={point} />
+              ))}
+            </ul>
+          )}
+
+          <ul class="tags" aria-label="Technologies used">
+            {xp.tech.map((technology) => (
+              <li>{technology}</li>
+            ))}
+          </ul>
+        </div>
+      </article>
+    ))
+  }
+</div>

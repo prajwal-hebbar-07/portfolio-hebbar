@@ -1,0 +1,62 @@
+---
+import { highlightJson } from '../../lib/json';
+import { site } from '../../config/site';
+
+interface Props {
+  status: string;
+  headline: string;
+  lede: string;
+  claim: string;
+  actions: { label: string; href: string; primary?: boolean; external?: boolean }[];
+  links: { label: string; href: string }[];
+}
+
+const { status, headline, lede, claim, actions, links } = Astro.props;
+
+/* The pane's first paint: the defaults. src/scripts/app.ts re-renders it from
+   the visitor's stored config on load and after every change. */
+const runtime = {
+  theme: 'system',
+  accent: 'blueprint',
+  density: 'comfortable',
+  sections: site.sections.map((s) => ({ id: s.id, variant: s.variants?.[0] })),
+};
+---
+
+<div class="hero">
+  <div class="hero-copy">
+    <p class="status"><span class="dot" aria-hidden="true"></span>{status}</p>
+    <h1 set:html={headline} />
+    <p class="hero-lede">{lede}</p>
+    <p class="hero-claim">{claim}</p>
+    <div class="hero-actions">
+      {
+        actions.map((a) => (
+          <a
+            class:list={['btn', a.primary && 'btn-primary']}
+            href={a.href}
+            target={a.external ? '_blank' : undefined}
+            rel={a.external ? 'noopener' : undefined}
+          >
+            {a.label}
+          </a>
+        ))
+      }
+      {
+        links.map((l) => (
+          <a class="link" href={l.href} target="_blank" rel="noopener">
+            {l.label} ↗
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <aside class="pane hero-pane" aria-label="This page's current config">
+    <div class="pane-head">
+      <span>runtime config</span>
+      <button class="tool" type="button" data-open-editor>edit</button>
+    </div>
+    <pre class="json" id="live-config" tabindex="0" set:html={highlightJson(runtime)} />
+  </aside>
+</div>

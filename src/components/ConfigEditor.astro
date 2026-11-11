@@ -1,0 +1,68 @@
+---
+/* The runtime-config editor. Its controls are not hand-written: each one is
+   rendered from a field in prefsSchema, and every click is handled by one
+   delegated listener in src/scripts/app.ts keyed on data-pref / data-value. */
+import { prefsSchema } from '../config/prefs';
+import { site } from '../config/site';
+---
+
+<dialog class="editor" id="editor" aria-labelledby="editor-title">
+  <div class="editor-in">
+    <div class="pane-head">
+      <span id="editor-title">runtime config</span>
+      <button class="tool" type="button" id="editor-close">close</button>
+    </div>
+
+    <div class="editor-body">
+      {
+        prefsSchema.map((field) => (
+          <div class="editor-field">
+            <span class="k">{field.label}</span>
+            {field.control === 'segmented' && (
+              <div class="seg" role="group" aria-label={field.label}>
+                {field.options.map((o) => (
+                  <button type="button" data-pref={field.key} data-value={o.value} aria-pressed="false">
+                    {o.label}
+                  </button>
+                ))}
+              </div>
+            )}
+            {field.control === 'swatch' && (
+              <div class="swatches" role="group" aria-label={field.label}>
+                {field.options.map((o) => (
+                  <button
+                    class="sw"
+                    type="button"
+                    data-pref={field.key}
+                    data-value={o.value}
+                    aria-pressed="false"
+                    aria-label={o.label}
+                    title={o.label}
+                    style={`--sw-d:${o.swatch?.[0]};--sw-l:${o.swatch?.[1]}`}
+                  />
+                ))}
+              </div>
+            )}
+            {field.control === 'order' && (
+              <ol class="order">
+                {site.sections.map((s) => (
+                  <li data-order-item={s.id}>
+                    <span>{s.id}</span>
+                    <button class="tool tool-sq" type="button" data-order-move="up" aria-label={`Move ${s.label} up`}>↑</button>
+                    <button class="tool tool-sq" type="button" data-order-move="down" aria-label={`Move ${s.label} down`}>↓</button>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </div>
+        ))
+      }
+      <pre class="json" id="editor-json" tabindex="0" aria-label="Current config as JSON"></pre>
+    </div>
+
+    <div class="editor-foot">
+      <span class="k">saved in this browser</span>
+      <button class="tool" type="button" id="editor-reset">reset to defaults</button>
+    </div>
+  </div>
+</dialog>

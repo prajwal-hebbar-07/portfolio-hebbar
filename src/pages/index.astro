@@ -1,26 +1,47 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
-import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
-import Experience from '../components/Experience.astro';
-import Projects from '../components/Projects.astro';
-import Skills from '../components/Skills.astro';
-import Contact from '../components/Contact.astro';
+import Section from '../components/Section.astro';
 import Footer from '../components/Footer.astro';
-import PersonalizePanel from '../components/PersonalizePanel.astro';
+import ConfigEditor from '../components/ConfigEditor.astro';
+import Hero from '../components/sections/Hero.astro';
+import FormDemo from '../components/sections/FormDemo.astro';
+import Evolution from '../components/sections/Evolution.astro';
+import Timeline from '../components/sections/Timeline.astro';
+import Projects from '../components/sections/Projects.astro';
+import Skills from '../components/sections/Skills.astro';
+import About from '../components/sections/About.astro';
+import Contact from '../components/sections/Contact.astro';
+import { site, type SectionType } from '../config/site';
+
+/* type → component. A section in the config renders only through this map. */
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+const registry: Record<SectionType, any> = {
+  hero: Hero,
+  'form-demo': FormDemo,
+  evolution: Evolution,
+  timeline: Timeline,
+  projects: Projects,
+  skills: Skills,
+  about: About,
+  contact: Contact,
+};
 ---
 
 <Layout>
   <Nav />
-  <main id="sections">
-    <Hero />
-    <About />
-    <Experience />
-    <Projects />
-    <Skills />
-    <Contact />
+  <main id="sections" data-default-order={site.sections.map((s) => s.id).join(' ')}>
+    {
+      site.sections.map((section) => {
+        const Body = registry[section.type];
+        return (
+          <Section section={section}>
+            <Body {...section.props} />
+          </Section>
+        );
+      })
+    }
   </main>
   <Footer />
-  <PersonalizePanel />
+  <ConfigEditor />
 </Layout>

@@ -1,0 +1,36 @@
+---
+interface Props {
+  bio: string[];
+  capabilities: { title: string; proof: string }[];
+  facts: { key: string; value: string }[];
+}
+
+const { bio, capabilities, facts } = Astro.props;
+---
+
+<div class="about">
+  <div class="about-bio">
+    {bio.map((paragraph) => <p set:html={paragraph} />)}
+    <dl class="kv">
+      {
+        facts.map((f) => (
+          <div>
+            <dt class="k">{f.key}</dt>
+            <dd>{f.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+
+  <ul class="caps">
+    {
+      capabilities.map((c) => (
+        <li>
+          <h3>{c.title}</h3>
+          <p>{c.proof}</p>
+        </li>
+      ))
+    }
+  </ul>
+</div>

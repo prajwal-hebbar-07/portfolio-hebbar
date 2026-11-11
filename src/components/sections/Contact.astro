@@ -1,0 +1,24 @@
+---
+interface Props {
+  channels: { key: string; value: string; href: string }[];
+}
+
+const { channels } = Astro.props;
+---
+
+<ul class="contact">
+  {
+    channels.map((c) => {
+      const external = c.href.startsWith('http');
+      return (
+        <li>
+          <a href={c.href} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>
+            <span class="k">{c.key}</span>
+            <span class="contact-value">{c.value}</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </li>
+      );
+    })
+  }
+</ul>
