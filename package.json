@@ -3,14 +3,13 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Prajwal Hebbar — Full Stack Developer portfolio. Built with Astro on the Oni Do design system.",
+  "description": "Prajwal Hebbar — Senior Full-Stack Engineer portfolio. Built with Astro; rendered from a section config.",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "astro": "astro"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.104.1",
     "@astrojs/vercel": "^10.0.8",
     "astro": "^6.4.6"
   }
