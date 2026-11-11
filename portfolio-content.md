@@ -8,7 +8,7 @@
 ## Meta
 
 - **Name:** Prajwal Hebbar
-- **Title / Role:** Full Stack Developer
+- **Title / Role:** Senior Full-Stack Engineer (job title: Senior Engineer, LYIK)
 - **Status:** Available for opportunities
 - **Location:** Bengaluru, India
 - **Experience:** Nearly 5 years
@@ -26,7 +26,7 @@
 
 ## Hero
 
-**Headline:** Full Stack Developer building scalable, performant, and intelligent web experiences with React, Next.js, Web3 & AI
+**Headline:** I build full-stack software for complex enterprise workflows.
 
 **Sub-status:** Available for opportunities
 
@@ -34,7 +34,8 @@
 
 ## About
 
-Specializes in ReactJS, Next.js, and TypeScript, with deep experience in schema-driven, configurable
+Full-stack engineer working mainly in TypeScript: React and Next.js interfaces, Node.js APIs,
+PostgreSQL and SQLite, Docker, Nginx and GitHub Actions. Deep experience in schema-driven, configurable
 frontend architecture. At LYIK Technologies he works across three products — the v2 form-filling
 platform, the v3 configurable platform and admin dashboard, and a regulatory compliance dashboard
 he owned end to end. Client-facing throughout: gathers requirements directly from customers, leads
@@ -108,13 +109,15 @@ discussions across backend, QA and product teams, and mentors juniors and intern
 
 ## Skills
 
-- **Frontend Core:** ReactJS, Next.js, TypeScript, JavaScript, Redux Toolkit
-- **UI & Styling:** Material UI, TailwindCSS, Design Tokens, Bootstrap 5, CSS/HTML, Responsive Design
-- **Architecture:** Schema-driven UI, Rule/Derive/Actions engines, Monorepo, JSON Logic/JSONPath, System Design
-- **State, Data & Testing:** TanStack Query, RTK Query, React Hook Form, Zod, SQLite, Vitest, Playwright
-- **Backend & DevOps:** Node.js, Docker, Nginx, GitHub Actions, AWS, Vercel, Azure, Client-side Encryption, SSO
+- **Frontend:** React, Next.js, Astro, TypeScript, JavaScript, Redux Toolkit, TanStack Query, React Hook Form
+- **Backend & APIs:** Node.js, Hono, REST APIs, Zod-validated contracts, Rust (Tauri commands), Frappe ERP, LLM integration (Ollama)
+- **Databases & Data:** PostgreSQL, SQLite, SQL migrations, schema design, offline sync (outbox), Excel/CSV ingestion
+- **Auth & Security:** OIDC/OAuth2, SSO, ZITADEL, MFA (TOTP, passkeys), role & permission models, audit logging, client-side encryption
+- **DevOps & Cloud:** Docker, Docker Compose, Nginx, GitHub Actions, Azure, Vercel, signed release pipelines
+- **Mobile, Desktop & CLI:** React Native, Expo, Tauri 2, Rust, VS Code extension, terminal UI (Ink), local-first apps
+- **Architecture & Testing:** System design, schema-driven UI, Rule/Derive/Actions engines, Monorepo (Turborepo, pnpm), ADRs, Vitest, Playwright
+- **UI & Design Systems:** Material UI, Tailwind CSS, Design Tokens, Responsive Design, Figma, Paper
 - **Delivery & Ownership:** Requirement gathering, client communication, cross-team coordination, mentoring, production deployment, technical documentation
-- **Tools & Other:** Git/GitHub, Frappe ERP, Figma, Paper, ServiceNow
 
 ---
 
