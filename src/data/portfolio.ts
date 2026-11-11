@@ -87,12 +87,30 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    name: 'Logbook',
+    tagline: 'Personal attendance and leave log — Android app, Mac desktop widget and command-line tool over one shared core.',
+    kind: 'npm workspaces monorepo · Expo · Tauri 2 · Ink CLI · SwiftUI widget',
+    repo: 'https://github.com/prajwal-hebbar-07/tracker-mobile',
+    repoLabel: 'prajwal-hebbar-07/tracker-mobile',
+    status: 'Shipped',
+    shipped: true,
+    points: [
+      'Three clients over <b>one platform-free core</b>: <code>@logbook/core</code> holds dates, summaries, leave spans, reports and CSV/Excel export with no React, storage or native code, so the Expo app, the Tauri widget and the CLI share it unchanged.',
+      'The Mac widget and the <code>logbook</code> CLI read and write <b>one log file</b> kept outside the app bundle, so reinstalling or updating never touches the data; a JSON backup moves the log between phone and Mac.',
+      'Reporting built in: a month heatmap, year totals, leave by type, <b>plan leave in advance</b> across a date range, and an Excel workbook with one row per calendar day.',
+      'A native <b>WidgetKit</b> widget in SwiftUI sits beside the Tauri app, built with the Command Line Tools alone, and redraws when the app or the CLI changes the log.',
+      'Released through <b>GitHub Actions</b>; the widget checks the release feed, <b>verifies the download&rsquo;s signature</b> against a key built into the app, then replaces itself and restarts.',
+    ],
+    tech: ['Expo', 'React Native', 'Tauri 2', 'React', 'TypeScript', 'Rust', 'Ink', 'SwiftUI', 'npm workspaces', 'GitHub Actions'],
+  },
+  {
     name: 'Prompt Burn',
     tagline: 'Local dashboard for OMP and Cursor token usage, shown as estimated public pay-as-you-go cost; nothing leaves the machine.',
     kind: 'Tauri 2 desktop app, same UI in a VS Code editor tab, shared local SQLite',
     repo: 'https://github.com/prajwal-hebbar-07/prompt-burn',
     repoLabel: 'prajwal-hebbar-07/prompt-burn',
-    status: 'Active build',
+    status: 'Shipped',
+    shipped: true,
     points: [
       'Calculates what OMP session logs and Cursor usage would cost if billed at <b>public pay-as-you-go rates</b>, strictly for comparison and not an invoice.',
       'Desktop app and VS Code editor tab share <b>one local database</b> at <code>~/.prompt-burn/db.sqlite</code>, with no web app, account, or cloud.',
@@ -101,21 +119,6 @@ export const projects: Project[] = [
       '<b>Non-blocking local fetch</b> runs on launch and when asked; previous numbers stay on screen while a fetch runs.',
     ],
     tech: ['Tauri 2', 'VS Code Extension', 'React', 'TypeScript', 'Tailwind CSS', 'SQLite', 'Node.js', 'pnpm workspace'],
-  },
-  {
-    name: 'anime-list',
-    tagline: 'Personal offline-first anime tracker — catalogue, per-episode progress, optional self-hosted sync between desktop and Android.',
-    kind: 'Tauri 2 + React desktop, Expo Android, shared TypeScript model, optional Node + SQLite sync server',
-    repo: 'https://github.com/prajwal-hebbar-07/anime-list',
-    repoLabel: 'prajwal-hebbar-07/anime-list',
-    status: 'Active build',
-    points: [
-      'Both desktop and mobile clients operate <b>fully offline on local SQLite</b>, tracking catalogue entries, seasons, categories, and per-episode watch progress.',
-      'Core schema, migrations, CRUD helpers, and sync protocol live in a <b>shared TypeScript package</b> consumed directly as source across all apps.',
-      'Sync is <b>optional and self-hosted</b> with an outbox and last-write-wins conflict resolution — no third-party accounts, cloud tracking, or subscriptions.',
-      'Optional <b>Ollama extraction</b> on the sync server converts public anime URLs into structured metadata and synopsis, caching posters locally for offline viewing.',
-    ],
-    tech: ['Tauri 2', 'React 19', 'Expo 57', 'React Native', 'TypeScript', 'SQLite', 'Node.js', 'Ollama', 'Docker', 'pnpm workspace'],
   },
   {
     name: 'LedgerFlow',
@@ -133,22 +136,6 @@ export const projects: Project[] = [
       'Ships via <b>GitHub Actions</b> for macOS/Linux/Windows with <b>minisign-signed auto-update</b>; disk and network access live in Rust commands, the webview never fetches.',
     ],
     tech: ['Tauri 2', 'React 19', 'TypeScript', 'Rust', 'SQLite', 'Tailwind CSS 4', 'Ollama', 'Turborepo', 'GitHub Actions'],
-  },
-  {
-    name: 'Flex State',
-    tagline: 'Offline gamified home-workout desktop app, plus the reactive store it is built on.',
-    kind: 'pnpm + Turborepo monorepo · Tauri 2 · React 19',
-    repo: 'https://github.com/prajwal-hebbar-07/flex-state',
-    repoLabel: 'prajwal-hebbar-07/flex-state',
-    status: 'Active build',
-    points: [
-      '<b>Deterministic plan generation</b>: the same profile, catalog and locations always produce an identical weekly plan, and the generator version stamped on each snapshot forces an explicit regeneration instead of a silent replay.',
-      'Personalization keyed to a <b>training ground</b> — each place carries its own equipment set and exclusions, so eligibility is computed per location rather than from global checkboxes.',
-      'XP, level, rank, streak and weekly count are <b>derived from the ordered completion history</b>; an <code>INSERT OR IGNORE</code> on the date primary key makes a repeat claim idempotent, with no mutable summary row to drift.',
-      'Every persisted value passes a <b>runtime shape guard</b> that fails closed — a single corrupt row is skipped instead of blocking boot.',
-      'Published <code>flex-state</code> as a framework-agnostic store (<code>Object.is</code> dedupe, detachable methods) with a React 19 binding over <code>useSyncExternalStore</code>; tested with Vitest and Node&rsquo;s native test runner.',
-    ],
-    tech: ['Tauri 2', 'React 19', 'TypeScript', 'Rust', 'SQLite', 'pnpm workspace', 'Turborepo', 'Vitest', 'Biome'],
   },
   {
     name: 'GrowthOS',
@@ -227,21 +214,21 @@ EXPERIENCE
    - Tech: React, Bootstrap 5, Strapi CMS, Google Analytics, GTM
 
 PROJECTS (personal; open-source repositories at github.com/prajwal-hebbar-07)
-1) Prompt Burn — local dashboard for AI coding token usage (https://github.com/prajwal-hebbar-07/prompt-burn)
-   - Tauri 2 desktop app, same UI in a VS Code editor tab, shared local SQLite (~/.prompt-burn/db.sqlite); no web app, account, or cloud
+1) Logbook — personal attendance and leave log (https://github.com/prajwal-hebbar-07/tracker-mobile), shipped with releases
+   - Android app (Expo), Mac desktop widget (Tauri 2 + React, plus a native SwiftUI WidgetKit widget) and a command-line tool (Ink terminal UI) in one npm workspaces monorepo
+   - One platform-free core package (@logbook/core) holds dates, summaries, leave spans, reports and CSV/Excel export, shared unchanged by all three clients
+   - Widget and CLI share one log file kept outside the app bundle so updates never touch the data; a JSON backup moves the log between phone and Mac
+   - Month heatmap, year totals, leave by type, planning leave in advance over a date range, Excel workbook export
+   - Released through GitHub Actions; the widget self-updates after verifying the download's signature
+   - Tech: Expo, React Native, Tauri 2, React, TypeScript, Rust, Ink, SwiftUI, npm workspaces, GitHub Actions
+
+2) Prompt Burn — local dashboard for AI coding token usage (https://github.com/prajwal-hebbar-07/prompt-burn)
+   - Shipped, with versioned GitHub releases; Tauri 2 desktop app, same UI in a VS Code editor tab, shared local SQLite (~/.prompt-burn/db.sqlite); no web app, account, or cloud
    - Dollar figure is an estimate of what OMP session logs and Cursor usage would cost if billed at public pay-as-you-go rates, strictly for comparison and not an invoice
    - Usage is read on this machine from OMP session logs and Cursor, then priced from a bundled versioned public rate table; unknown models show an em dash, never $0, and price retroactively when added
    - Provider usage clocks (Claude 5-hour and 7-day windows, Ollama Cloud, Cursor included pools) are quoted on their own panel and never mixed into estimated cost
    - Fetch runs on open and when asked, and previous numbers stay on screen while a fetch runs
    - Tech: Tauri 2, VS Code Extension, React, TypeScript, Tailwind CSS, SQLite, Node.js, pnpm workspace
-
-2) anime-list — personal offline-first anime tracker (https://github.com/prajwal-hebbar-07/anime-list)
-   - Tauri 2 + React desktop, Expo Android, shared TypeScript model, optional Node + SQLite sync server
-   - Both clients work fully offline on local SQLite: catalogue, per-episode watch progress, seasons and custom categories
-   - Schema, migrations, CRUD helpers and sync protocol live in one shared TypeScript package consumed as source with no build step
-   - Sync is optional, self-hosted, outbox + last-write-wins conflict resolution, with no third-party account
-   - Optional Ollama extraction on the server converts public anime URLs into structured metadata, caching posters locally for offline viewing
-   - Tech: Tauri 2, React 19, Expo 57, React Native, TypeScript, SQLite, Node.js, Ollama, Docker, pnpm workspace
 
 3) LedgerFlow — local-first desktop expense tracker (https://github.com/prajwal-hebbar-07/ledger-flow)
    - Tauri 2 + React 19 + Rust desktop app for macOS, Linux and Windows; single-user, offline, one SQLite file on the machine, no account/server/sync/telemetry
@@ -252,16 +239,7 @@ PROJECTS (personal; open-source repositories at github.com/prajwal-hebbar-07)
    - Release engineering: GitHub Actions cuts macOS/Linux/Windows builds sequentially, minisign-signed manifest drives in-app auto-update; disk and network access live in Rust #[tauri::command]s, the webview never fetches
    - Tech: Tauri 2, React 19, TypeScript, Rust, SQLite, Tailwind CSS 4, Ollama, pnpm workspace, Turborepo, GitHub Actions, node:test
 
-4) Flex State — offline gamified home-workout desktop app (https://github.com/prajwal-hebbar-07/flex-state)
-   - pnpm + Turborepo monorepo: a Tauri 2 + React 19 desktop app, a published framework-agnostic store package (flex-state), a React UI package, and a shared TypeScript config
-   - Deterministic offline plan generation: identical profile + catalog + locations produce an identical weekly plan; the generator version is stamped on every saved plan and a mismatch forces a regeneration flow
-   - Personalization by training ground — each location carries its own equipment set and per-place exercise exclusions, so exercise eligibility is computed per location, not from global flags
-   - Gamified progression derived from the ordered completion history (total XP, level, rank E→S, streak, weekly count); one row per local completion date with INSERT OR IGNORE, so re-claiming a day grants XP once
-   - Strict runtime shape guards on every persisted value, failing closed so one corrupt row never blocks boot; idempotent SQLite schema and catalog seed on each launch
-   - flex-state itself: createStore<T> with Object.is dedupe and detachable methods, bound to React 19 through useSyncExternalStore
-   - Tech: Tauri 2, React 19, TypeScript, Rust, SQLite, pnpm workspace, Turborepo, Vitest, node --experimental-strip-types --test, Biome 2
-
-5) GrowthOS — local-first study-plan tracker (private repository, no public link)
+4) GrowthOS — local-first study-plan tracker (private repository, no public link)
    - Ships as a macOS desktop app (Tauri 2 + React 19) and an Android/iOS app (Expo 57 / React Native), preloaded with an eight-week AI-backend curriculum; no account, no server, nothing uploaded
    - pnpm + Turborepo monorepo whose shared package (@growth-os/learning) is consumed as TypeScript source with no build step, so both clients share one model, one set of validators and the eight bundled courses
    - Desktop persistence is SQLite through rusqlite (bundled): one dated row per finished task, so totals and the consecutive-day streak are derived from the ordered completion history and re-ticking never rewrites the original date
@@ -284,7 +262,6 @@ SKILLS
 FULL-STACK WORK BEYOND THE LISTED PROJECTS (personal, private repositories)
 - Central authentication service: a Hono (Node.js, TypeScript) backend and React login frontend in front of self-hosted ZITADEL, with OIDC for registered apps, a client-credentials account API, password/TOTP/passkey/email-code sign-in, lockout, an app registry with a separate admin console, a hash-chained audit log in PostgreSQL, Docker Compose deployment, Vitest and Playwright suites, and architecture decision records
 - Auth Quest: a gamified learning app — Hono API, pure rules engine (XP, streaks, SM-2 spaced repetition), node:sqlite with versioned migrations, React + Vite UI, answers checked on the server
-- Logbook: attendance and leave log shipped three ways from one shared TypeScript core — Expo Android app, Tauri Mac widget and an Ink command-line tool — with Excel/CSV export and a GitHub Actions release
 
 CONTACT
 - Email: prajwalhebbaras@gmail.com
