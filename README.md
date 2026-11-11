@@ -1,138 +1,46 @@
 # Prajwal Hebbar — Portfolio
 
-A bold, dark-mode developer portfolio for **Prajwal Hebbar, Full Stack Developer**, built with
-**Astro** on the **Oni Do design system**. Single-page scroll layout with a grounded, streaming
-**AI assistant** powered by the Anthropic API.
+A single-page portfolio for **Prajwal Hebbar, Senior Full-Stack Engineer**, built with **Astro**.
 
-This implements the design handed off from [claude.ai/design](https://claude.ai/design)
-(`Prajwal Hebbar - Portfolio.html`) as a real Astro site — pixel-faithful to the prototype, with
-the assistant rewired to a secure server-side route.
+The page is rendered from a config, the way the products it describes are: every section is one
+entry in `src/config/site.ts`, drawn by the component registered for its `type`. Visitors can
+inspect each section's entry, switch its variant, reorder sections and change theme, accent and
+density. The reasons behind the design are in `docs/design-direction.md`.
 
-## Stack
+## How it works
 
-- **[Astro](https://astro.build)** — static pages + one on-demand API route (Vercel adapter).
-- **Oni Do design system** — OKLCH color tokens, Space Grotesk / Hanken Grotesk / JetBrains Mono
-  type, soft radii, diffuse shadows + vermilion glow. Tokens live in `src/styles/tokens.css`.
-- **[Lucide](https://lucide.dev)** icons (CDN).
-- **[@anthropic-ai/sdk](https://www.npmjs.com/package/@anthropic-ai/sdk)** for the assistant.
+- **`src/config/site.ts`** — the section list. Reordering the array reorders the page.
+- **`src/pages/index.astro`** — the `type → component` registry and the render loop.
+- **`src/components/Section.astro`** — the shell around every section: signature, variant switch,
+  schema pane, move buttons. The schema pane prints that section's config entry.
+- **`src/config/prefs.ts`** — the runtime config a visitor may change, and the schema the editor
+  panel (`ConfigEditor.astro`) is rendered from. Stored in `localStorage` under `ph_config`.
+- **`src/lib/form-engine.ts`** + **`src/config/demo-form.ts`** — the form-engine demo: visibility
+  rules, derived fields and a maker-checker workflow evaluated from one JSON schema.
+  `src/scripts/engine-demo.ts` renders it.
+- **`src/data/portfolio.ts`** — the content (experience, projects, skills) the config refers to.
+- **`src/styles/tokens.css`** — design tokens; **`src/styles/site.css`** — everything else.
+
+To add project screenshots, put the files in `public/` and add
+`media: [{ src: '/file.png', alt: '…' }]` to the project in `src/data/portfolio.ts`.
 
 ## Getting started
 
 ```bash
-npm install
-cp .env.example .env      # then add your ANTHROPIC_API_KEY
-npm run dev               # http://localhost:4321
+pnpm install
+pnpm dev                  # http://localhost:4321
+pnpm build                # outputs a Vercel Build Output API bundle
 ```
 
-The site runs **without a key** — the assistant falls back to a deterministic, still-grounded
-answer so nothing breaks. Add a key to get live, streamed Claude responses.
-
-### Production build
-
-```bash
-npm run build             # outputs a Vercel Build Output API bundle
-```
-
-The Vercel adapter does not support `astro preview`. Use `npm run dev` for local development or
-`npx vercel dev` after linking the project to emulate Vercel locally.
+The Vercel adapter does not support `astro preview`. Use `pnpm dev` locally.
 
 ## Deploy to Vercel
 
-The project uses Astro's official `@astrojs/vercel` adapter. The portfolio page is prerendered,
-while `src/pages/api/chat.ts` is deployed as a Vercel Function.
-
-### Vercel dashboard
-
-1. Push this repository to GitHub, GitLab, or Bitbucket.
-2. In Vercel, select **Add New > Project** and import the repository.
-3. Keep the detected **Astro** framework preset and default build settings.
-4. Add `ANTHROPIC_API_KEY` and, optionally, `CLAUDE_MODEL` under **Environment Variables**.
-5. Select **Deploy**.
-
-Vercel automatically creates preview deployments for branches and production deployments for
-the production branch.
-
-### Vercel CLI
-
-```bash
-npx vercel          # link the project and create a preview deployment
-npx vercel --prod   # deploy to production
-```
-
-Add environment variables through the Vercel dashboard or with `npx vercel env add`.
-
-## Environment variables
-
-| Variable            | Required | Default            | Purpose                                                                 |
-| ------------------- | -------- | ------------------ | ----------------------------------------------------------------------- |
-| `ANTHROPIC_API_KEY` | No\*     | —                  | Server-side key for the assistant. Without it, the canned fallback runs. |
-| `CLAUDE_MODEL`      | No       | `claude-opus-4-8`  | Which Claude model the assistant uses.                                  |
-
-\* Not required to run the site, but required for live AI answers. **The key is read only on the
-server** (`src/pages/api/chat.ts`) and is never exposed to the browser.
-
-For a faster / cheaper assistant (this is simple grounded Q&A), set `CLAUDE_MODEL=claude-haiku-4-5`.
-
-## The AI assistant
-
-A floating "Ask AI" button opens a docked chat panel (desktop) / near-full-screen sheet (mobile).
-It answers visitor questions about Prajwal **only** from his portfolio content.
-
-- **Grounding & prompt** live in one place: `src/data/portfolio.ts` (`PORTFOLIO_CONTENT`,
-  `SYSTEM_PROMPT`, and the offline `fallbackAnswer`). This same module also drives the rendered
-  Experience, Projects and Skills sections, so content stays in sync.
-- **Server route:** `src/pages/api/chat.ts` streams the reply from the Anthropic Messages API
-  token-by-token (`client.messages.stream`). The browser reads the response body as a stream.
-- **Swap the grounding/model:** edit `src/data/portfolio.ts` for content, or set `CLAUDE_MODEL`.
-
-## Portfolio Assistant (`/assistant`)
-
-A standalone, full-screen chat surface at **`/assistant`** that talks to the **Go portfolio API**
-(`POST /api/v1/portfolio/ask`). It implements the `Portfolio Assistant.html` design from
-claude.ai/design: starter chips, streamed-feel typing indicator, follow-up chips, a guardrail
-state for off-topic prompts, inline validation (blank / >500 chars), and a dark/light toggle.
-
-How it connects:
-
-- The browser posts `{ prompt }` to the **same-origin proxy** `src/pages/api/portfolio/ask.ts`
-  (so there's no CORS and the backend URL stays server-side and configurable).
-- The proxy forwards to `${PORTFOLIO_API_URL}/api/v1/portfolio/ask` (default
-  `http://127.0.0.1:8000`), mirrors the backend's validation contract (`400` blank / too-long,
-  `422` missing field), and normalizes the success body to `{ answer }`.
-- If the Go backend is **unreachable or times out**, the proxy returns a grounded, on-topic
-  **offline answer** (from `src/data/assistant.ts`) so the page keeps working. Off-topic prompts
-  get the guardrail reply, and the matching answer styling is chosen client-side via the same
-  keyword router the design used.
-
-Run the backend per its own docs (`make run` / `go run ./cmd/server`, default port `8000`), set
-`PORTFOLIO_API_URL` if it lives elsewhere, then open `/assistant`. All assistant content (identity,
-starter prompts, canned/offline answers, guardrail, validation rules) lives in
-`src/data/assistant.ts`.
+The project uses Astro's `@astrojs/vercel` adapter and is fully prerendered: there are no server
+routes and no environment variables. Import the repository in Vercel and keep the detected Astro
+preset, or run `npx vercel` / `npx vercel --prod`.
 
 ## Résumé
 
-The résumé button is a placeholder (shows a toast). Drop a PDF in `public/` (e.g.
-`public/prajwal-hebbar-resume.pdf`) and point the `[data-resume]` links at it in
-`src/components/Nav.astro` to wire it up.
-
-## Project structure
-
-```
-src/
-  data/
-    portfolio.ts           # portfolio content + Claude grounding/prompt/fallback (source of truth)
-    assistant.ts           # /assistant identity, starters, validation, guardrail, offline answers
-  styles/                  # tokens.css (Oni Do) + portfolio.css + assistant-ui.css
-  layouts/Layout.astro     # portfolio page <head>, global styles, Lucide + client script
-  components/               # Nav, Hero, About, Experience, Projects, Skills, Contact, Footer, Assistant
-  scripts/
-    app.ts                 # portfolio page: theme, nav, scroll-reveal, mobile menu, toast
-    assistant.ts           # /assistant chat client (markdown, composer, proxy calls)
-  pages/
-    index.astro            # the portfolio page
-    assistant.astro        # the standalone Portfolio Assistant chat surface
-    api/
-      chat.ts              # floating site assistant — Anthropic streaming (prerender = false)
-      portfolio/ask.ts     # /assistant proxy → Go backend /api/v1/portfolio/ask (prerender = false)
-public/favicon.svg
-```
+`resume/resume.html` is the source; `resume/build.sh` builds `public/Prajwal Hebbar - Resume.pdf`,
+which the nav and hero link to.
