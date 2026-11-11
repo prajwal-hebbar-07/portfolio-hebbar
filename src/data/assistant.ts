@@ -23,7 +23,7 @@ export interface Starter {
 
 export const identity = {
   name: 'Prajwal Hebbar',
-  role: 'Senior Engineer · Bengaluru',
+  role: 'Senior Full-Stack Engineer · Bengaluru',
   tagline: 'Ask about my experience, skills, projects, or how to reach me.',
   status: 'Powered by the portfolio assistant',
 } as const;
@@ -50,7 +50,7 @@ export const answers: Record<AnswerId, string> = {
   summary: `Here's a quick summary of Prajwal's portfolio:
 
 **Who he is**
-A Senior Engineer with nearly 5 years of experience, based in Bengaluru. He's open to new opportunities and specializes in React, Next.js, TypeScript, and configurable, schema-driven frontend architecture.
+A Senior Full-Stack Engineer with nearly 5 years of experience, based in Bengaluru. He's open to new opportunities and works across the stack in TypeScript — React and Next.js interfaces, Node.js APIs, PostgreSQL and SQLite, auth, and Docker/CI/CD — with deep experience in configurable, schema-driven frontend architecture.
 
 **Current role**
 Senior Engineer at **LYIK Technologies** (promoted in April 2026; Enterprise Engineer, Apr 2023 – Mar 2026). He works across three products: the v2 enterprise form platform (top contributor, from project init to production), the v3 configurable platform — Turborepo monorepo, config-driven admin dashboard, user-management tree-table, permission guardrails, maker-checker workflow, and the form engines (rules, derive, actions, navigator) with their test suites — and a regulatory compliance dashboard for a financial-services client, which he owned end to end from requirement gathering through deployment, mentoring an intern on it along the way. He's client-facing: he runs requirement discussions with customers and aligns backend, QA and product teams. He contributed to the company's first enterprise client win.
@@ -59,7 +59,7 @@ Senior Engineer at **LYIK Technologies** (promoted in April 2026; Enterprise Eng
 - **Associate Web Developer at Content Enablers Inc.** (Mar 2022 – Mar 2023) — led a React + Bootstrap 5 site revamp with GA/GTM integration.
 
 **Strengths**
-Frontend (React, Next.js, Redux Toolkit, TypeScript), UI & design systems (Material UI, Tailwind), architecture (schema-driven UI, rule/derive/actions engines, monorepo, JSON Logic), and backend/DevOps/security (Node.js, Docker, CI/CD, AES encryption, SSO, PWA).
+Frontend (React, Next.js, Redux Toolkit, TypeScript), backend and data (Node.js, Hono, REST APIs, PostgreSQL, SQLite, Rust), auth and security (OIDC/OAuth2, SSO, MFA, permission models, client-side encryption), DevOps (Docker, Nginx, GitHub Actions, Azure), mobile and desktop (React Native/Expo, Tauri 2), and architecture (schema-driven UI, rule/derive/actions engines, monorepo).
 
 **Education**
 B.E. in Computer Science, VVCE Mysuru (VTU).
@@ -82,29 +82,38 @@ Want me to go deeper into any specific role, project, or skill set?`,
 - **Associate Web Developer — Content Enablers Inc.** (Mar 2022 – Mar 2023)
   Led a website revamp with React and Bootstrap 5, plus GA/GTM integration for product analytics.
 
-A clear pattern: complex, configurable frontend systems with real production scale. Want to dig into any of these?`,
+A clear pattern: complex, configurable systems owned across the stack, at real production scale. Want to dig into any of these?`,
 
   skills: `Here's a quick rundown of Prajwal's technical skills:
 
 **Frontend**
-- ReactJS, Next.js, TypeScript, JavaScript, Redux Toolkit
+- React, Next.js, Astro, TypeScript, JavaScript, Redux Toolkit, TanStack Query, React Hook Form
+
+**Backend & APIs**
+- Node.js, Hono, REST APIs, Zod-validated contracts, Rust (Tauri commands), Frappe ERP, LLM integration (Ollama)
+
+**Databases & Data**
+- PostgreSQL, SQLite, SQL migrations, schema design, offline sync, Excel/CSV ingestion
+
+**Auth & Security**
+- OIDC/OAuth2, SSO, ZITADEL, MFA (TOTP, passkeys), role and permission models, audit logging, client-side encryption
+
+**DevOps & Cloud**
+- Docker, Docker Compose, Nginx, GitHub Actions, Azure, Vercel
+
+**Mobile, Desktop & CLI**
+- React Native, Expo, Tauri 2, Rust, VS Code extension, terminal UI (Ink)
+
+**Architecture & Testing**
+- System design, schema-driven UI, rule/derive/actions engines, monorepo, Vitest, Playwright, React Testing Library
 
 **UI & Design Systems**
-- Material UI, TailwindCSS, Design Tokens, Responsive Design, Figma
-
-**Architecture**
-- Schema-driven UI, Rule/Derive/Actions engines, Monorepo, JSON Logic/JSONPath, System Design
-
-**State, Data & Testing**
-- TanStack Query, RTK Query, React Hook Form, Zod, SQLite, Vitest, Playwright, React Testing Library
-
-**Backend, DevOps & Security**
-- Node.js, Docker, Nginx, GitHub Actions, Frappe ERP, Client-side Encryption, SSO, REST APIs, Azure
+- Material UI, Tailwind CSS, Design Tokens, Responsive Design, Figma
 
 **Delivery & Ownership**
 - Requirement gathering with customers, cross-team coordination (backend, QA, product), mentoring, production deployment, handover documentation
 
-His strongest areas are the React/TypeScript stack, configurable schema-driven architecture, and owning a product from the first client conversation to production. Want me to dig into how he's applied these in specific projects? Reach him at **prajwalhebbaras@gmail.com** for the full picture.`,
+His strongest areas are the React/TypeScript stack, owning a product across frontend, API, database and deployment, and taking it from the first client conversation to production. Want me to dig into how he's applied these in specific projects? Reach him at **prajwalhebbaras@gmail.com** for the full picture.`,
 
   current: `Prajwal currently works as a **Senior Engineer at LYIK Technologies Pvt. Ltd.** in Bengaluru (on-site). He joined as an Enterprise Engineer in April 2023 and was **promoted to Senior Engineer in April 2026**.
 
