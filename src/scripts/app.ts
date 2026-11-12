@@ -1,205 +1,432 @@
-/* Client behaviour: the runtime config (theme, accent, density, section
-   order, variants), the schema panes, the nav spy and the projects tabs.
-   Every change goes through commit(), which stores the record and re-applies
-   it, so the page, the editor and the two JSON panes cannot disagree. */
-import { normalize, STORE_KEY, type Prefs } from '../config/prefs';
-import { highlightJson } from '../lib/json';
-import { initEngineDemo } from './engine-demo';
+/* ============================================================
+   Prajwal Hebbar — Portfolio · client interactions
+   Site behaviour + AI assistant (calls /api/portfolio/ask).
+   ============================================================ */
+import { initPersonalize } from './personalize';
+import { initProjects } from './projects';
 
-const root = document.documentElement;
-const main = document.getElementById('sections') as HTMLElement;
-const sectionEls = () => Array.from(main.querySelectorAll<HTMLElement>(':scope > section'));
-const systemLight = window.matchMedia('(prefers-color-scheme: light)');
+type LucideGlobal = { createIcons: () => void };
+declare global {
+  interface Window {
+    lucide?: LucideGlobal;
+  }
+}
 
-/* Defaults come from the rendered page, i.e. from src/config/site.ts. */
-const defaults = {
-  order: (main.dataset.defaultOrder ?? '').split(' '),
-  variants: Object.fromEntries(
-    sectionEls()
-      .filter((s) => s.dataset.variants)
-      .map((s) => [s.id, (s.dataset.variants as string).split(' ')]),
-  ),
+const $ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) =>
+  r.querySelector<T>(s);
+const $$ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) =>
+  Array.from(r.querySelectorAll<T>(s));
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const refreshIcons = () => window.lucide?.createIcons();
+
+/* ---------------- Personalization ----------------
+   Theme, accent, typeface and section order all live in one record;
+   see src/scripts/personalize.ts. The nav's #theme-toggle is wired in
+   there so it writes to the same store as the panel. */
+initPersonalize();
+
+/* ---------------- Projects switcher ----------------
+   Rail + detail tablist in the Projects section; see
+   src/scripts/projects.ts. */
+initProjects();
+
+/* ---------------- Nav: condense + active section ---------------- */
+const nav = $('#nav');
+const onScroll = () => {
+  if (!nav) return;
+  if (window.scrollY > 24) nav.classList.add('condensed');
+  else nav.classList.remove('condensed');
 };
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
 
-function load(): Prefs {
-  let raw: unknown = null;
-  try {
-    raw = JSON.parse(localStorage.getItem(STORE_KEY) ?? 'null');
-  } catch {
-    /* unreadable or blocked storage: defaults */
-  }
-  return normalize(raw, defaults);
-}
-
-let prefs = load();
-
-/** Put the children carrying data-order-item (or section ids) into `order`. */
-function reorder(order: string[]) {
-  if (sectionEls().map((s) => s.id).join() !== order.join()) {
-    for (const id of order) main.append(document.getElementById(id) as HTMLElement);
-  }
-  for (const id of order) {
-    document.querySelectorAll(`[data-order-item="${id}"]`).forEach((el) => el.parentElement?.append(el));
-  }
-}
-
-function apply() {
-  root.dataset.theme = prefs.theme === 'system' ? (systemLight.matches ? 'light' : 'dark') : prefs.theme;
-  root.dataset.accent = prefs.accent;
-  root.dataset.density = prefs.density;
-  reorder(prefs.order);
-
-  for (const section of sectionEls()) {
-    const variant = prefs.variants[section.id];
-    if (!variant) continue;
-    section.dataset.variant = variant;
-    section.querySelectorAll<HTMLElement>('[data-variant-set]').forEach((b) => {
-      b.setAttribute('aria-pressed', String(b.dataset.variantSet === variant));
-    });
-    const live = section.querySelector('.schema [data-live="variant"]');
-    if (live) live.innerHTML = highlightJson(variant).replace(/^<span class="jl">|<\/span>$/g, '');
-  }
-
-  document.querySelectorAll<HTMLElement>('[data-pref]').forEach((b) => {
-    const key = b.dataset.pref as 'theme' | 'accent' | 'density';
-    b.setAttribute('aria-pressed', String(prefs[key] === b.dataset.value));
-  });
-
-  const runtime = {
-    theme: prefs.theme,
-    accent: prefs.accent,
-    density: prefs.density,
-    sections: prefs.order.map((id) => ({ id, variant: prefs.variants[id] })),
-  };
-  const html = highlightJson(runtime);
-  for (const id of ['live-config', 'editor-json']) {
-    const pane = document.getElementById(id);
-    if (pane) pane.innerHTML = html;
-  }
-}
-
-function commit() {
-  try {
-    localStorage.setItem(STORE_KEY, JSON.stringify(prefs));
-  } catch {
-    /* storage blocked: the change still applies for this visit */
-  }
-  apply();
-}
-
-function move(id: string, dir: string) {
-  const from = prefs.order.indexOf(id);
-  const to = dir === 'up' ? from - 1 : from + 1;
-  if (from < 0 || to < 0 || to >= prefs.order.length) return false;
-  prefs.order.splice(to, 0, prefs.order.splice(from, 1)[0]);
-  commit();
-  return true;
-}
-
-const editor = document.getElementById('editor') as HTMLDialogElement | null;
-
-document.addEventListener('click', (e) => {
-  const target = (e.target as Element).closest<HTMLElement>(
-    '[data-pref],[data-variant-set],[data-move],[data-order-move],[data-schema-toggle],[data-open-editor],#schema-all,#theme-toggle,#editor-close,#editor-reset,#editor',
-  );
-  if (!target) return;
-
-  if (target.dataset.pref) {
-    (prefs as unknown as Record<string, string>)[target.dataset.pref] = target.dataset.value as string;
-    commit();
-  } else if (target.dataset.variantSet) {
-    const section = target.closest('section') as HTMLElement;
-    prefs.variants[section.id] = target.dataset.variantSet;
-    commit();
-  } else if (target.dataset.move) {
-    /* Moving the node drops focus and leaves the viewport behind; restore both. */
-    const section = target.closest('section') as HTMLElement;
-    if (move(section.id, target.dataset.move)) {
-      section.scrollIntoView({ block: 'start' });
-      target.focus({ preventScroll: true });
-    }
-  } else if (target.dataset.orderMove) {
-    const row = target.closest<HTMLElement>('[data-order-item]');
-    if (row && move(row.dataset.orderItem as string, target.dataset.orderMove)) target.focus();
-  } else if (target.hasAttribute('data-schema-toggle')) {
-    const open = target.getAttribute('aria-expanded') !== 'true';
-    target.setAttribute('aria-expanded', String(open));
-    (document.getElementById(target.getAttribute('aria-controls') as string) as HTMLElement).hidden = !open;
-  } else if (target.id === 'schema-all') {
-    const open = target.getAttribute('aria-pressed') !== 'true';
-    target.setAttribute('aria-pressed', String(open));
-    document.querySelectorAll<HTMLElement>('[data-schema-toggle]').forEach((b) => {
-      b.setAttribute('aria-expanded', String(open));
-      (document.getElementById(b.getAttribute('aria-controls') as string) as HTMLElement).hidden = !open;
-    });
-  } else if (target.hasAttribute('data-open-editor')) {
-    editor?.showModal();
-  } else if (target.id === 'theme-toggle') {
-    prefs.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
-    commit();
-  } else if (target.id === 'editor-reset') {
-    try {
-      localStorage.removeItem(STORE_KEY);
-    } catch {
-      /* nothing stored */
-    }
-    prefs = normalize(null, defaults);
-    apply();
-  } else if (target.id === 'editor-close' || e.target === editor) {
-    /* e.target is the dialog itself only for a click on its backdrop. */
-    editor?.close();
-  }
-});
-
-systemLight.addEventListener('change', () => {
-  if (prefs.theme === 'system') apply();
-});
-
-/* ---------------- Nav: current section ---------------- */
-const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.nav-links a'));
+const sections = $$('section[id]');
+const navLinks = $$<HTMLAnchorElement>('.nav-links a');
 const spy = new IntersectionObserver(
   (entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      for (const a of navLinks) {
-        if (a.getAttribute('href') === `#${entry.target.id}`) a.setAttribute('aria-current', 'true');
-        else a.removeAttribute('aria-current');
+    entries.forEach((en) => {
+      if (en.isIntersecting) {
+        const id = en.target.id;
+        navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
       }
-    }
-  },
-  { rootMargin: '-45% 0px -50% 0px' },
-);
-sectionEls().forEach((s) => spy.observe(s));
-
-/* ---------------- Projects: one ARIA tablist ---------------- */
-const tablist = document.querySelector<HTMLElement>('.pj-tabs');
-if (tablist) {
-  const tabs = Array.from(tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
-  const select = (i: number, focus = false) => {
-    tabs.forEach((tab, k) => {
-      tab.setAttribute('aria-selected', String(k === i));
-      tab.tabIndex = k === i ? 0 : -1;
-      (document.getElementById(tab.getAttribute('aria-controls') as string) as HTMLElement).hidden = k !== i;
     });
-    if (focus) tabs[i].focus();
-  };
-  tabs.forEach((tab, k) => tab.addEventListener('click', () => select(k)));
-  tablist.addEventListener('keydown', (e) => {
-    const current = tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
-    const last = tabs.length - 1;
-    const next: Record<string, number> = {
-      ArrowDown: current === last ? 0 : current + 1,
-      ArrowRight: current === last ? 0 : current + 1,
-      ArrowUp: current <= 0 ? last : current - 1,
-      ArrowLeft: current <= 0 ? last : current - 1,
-      Home: 0,
-      End: last,
-    };
-    if (!(e.key in next)) return;
-    e.preventDefault();
-    select(next[e.key], true);
-  });
+  },
+  { rootMargin: '-45% 0px -50% 0px', threshold: 0 },
+);
+sections.forEach((s) => spy.observe(s));
+
+/* ---------------- Mobile menu ---------------- */
+const mobileMenu = $('#mobile-menu');
+const navToggle = $('#nav-toggle');
+function setMenu(open: boolean) {
+  if (!mobileMenu || !navToggle) return;
+  mobileMenu.classList.toggle('open', open);
+  document.body.classList.toggle('no-scroll', open);
+  navToggle.setAttribute('aria-expanded', String(open));
+  const ic = $('#nav-toggle-ic');
+  if (ic) ic.setAttribute('data-lucide', open ? 'x' : 'menu');
+  refreshIcons();
+}
+navToggle?.addEventListener('click', () => setMenu(!mobileMenu?.classList.contains('open')));
+mobileMenu?.addEventListener('click', (e) => {
+  if ((e.target as Element)?.closest('a')) setMenu(false);
+});
+
+/* ---------------- Scroll reveal ---------------- */
+if (reduceMotion) {
+  $$('.reveal').forEach((el) => el.classList.add('in'));
+} else {
+  const rev = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.classList.add('in');
+          rev.unobserve(en.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+  );
+  $$('.reveal').forEach((el) => rev.observe(el));
 }
 
-apply();
-initEngineDemo();
+/* ============================================================
+   AI ASSISTANT
+   ============================================================ */
+interface Turn {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+const MAX_LEN = 500;
+
+const fab = $('#fab');
+const chat = $('#chat');
+const scrim = $('#chat-scrim');
+const log = $('#chat-log');
+const form = $<HTMLFormElement>('#chat-form');
+const input = $<HTMLTextAreaElement>('#chat-input');
+const sendBtn = $<HTMLButtonElement>('#send-btn');
+const errBox = $('#chat-err');
+const errMsg = $('#chat-err-msg');
+const errIc = $('#chat-err-ic');
+const errRetry = $('#chat-retry');
+const ccBox = $('#char-count');
+const ccNum = $('#cc-num');
+
+let lastFocus: HTMLElement | null = null;
+let busy = false;
+let opened = false;
+const history: Turn[] = [];
+
+function icon(name: string, cls?: string) {
+  return `<svg class="ic ${cls || ''}" data-lucide="${name}"></svg>`;
+}
+
+if (fab && chat && scrim && log && form && input && sendBtn) {
+  /* --- Open / close --- */
+  function openChat() {
+    lastFocus = document.activeElement as HTMLElement;
+    chat!.classList.add('open');
+    scrim!.classList.add('open');
+    fab!.classList.add('hidden');
+    fab!.setAttribute('aria-expanded', 'true');
+    chat!.setAttribute('aria-hidden', 'false');
+    if (window.matchMedia('(max-width: 560px)').matches) document.body.classList.add('no-scroll');
+    if (!opened) {
+      renderWelcome();
+      opened = true;
+    }
+    setTimeout(() => input!.focus(), 60);
+  }
+  function closeChat() {
+    chat!.classList.remove('open');
+    scrim!.classList.remove('open');
+    fab!.classList.remove('hidden');
+    fab!.setAttribute('aria-expanded', 'false');
+    chat!.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('no-scroll');
+    lastFocus?.focus?.();
+  }
+  fab.addEventListener('click', openChat);
+  scrim.addEventListener('click', closeChat);
+  $('#chat-close')?.addEventListener('click', closeChat);
+
+  // Esc + focus trap
+  chat.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeChat();
+      return;
+    }
+    if (e.key === 'Tab') {
+      const f = $$<HTMLElement>(
+        'button, textarea, a[href], [tabindex]:not([tabindex="-1"])',
+        chat,
+      ).filter((el) => !(el as HTMLButtonElement).disabled && el.offsetParent !== null);
+      if (!f.length) return;
+      const first = f[0],
+        last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
+
+  /* --- Welcome / chips --- */
+  const CHIPS = [
+    {
+      ic: 'sparkles',
+      label: 'Summarize his experience',
+      q: "Give me the 30-second version of Prajwal's experience.",
+    },
+    { ic: 'layers', label: 'Top skills', q: "What are Prajwal's strongest skills and stack?" },
+    {
+      ic: 'cpu',
+      label: 'Technical proficiency',
+      q: 'Break down his technical proficiency across frontend, architecture, and backend/DevOps.',
+    },
+    { ic: 'mail', label: 'How to contact him', q: 'How do I get in touch with Prajwal?' },
+  ];
+  function renderWelcome() {
+    log!.innerHTML = `
+      <div class="welcome" role="status">
+        <div class="chat-ava" style="width:44px;height:44px;border-radius:14px;margin-bottom:14px;">${icon('bot')}</div>
+        <div class="w-h">Ask about Prajwal</div>
+        <div class="w-p">I answer from his portfolio — experience, skills, and how to reach him. Skip the scrolling and just ask.</div>
+        <div class="chips">
+          <div class="clabel">Try one of these</div>
+          ${CHIPS.map((c, i) => `<button class="prompt-chip" data-q="${i}">${icon(c.ic)}<span>${c.label}</span><span class="arr">${icon('arrow-up-right')}</span></button>`).join('')}
+        </div>
+      </div>`;
+    refreshIcons();
+    $$<HTMLButtonElement>('.prompt-chip', log!).forEach((b) => {
+      b.addEventListener('click', () => send(CHIPS[+b.dataset.q!].q));
+    });
+  }
+
+  /* --- Markdown-lite -> safe HTML --- */
+  function esc(s: string) {
+    return s.replace(/[&<>]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[m] as string);
+  }
+  function mdToHtml(src: string) {
+    let t = esc(src.trim());
+    t = t.replace(/(https?:\/\/[^\s<)]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+    t = t.replace(
+      /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
+      '<a href="mailto:$1">$1</a>',
+    );
+    t = t.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    const lines = t.split('\n');
+    let html = '',
+      inUl = false;
+    for (const ln of lines) {
+      const m = ln.match(/^\s*[-•]\s+(.*)$/);
+      if (m) {
+        if (!inUl) {
+          html += '<ul>';
+          inUl = true;
+        }
+        html += `<li>${m[1]}</li>`;
+      } else {
+        if (inUl) {
+          html += '</ul>';
+          inUl = false;
+        }
+        if (ln.trim()) html += `<p>${ln}</p>`;
+      }
+    }
+    if (inUl) html += '</ul>';
+    return html;
+  }
+
+  /* --- Message rendering --- */
+  function addUser(text: string) {
+    const el = document.createElement('div');
+    el.className = 'msg user';
+    el.innerHTML = `<div class="bubble">${esc(text)}</div>`;
+    log!.appendChild(el);
+    scrollDown();
+  }
+  function addBotShell() {
+    const el = document.createElement('div');
+    el.className = 'msg bot';
+    el.setAttribute('aria-live', 'polite');
+    el.innerHTML = `<div class="m-ava">${icon('bot')}</div><div class="bubble"><div class="typing"><i></i><i></i><i></i></div></div>`;
+    log!.appendChild(el);
+    refreshIcons();
+    scrollDown();
+    return el.querySelector('.bubble') as HTMLElement;
+  }
+  function scrollDown() {
+    log!.scrollTop = log!.scrollHeight;
+  }
+
+  /* --- Reveal text progressively (streaming feel) --- */
+  function streamInto(bubble: HTMLElement, fullText: string): Promise<void> {
+    return new Promise((resolve) => {
+      if (reduceMotion) {
+        bubble.innerHTML = mdToHtml(fullText);
+        scrollDown();
+        resolve();
+        return;
+      }
+      const tokens = fullText.split(/(\s+)/);
+      let i = 0,
+        acc = '';
+      const step = () => {
+        const chunk = Math.random() < 0.3 ? 2 : 1;
+        for (let k = 0; k < chunk && i < tokens.length; k++) acc += tokens[i++];
+        bubble.innerHTML =
+          mdToHtml(acc) + (i < tokens.length ? '<span class="caret"></span>' : '');
+        scrollDown();
+        if (i < tokens.length) setTimeout(step, 16 + Math.random() * 24);
+        else {
+          bubble.innerHTML = mdToHtml(fullText);
+          refreshIcons();
+          resolve();
+        }
+      };
+      step();
+    });
+  }
+
+  function setBusy(b: boolean) {
+    busy = b;
+    const n = input!.value.trim().length;
+    sendBtn!.disabled = b || !n || n > MAX_LEN;
+    input!.setAttribute('aria-busy', String(b));
+  }
+
+  function updateCount() {
+    const n = input!.value.trim().length;
+    if (ccNum) ccNum.textContent = String(n);
+    ccBox?.classList.toggle('near', n > MAX_LEN - 60 && n <= MAX_LEN);
+    ccBox?.classList.toggle('over', n > MAX_LEN);
+  }
+
+  /* --- Send --- */
+  async function send(text: string) {
+    text = (text || '').trim();
+    if (!text || busy) return;
+    if (text.length > MAX_LEN) {
+      showErr('limit');
+      input!.focus();
+      return;
+    }
+    hideErr();
+    if ($('.welcome', log!)) log!.innerHTML = '';
+    addUser(text);
+    history.push({ role: 'user', content: text });
+    input!.value = '';
+    autosize();
+    updateCount();
+    setBusy(true);
+    const bubble = addBotShell();
+
+    try {
+      const res = await fetch('/api/portfolio/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: text }),
+      });
+      if (res.status === 400 || res.status === 422) {
+        throw Object.assign(new Error('validation'), { kind: 'validation' });
+      }
+      if (!res.ok) throw Object.assign(new Error('server'), { kind: 'server' });
+      const data = (await res.json()) as Record<string, unknown>;
+      const answer = ((data.answer ?? data.response ?? data.message ?? '') as string).trim();
+      if (!answer) throw Object.assign(new Error('empty'), { kind: 'server' });
+      bubble.innerHTML = '';
+      await streamInto(bubble, answer);
+      history.push({ role: 'assistant', content: answer });
+    } catch (err) {
+      bubble.closest('.msg')?.remove();
+      showErr((err as { kind?: string })?.kind ?? 'server');
+    } finally {
+      setBusy(false);
+      input!.focus();
+    }
+  }
+
+  const ERR_MSGS: Record<string, { ic: string; msg: string; retry: boolean }> = {
+    limit: {
+      ic: 'ruler',
+      msg: "That's over the 500-character limit — trim it down and send again.",
+      retry: false,
+    },
+    validation: {
+      ic: 'alert-triangle',
+      msg: "That didn't go through. Keep it to a clear question under 500 characters.",
+      retry: true,
+    },
+    server: {
+      ic: 'server-crash',
+      msg: 'The assistant is unavailable right now. Try again in a moment.',
+      retry: true,
+    },
+  };
+  function showErr(kind: string) {
+    const e = ERR_MSGS[kind] ?? ERR_MSGS.server;
+    if (errMsg) errMsg.textContent = e.msg;
+    if (errIc) errIc.setAttribute('data-lucide', e.ic);
+    if (errRetry) (errRetry as HTMLElement).style.display = e.retry ? '' : 'none';
+    errBox?.classList.add('show');
+    refreshIcons();
+  }
+  function hideErr() {
+    errBox?.classList.remove('show');
+  }
+  errRetry?.addEventListener('click', () => {
+    hideErr();
+    const lastUser = [...history].reverse().find((m) => m.role === 'user');
+    if (lastUser) {
+      history.pop();
+      send(lastUser.content);
+    }
+  });
+
+  /* --- Input behaviour --- */
+  function autosize() {
+    input!.style.height = 'auto';
+    input!.style.height = Math.min(input!.scrollHeight, 120) + 'px';
+  }
+  input.addEventListener('input', () => {
+    autosize();
+    updateCount();
+    const n = input!.value.trim().length;
+    sendBtn!.disabled = busy || !n || n > MAX_LEN;
+  });
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      send(input!.value);
+    }
+  });
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    send(input!.value);
+  });
+  sendBtn.disabled = true;
+
+  // Open via any [data-open-chat] trigger (hero "Ask the AI about me")
+  $$('[data-open-chat]').forEach((b) =>
+    b.addEventListener('click', (e) => {
+      e.preventDefault();
+      openChat();
+    }),
+  );
+}
+
+/* ---------------- Year ---------------- */
+const yr = $('#year');
+if (yr) yr.textContent = String(new Date().getFullYear());
+
+// init icons last
+refreshIcons();
+
+export {};

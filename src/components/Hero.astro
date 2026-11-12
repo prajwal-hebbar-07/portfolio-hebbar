@@ -1,0 +1,63 @@
+---
+import { profile } from '../data/portfolio';
+import { githubSvg, linkedinSvg } from '../data/brandIcons';
+import SectionRail from './SectionRail.astro';
+---
+
+<section class="hero" id="hero">
+  <SectionRail label="Hero" />
+  <div class="hero-bg" aria-hidden="true">
+    <div class="grid"></div>
+  </div>
+
+  <div class="wrap hero-inner">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="badge reveal in">
+          <span class="status-dot"></span> {profile.status}
+        </span>
+
+        <p class="hero-intro reveal in" data-delay="1">Hi, I'm Prajwal Hebbar.</p>
+        <h1 class="reveal in" data-delay="2">I build full-stack software for complex enterprise workflows.</h1>
+        <p class="role-statement reveal in" data-delay="3">
+          Senior Full-Stack Engineer with nearly five years of experience. I take products from the
+          first client conversation to production: React and TypeScript interfaces, Node.js APIs,
+          SQL databases, authentication, and the Docker and CI/CD pipelines that ship them.
+        </p>
+
+        <div class="hero-cta reveal in" data-delay="3">
+          <a class="btn btn-primary" href="#experience">
+            <svg class="ic" data-lucide="arrow-down-right"></svg> View selected work
+          </a>
+          <a
+            class="btn btn-secondary"
+            href="/Prajwal%20Hebbar%20-%20Resume.pdf"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg class="ic" data-lucide="file-text"></svg> Download résumé
+          </a>
+        </div>
+
+        <div class="hero-socials reveal in" data-delay="4">
+          <a href={profile.github} target="_blank" rel="noopener">
+            <span class="hero-social-mark" set:html={githubSvg} /> GitHub
+          </a>
+          <a href={profile.linkedin} target="_blank" rel="noopener">
+            <span class="hero-social-mark" set:html={linkedinSvg} /> LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <aside class="spec-card reveal in" data-delay="3" aria-label="Engineering profile">
+        <div class="sc-top">profile.ts</div>
+        <div class="spec-row"><span class="k">role</span><span class="v">{profile.role} @ LYIK</span></div>
+        <div class="spec-row"><span class="k">focus</span><span class="v">Full-stack product engineering</span></div>
+        <div class="spec-row"><span class="k">frontend</span><span class="v">React · Next.js · TypeScript</span></div>
+        <div class="spec-row"><span class="k">backend</span><span class="v">Node.js · PostgreSQL · SQLite · Rust</span></div>
+        <div class="spec-row"><span class="k">delivery</span><span class="v">Docker · CI/CD · Auth · Testing</span></div>
+        <div class="spec-row"><span class="k">location</span><span class="v">{profile.location}</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
