@@ -48,21 +48,6 @@ export interface Product {
   points: string[]; // may contain <b>…</b> for emphasis
 }
 
-export interface Capability {
-  icon: string; // lucide name
-  title: string;
-  proof: string; // one line of evidence
-}
-
-/** The skim layer: what he can own, each with one line of proof. */
-export const capabilities: Capability[] = [
-  { icon: 'code-2', title: 'Frontend', proof: 'Started a schema-driven form platform and carried it through three generations in React and TypeScript.' },
-  { icon: 'server', title: 'Backend & data', proof: 'Built the Node.js API, SQLite schema and audit tables behind a compliance dashboard used for monthly reporting.' },
-  { icon: 'shield-check', title: 'Auth & security', proof: 'Built multi-organisation sign-in, permission gating and client-side encryption for an enterprise platform.' },
-  { icon: 'cloud', title: 'DevOps & delivery', proof: 'Ships with Docker, Nginx and GitHub Actions to Azure; personal apps release as signed, self-updating builds.' },
-  { icon: 'monitor-smartphone', title: 'Mobile & desktop', proof: 'Four shipped local-first apps across Android, macOS, Windows and Linux with Expo, Tauri and Rust.' },
-];
-
 export const experiences: Experience[] = [
   {
     role: 'Senior Engineer',
@@ -86,6 +71,7 @@ export const experiences: Experience[] = [
           'Restructured it into a <b>Turborepo/pnpm monorepo</b> of one web app and eight packages, and built <b>multi-organisation sign-in</b> where one login is exchanged for an organisation-scoped token with per-tenant branding.',
           'Built the <b>admin area</b> — tenant management, configuration settings and a <b>user-management tree</b> modelling the org as a hierarchy — on the persona/permission model behind it: <b>maker-checker</b> workflow, <code>GuardRail</code> permission gating, and template-driven bulk CSV uploads with a guard that rejects formula and script cells.',
           'Split the API client into <b>versioned v1/v2 surfaces</b> with wire-level tests pinning every endpoint, built a JSON-authored <b>video-KYC journey</b> (ID capture, liveness, recording timeline), and wrote a large share of the unit, integration and <b>Playwright</b> suites plus the architecture docs.',
+          'Closed an <b>XSS hole</b> by sanitising the HTML of operations fields in a shared module, and extended the <b>release pipeline</b> so deploy posts in Slack list the form-config changes each release needs.',
         ],
       },
       {
@@ -119,9 +105,37 @@ export const experiences: Experience[] = [
           'Integrated DigiLocker, document verification, e-sign, payments and face-based liveness; added the maker-checker review flow; containerised with <b>Docker/Nginx</b> and deployed through GitHub Actions.',
         ],
       },
+      {
+        name: 'Enterprise console',
+        role: 'Top contributor',
+        when: 'Apr 2023 — Sep 2024',
+        summary: 'The first LYIK product I worked on: a Next.js console where organisations build forms and issue verifiable credentials.',
+        points: [
+          'Built most of the front end on <b>Next.js, Material UI and Redux Toolkit</b>, with <b>CASL</b>-based access control and Firebase sign-in.',
+          'Organisation onboarding, then a form and template builder: a section creator with <b>drag and drop</b>, field types with live preview, <b>CSV-based form creation</b>, expression-based conditions and JSON export.',
+          'Credential flows to create, issue in batches and view credentials with QR codes, plus payment-gateway integration.',
+        ],
+      },
+      {
+        name: 'Early platform work',
+        role: 'Engineer',
+        when: 'Mar 2024 — Oct 2024',
+        summary: 'Smaller builds that came before the forms platform.',
+        points: [
+          'A <b>JSON-driven form-filling proof of concept</b> in React and Material UI: Firebase login, conditionally hidden KYC sections and dropdowns that filter their options.',
+          'A management portal with a dashboard fed by the records and forms APIs, status updates and per-environment builds.',
+          'Form definitions and RPC handlers on the Python server for a bank client&rsquo;s customer-request and consent-withdrawal forms.',
+        ],
+      },
     ],
-    points: [],
-    tech: ['React 19', 'TypeScript', 'Redux Toolkit', 'TanStack Query', 'Material UI', 'Turborepo', 'Node.js', 'SQLite', 'Vitest', 'Docker', 'GitHub Actions'],
+    points: [
+      'Started with the first <b>enterprise console</b> (Next.js: organisation onboarding, a form and template builder, verifiable-credential issuing with QR codes), then built a JSON-driven form-filling proof of concept before the forms platform.',
+      'Worked across three generations of a configurable, multi-tenant forms platform. Led the <b>v2 rewrite</b> and now build <b>v3</b>.',
+      'Owned a regulatory compliance dashboard for a financial-services client across the full stack: Zod-validated Excel uploads, role-based access and append-only audit tables. Mentored an intern who extended it.',
+      'Gathered requirements directly with customers; client-facing platform work delivered a reported <b>30%+ efficiency gain</b>.',
+      'Reached into the Python forms API (<b>form-summary retrieval and database indexing</b>), migrated the company website from Vite to <b>Next.js 15</b>, and authored JSON form definitions for a client&rsquo;s onboarding journeys.',
+    ],
+    tech: ['React 19', 'Next.js', 'TypeScript', 'Redux Toolkit', 'TanStack Query', 'Material UI', 'Turborepo', 'Node.js', 'SQLite', 'Vitest', 'Docker', 'GitHub Actions'],
   },
   {
     role: 'Associate Web Developer',
@@ -137,6 +151,37 @@ export const experiences: Experience[] = [
   },
 ];
 
+export interface WorkCard {
+  label: string;
+  meta?: string;
+  title: string;
+  text: string;
+  tags: string[];
+}
+
+/** Selected-work cards; the first renders large, the rest in a grid. */
+export const selectedWork: WorkCard[] = [
+  {
+    label: '01 · Platform · LYIK',
+    meta: 'Led v2 · Building v3',
+    title: 'Multi-tenant forms platform',
+    text: 'A schema-driven form engine that lets each organisation configure its own onboarding flows, with DigiLocker and KYC integrations, multi-organisation sign-in and a fine-grained permission model.',
+    tags: ['Schema-driven UI', 'DigiLocker · KYC', 'Multi-org SSO', 'Permissions'],
+  },
+  {
+    label: '02 · Full stack · Fintech',
+    title: 'Regulatory compliance dashboard',
+    text: 'Monthly regulatory reporting for a financial-services client. Validated Excel ingestion, role-based access and an append-only audit trail, owned from schema to UI.',
+    tags: ['Zod', 'RBAC', 'Audit tables'],
+  },
+  {
+    label: '03 · Personal · Shipped',
+    title: 'Logbook',
+    text: 'An attendance and leave log for Android, a Mac desktop widget and a CLI, all sharing one core library. Released through GitHub Actions with signed self-updates.',
+    tags: ['Android', 'macOS', 'CLI'],
+  },
+];
+
 export interface Project {
   name: string;
   tagline: string;
@@ -145,6 +190,7 @@ export interface Project {
   repoLabel?: string;
   status: string;
   year?: string; // shown in the project panel footer; em dash when absent
+  selected?: boolean; // shown as a card in Selected work, so left out of "Also shipped"
   shipped?: boolean; // solid accent pill vs tinted "in progress" pill
   points: string[]; // may contain <b>…</b> for emphasis
   tech: string[];
@@ -153,6 +199,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     name: 'Logbook',
+    selected: true,
     tagline: 'Personal attendance and leave log — Android app, Mac desktop widget and command-line tool over one shared core.',
     kind: 'npm workspaces monorepo · Expo · Tauri 2 · Ink CLI · SwiftUI widget',
     repo: 'https://github.com/prajwal-hebbar-07/tracker-mobile',
@@ -217,6 +264,63 @@ export const projects: Project[] = [
     ],
     tech: ['Tauri 2', 'React 19', 'TypeScript', 'Rust', 'SQLite', 'Expo 57', 'React Native', 'Ollama', 'pnpm workspace', 'Turborepo'],
   },
+  {
+    name: 'Anime List',
+    tagline: 'Personal anime tracker — Tauri desktop app, Expo Android app and a self-hosted sync server over one shared schema.',
+    kind: 'pnpm workspace · Tauri 2 · Expo 57 · SQLite · Zod · Ollama Cloud',
+    repo: 'https://github.com/prajwal-hebbar-07/anime-list',
+    repoLabel: 'prajwal-hebbar-07/anime-list',
+    status: 'In progress',
+    points: [
+      'Desktop and Android apps track seasons and episodes <b>offline</b>, over one shared Zod data model and sync contract.',
+      'A reusable <b>sync client</b> merges local and remote changes against a self-hosted server that serves the sync API over a SQLite file.',
+      'Add an entry by pasting a URL: the server extracts the details with <b>Ollama Cloud</b>.',
+      'GitHub Actions typechecks every push, cuts a <b>major/minor/patch release</b> with desktop installers and an Android APK, and publishes the server image to GHCR.',
+    ],
+    tech: ['Tauri 2', 'React 19', 'Expo 57', 'React Native', 'TypeScript', 'Zod', 'SQLite', 'Ollama', 'GitHub Actions', 'Docker'],
+  },
+  {
+    name: 'Central auth service',
+    tagline: 'One sign-in service in front of self-hosted ZITADEL, shared by many registered apps, with an admin console to manage them.',
+    kind: 'pnpm monorepo · Hono · React · ZITADEL · PostgreSQL · Docker Compose',
+    status: 'Built',
+    points: [
+      'One origin serves the <b>OIDC endpoints</b> (proxied to ZITADEL under its own issuer), its own login screens and a <code>/v1</code> account API that apps call with <b>client credentials</b> to create, invite, reset and unlock users.',
+      'ZITADEL is reached only through an <b>IdP integration layer</b> behind a provider-independent interface, so the identity engine can be replaced without touching the login flow.',
+      'Password, TOTP, passkey and email-code sign-in with lockout; login progress lives in the backend and the browser carries only a cookie.',
+      'A separate <b>admin console</b> registers apps and their credentials, grants access, manages people and console admins, and shows a <b>hash-chained audit log</b> in PostgreSQL.',
+      'Runs as a Docker Compose stack (PostgreSQL, ZITADEL, MailPit, Caddy), with decisions recorded as ADRs and covered by Vitest and Playwright suites.',
+    ],
+    tech: ['Hono', 'React', 'TypeScript', 'ZITADEL', 'OIDC', 'PostgreSQL', 'Docker Compose', 'Caddy', 'Vitest', 'Playwright'],
+  },
+  {
+    name: 'Flex State',
+    tagline: 'Offline, gamified home-workout desktop app — deterministic weekly plans, XP and streaks, no account, no cloud.',
+    kind: 'Tauri 2 · React 19 · Rust · SQLite · pnpm + Turborepo monorepo',
+    repo: 'https://github.com/prajwal-hebbar-07/flex-state',
+    repoLabel: 'prajwal-hebbar-07/flex-state',
+    status: 'In progress',
+    points: [
+      '<b>Deterministic plan generation</b>: the same profile, exercise catalog and training locations always produce the same weekly plan; the generator version is stamped on every saved plan, so an older plan forces a regeneration instead of a silent replay.',
+      'Personalised by <b>training ground</b>, not by checkbox: each location carries its own equipment and exercise exclusions, and the planner runs against the active one.',
+      'XP, level, rank and streak are <b>derived from one row per completion date</b>, so there is no summary row to drift out of sync.',
+      'Every persisted value has a runtime shape guard, so one corrupt row never blocks boot; the app is one local SQLite file with no telemetry.',
+    ],
+    tech: ['Tauri 2', 'React 19', 'TypeScript', 'Rust', 'SQLite', 'pnpm workspace', 'Turborepo', 'Biome'],
+  },
+  {
+    name: 'Playbook',
+    tagline: 'Sprint playbook for small teams — ordered backlog, one sprint at a time, board and retro — with an AI chat that only drafts backlog text.',
+    kind: 'Turborepo · React 19 · Hono · PostgreSQL 17 · Drizzle',
+    status: 'In progress',
+    points: [
+      'The sprint rules are <b>pure functions in a domain package</b> and enforced on the server: the API applies one rule inside a transaction that locks the workspace row and writes only the rows that changed.',
+      'Email and password sign-in with <b>argon2id</b> hashing and http-only session cookies, team workspaces with invites, CSRF origin checks and rate limits.',
+      'Ollama chat uses each user&rsquo;s own key, <b>encrypted at rest with AES-256-GCM</b>; the model may edit backlog item text but cannot touch the sprint, board, review or releases.',
+      'Repository and API tests run against <b>PGlite</b> with the real migrations, and CI applies the same migrations to PostgreSQL 17.',
+    ],
+    tech: ['React 19', 'Vite', 'TanStack Query', 'Hono', 'Zod', 'PostgreSQL', 'Drizzle ORM', 'argon2id', 'Ollama', 'Turborepo'],
+  },
 ];
 
 export interface SkillGroup {
@@ -230,8 +334,8 @@ export interface SkillGroup {
 export const skillGroups: SkillGroup[] = [
   { icon: 'code-2', title: 'Frontend', skills: ['React', 'Next.js', 'Astro', 'TypeScript', 'JavaScript', 'Redux Toolkit', 'TanStack Query', 'React Hook Form'] },
   { icon: 'server', title: 'Backend & APIs', skills: ['Node.js', 'Hono', 'REST APIs', 'Zod-validated contracts', 'Rust (Tauri commands)', 'Frappe ERP', 'LLM integration (Ollama)'] },
-  { icon: 'database', title: 'Databases & Data', skills: ['PostgreSQL', 'SQLite', 'SQL migrations', 'Schema design', 'Offline sync (outbox)', 'Excel / CSV ingestion'] },
-  { icon: 'shield-check', title: 'Auth & Security', alt: true, skills: ['OIDC / OAuth2', 'SSO', 'ZITADEL', 'MFA (TOTP, passkeys)', 'Role & permission models', 'Audit logging', 'Client-side Encryption'] },
+  { icon: 'database', title: 'Databases & Data', skills: ['PostgreSQL', 'SQLite', 'Drizzle ORM', 'SQL migrations', 'Schema design', 'Offline sync (outbox)', 'Excel / CSV ingestion'] },
+  { icon: 'shield-check', title: 'Auth & Security', alt: true, skills: ['OIDC / OAuth2', 'SSO', 'ZITADEL', 'MFA (TOTP, passkeys)', 'Role & permission models', 'Audit logging', 'Session cookies (argon2id)', 'Client-side Encryption'] },
   { icon: 'cloud', title: 'DevOps & Cloud', skills: ['Docker', 'Docker Compose', 'Nginx', 'GitHub Actions', 'Azure', 'Vercel', 'Signed release pipelines'] },
   { icon: 'monitor-smartphone', title: 'Mobile, Desktop & CLI', skills: ['React Native', 'Expo', 'Tauri 2', 'Rust', 'VS Code Extension', 'Terminal UI (Ink)', 'Local-first apps'] },
   { icon: 'cpu', title: 'Architecture & Testing', alt: true, skills: ['System Design', 'Schema-driven UI', 'Rule / Derive / Actions Engines', 'Monorepo (Turborepo, pnpm)', 'Architecture Decision Records', 'Vitest', 'Playwright'] },
@@ -253,7 +357,7 @@ PROFILE
 - Headline: Senior Full-Stack Engineer building configurable, enterprise-grade software end to end — React and TypeScript interfaces, Node.js APIs, SQL databases, and the Docker and CI/CD pipelines that ship them.
 
 ABOUT
-A full-stack engineer working mainly in TypeScript: React and Next.js interfaces, Node.js APIs, PostgreSQL and SQLite behind them, and Docker, Nginx and GitHub Actions to ship. Deepest experience is schema-driven, configurable frontend architecture, and he is comfortable owning the whole stack. At LYIK Technologies he has worked across four products — three generations of the forms platform (v1, which he started and wrote most of; v2, the TypeScript rewrite where he is top contributor; and v3, the current configurable multi-tenant platform) and a regulatory compliance dashboard for a financial-services client that he owned end to end — and is client-facing: he gathers requirements directly from customers, leads discussions across backend, QA and product teams, and mentors juniors. The thread: turning complex requirements into systems that feel effortless to use.
+A full-stack engineer working mainly in TypeScript: React and Next.js interfaces, Node.js APIs, PostgreSQL and SQLite behind them, and Docker, Nginx and GitHub Actions to ship. Deepest experience is schema-driven, configurable frontend architecture, and he is comfortable owning the whole stack. At LYIK Technologies he has worked across five products — an early Next.js enterprise console (form builder, verifiable credentials), three generations of the forms platform (v1, which he started and wrote most of; v2, the TypeScript rewrite where he is top contributor; and v3, the current configurable multi-tenant platform) and a regulatory compliance dashboard for a financial-services client that he owned end to end — and is client-facing: he gathers requirements directly from customers, leads discussions across backend, QA and product teams, and mentors juniors. The thread: turning complex requirements into systems that feel effortless to use.
 - Education: B.E. in Computer Science Engineering, VVCE Mysuru
 - Notable achievement: 30%+ efficiency gains through client-facing platform development
 
@@ -272,8 +376,12 @@ EXPERIENCE
    - Worked across the core form engines in the shared form package — actions, rules (persona/permission-based hide and disable), derive (array handling) and navigator (array-boundary navigation) — and wrote their unit/integration test suites
    - Delivered an SSO login flow, client-side encryption, JSON-driven theming (theme.json, custom themes, logo fallback), funcex expression support, liveness/KYC detection with pose challenges, ID obfuscation, multi-file/ZIP upload, PWA and runtime nginx config, plus the architecture and plain-English documentation set
    - Set up Docker/Nginx containerization and GitHub Actions CI/CD; built a Frappe-based ERP and a ServiceNow integration POC
+   - Hardened v3 against XSS (sanitised operations-field HTML, exported as a shared module) and extended the release pipeline so deploy posts in Slack report the form-config changes a release needs
+   - Also worked in the Python forms API (optimised form-summary retrieval with database indexing, versioned forms API), migrated the company website from Vite to Next.js 15 App Router, and wrote JSON form definitions for a client's onboarding journeys
+   - Enterprise console (April 2023 – September 2024; the first product he worked on, and the top contributor by a wide margin) — a Next.js, Material UI and Redux Toolkit console with CASL-based access control and Firebase sign-in: organisation onboarding; a form and template builder (section creator with drag and drop, field types with live preview, CSV-based form creation, expression-based conditions, JSON export); verifiable-credential flows to create, issue in batches and view credentials with QR codes; payment-gateway integration
+   - Early platform work (2024): a JSON-driven form-filling proof of concept in React and Material UI (Firebase login, conditionally hidden KYC sections, filterable dropdowns); a management portal with a dashboard fed by the records and forms APIs; form definitions and RPC handlers on the Python server for a bank client's customer-request and consent-withdrawal forms
    - Contributed to the company's first enterprise client acquisition
-   - Tech: React 19, TypeScript, Redux Toolkit, RTK Query, TanStack Query, Material UI, Material React Table, Tailwind CSS 4, Vite, Node.js, SQLite, Zod, Turborepo/pnpm monorepo, JSON-driven config, Vitest, Playwright, Docker, Nginx, GitHub Actions, Azure, Frappe
+   - Tech: React 19, Next.js, TypeScript, Redux Toolkit, RTK Query, TanStack Query, CASL, Material UI, Material React Table, Tailwind CSS 4, Vite, Node.js, SQLite, Zod, Turborepo/pnpm monorepo, JSON-driven config, Vitest, Playwright, Docker, Nginx, GitHub Actions, Azure, Frappe
 
 2) Associate Web Developer — Content Enablers Inc. (March 2022 – March 2023, Remote, Bengaluru)
    - Website revamp using ReactJS and Bootstrap 5
@@ -315,11 +423,42 @@ PROJECTS (personal; open-source repositories at github.com/prajwal-hebbar-07)
    - Versioned JSON backup/restore merges into the device and preserves the dates tasks were finished; a newer format version is rejected whole rather than partially losing ticks
    - Tech: Tauri 2, React 19, TypeScript, Rust, SQLite, Expo 57, React Native, Ollama, pnpm workspace, Turborepo, GitHub Actions
 
+5) Central auth service — one sign-in service shared by many registered apps (private repository, no public link; runs as a Docker Compose stack, not a hosted product)
+   - Hono (Node.js, TypeScript) backend and React login frontend in front of self-hosted ZITADEL; one origin serves the OIDC endpoints (proxied to ZITADEL under its own issuer), its own login screens and a /v1 account API that registered apps call with client credentials to create, invite, reset and unlock users
+   - ZITADEL is reached only through an IdP integration layer behind a provider-independent interface, so the identity engine can be replaced; login progress is held in the backend and the browser carries only a cookie
+   - Password, TOTP, passkey and email-code sign-in with lockout
+   - Separate admin console: registers apps and their credentials, grants access, manages people and console admins, shows a hash-chained audit log kept in PostgreSQL
+   - Docker Compose stack (PostgreSQL, ZITADEL, MailPit, Caddy); architecture decision records; Vitest and Playwright suites
+   - Tech: Hono, React, TypeScript, ZITADEL, OIDC, PostgreSQL, Docker Compose, Caddy, Vitest, Playwright
+
+6) Flex State — offline, gamified home-workout desktop app (https://github.com/prajwal-hebbar-07/flex-state), in progress
+   - Tauri 2 + React 19 + Rust; single user, offline, one local SQLite file, no account, cloud or telemetry; pnpm + Turborepo monorepo
+   - Deterministic plan generation: same profile, exercise catalog and training locations give the same weekly plan; the generator version is stamped on every saved plan so an older plan forces a regeneration
+   - Personalised by training ground: each location has its own equipment and exercise exclusions
+   - XP, level, rank and streak are derived from one row per completion date, with no summary row to drift
+   - Every persisted value has a runtime shape guard, so one corrupt row never blocks boot
+   - Tech: Tauri 2, React 19, TypeScript, Rust, SQLite, pnpm workspace, Turborepo, Biome
+
+7) Playbook — sprint playbook for small teams (private repository, no public link), in progress
+   - Ordered backlog, refinement against a Definition of Ready, ten-weekday sprints, board, forecast, review, retrospective and releases; an Ollama chat helps write backlog item text and never makes sprint decisions
+   - Sprint rules are pure functions in a domain package, enforced on the server inside a transaction that locks the workspace row
+   - Email and password sign-in with argon2id, http-only session cookies, team workspaces with invites, CSRF origin checks, rate limits
+   - Users' own Ollama keys are encrypted at rest with AES-256-GCM; the model can edit backlog item text only
+   - Repository and API tests run on PGlite with the real migrations; CI applies them to PostgreSQL 17
+   - Tech: React 19, Vite, TanStack Query, Hono, Zod, PostgreSQL 17, Drizzle ORM, argon2id, Ollama, Turborepo
+
+8) Anime List — personal anime tracker (https://github.com/prajwal-hebbar-07/anime-list), in progress
+   - Tauri 2 desktop app, Expo Android app and a self-hosted sync server in one pnpm workspace, over one shared Zod data model and sync contract
+   - Seasons and episodes tracked offline; a reusable sync client merges local and remote changes against a server that serves the sync API over a SQLite file
+   - Add an entry by pasting a URL: the server extracts details with Ollama Cloud
+   - GitHub Actions typechecks every push, cuts major/minor/patch releases with desktop installers and an Android APK, and publishes the server image to GHCR
+   - Tech: Tauri 2, React 19, Expo 57, React Native, TypeScript, Zod, SQLite, Ollama, GitHub Actions, Docker
+
 SKILLS
 - Frontend: React, Next.js, Astro, TypeScript, JavaScript, Redux Toolkit, TanStack Query, RTK Query, React Hook Form
 - Backend & APIs: Node.js, Hono, REST APIs, Zod-validated contracts, Rust (Tauri commands), Frappe ERP, LLM integration (Ollama)
-- Databases & Data: PostgreSQL, SQLite, SQL migrations, schema design, offline sync (outbox, last-write-wins), Excel/CSV ingestion
-- Auth & Security: OIDC/OAuth2, SSO, ZITADEL, MFA (TOTP, passkeys), role and permission models, audit logging, client-side encryption
+- Databases & Data: PostgreSQL, SQLite, Drizzle ORM, SQL migrations, schema design, offline sync (outbox, last-write-wins), Excel/CSV ingestion
+- Auth & Security: OIDC/OAuth2, SSO, ZITADEL, MFA (TOTP, passkeys), role and permission models, audit logging, argon2id password hashing with http-only session cookies, client-side encryption
 - DevOps & Cloud: Docker, Docker Compose, Nginx, GitHub Actions, Azure, Vercel, signed release pipelines
 - Mobile, Desktop & CLI: React Native, Expo, Tauri 2, Rust, VS Code extension, terminal UI (Ink), local-first apps
 - Architecture & Testing: System design, schema-driven UI, rule/derive/actions engines, monorepo (Turborepo, pnpm), architecture decision records, Vitest, Playwright, React Testing Library
@@ -327,7 +466,6 @@ SKILLS
 - Delivery & Ownership: Requirement gathering with customers, client communication, cross-team coordination (backend, QA, product), mentoring juniors and interns, production deployment and handover documentation
 
 FULL-STACK WORK BEYOND THE LISTED PROJECTS (personal, private repositories)
-- Central authentication service: a Hono (Node.js, TypeScript) backend and React login frontend in front of self-hosted ZITADEL, with OIDC for registered apps, a client-credentials account API, password/TOTP/passkey/email-code sign-in, lockout, an app registry with a separate admin console, a hash-chained audit log in PostgreSQL, Docker Compose deployment, Vitest and Playwright suites, and architecture decision records
 - Auth Quest: a gamified learning app — Hono API, pure rules engine (XP, streaks, SM-2 spaced repetition), node:sqlite with versioned migrations, React + Vite UI, answers checked on the server
 
 CONTACT

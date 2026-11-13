@@ -1,0 +1,17 @@
+---
+import { skillGroups } from '../data/portfolio';
+---
+
+<section id="stack" class="split">
+  <h2 class="label">03 — Stack</h2>
+  <dl class="split-body defs">
+    {
+      skillGroups.map((g) => (
+        <div>
+          <dt>{g.title}</dt>
+          <dd>{g.skills.join(' · ')}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>
