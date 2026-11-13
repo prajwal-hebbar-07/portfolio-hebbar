@@ -1,65 +1,40 @@
 ---
 import { profile } from '../data/portfolio';
-const [first, ...rest] = profile.name.split(' ');
-const last = rest.join(' ');
+import Icon from './Icon.astro';
+
+const links = [
+  { href: '#experience', label: 'Experience' },
+  { href: '#work', label: 'Work' },
+  { href: '#stack', label: 'Stack' },
+  { href: '#contact', label: 'Contact' },
+];
 ---
 
-<header class="nav" id="nav">
-  <a class="brand" href="#hero" aria-label={`${profile.name} — home`}>
-    <span class="monogram" aria-hidden="true">PH</span>
-    <span class="bname">{first} <b>{last}</b><span class="role">{profile.title}</span></span>
+<header class="header">
+  <a class="brand" href="#top" aria-label={`${profile.name} — home`}>
+    <span class="mark" aria-hidden="true">PH</span>
+    <span>{profile.name}</span>
   </a>
-
-  <nav class="nav-links" aria-label="Primary">
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <div class="nav-actions">
-    <button class="icon-btn" id="personalize-toggle" type="button" aria-label="Personalize this site" title="Personalize" aria-haspopup="dialog" aria-expanded="false" aria-controls="personalize">
-      <svg class="ic" data-lucide="sliders-horizontal"></svg>
-    </button>
-    <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
-      <svg class="ic" id="theme-ic" data-lucide="sun"></svg>
-    </button>
-    <a
-      class="btn btn-secondary btn-sm resume-btn"
-      href="/Prajwal%20Hebbar%20-%20Resume.pdf"
-      target="_blank"
-      rel="noopener"
-      aria-label="View and download résumé (PDF)"
-    >
-      <svg class="ic" data-lucide="file-text"></svg> Résumé
+  <nav class="nav" aria-label="Primary">
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    <a class="pill-link" href="/Prajwal%20Hebbar%20-%20Resume.pdf" target="_blank" rel="noopener">
+      Résumé <Icon name="download" />
     </a>
-    <button class="icon-btn nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-      <svg class="ic" id="nav-toggle-ic" data-lucide="menu"></svg>
+    <button class="theme-btn" id="theme-toggle" type="button" aria-label="Toggle light and dark theme">
+      <Icon name="contrast" size={16} />
     </button>
-  </div>
+  </nav>
 </header>
 
-<!-- Mobile menu -->
-<div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
-  <a href="#about"><span>About</span><span class="idx">01</span></a>
-  <a href="#experience"><span>Experience</span><span class="idx">02</span></a>
-  <a href="#projects"><span>Projects</span><span class="idx">03</span></a>
-  <a href="#skills"><span>Skills</span><span class="idx">04</span></a>
-  <a href="#contact"><span>Contact</span><span class="idx">05</span></a>
-  <a
-    class="btn btn-secondary"
-    href="/Prajwal%20Hebbar%20-%20Resume.pdf"
-    target="_blank"
-    rel="noopener"
-    style="justify-content:center;"
-  ><svg class="ic" data-lucide="file-text"></svg> View / download résumé</a>
-  <button
-    class="btn btn-secondary"
-    id="personalize-toggle-mobile"
-    type="button"
-    aria-haspopup="dialog"
-    aria-controls="personalize"
-    style="justify-content:center;"
-  ><svg class="ic" data-lucide="sliders-horizontal"></svg> Personalize</button>
-</div>
+<script>
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+    const current = root.dataset.theme ?? (dark ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('ph_theme', next);
+    } catch {}
+  });
+</script>

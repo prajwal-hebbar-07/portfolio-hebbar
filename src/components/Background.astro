@@ -1,0 +1,18 @@
+---
+import { profile } from '../data/portfolio';
+---
+
+<section class="split">
+  <h2 class="label">04 — Background</h2>
+  <div class="split-body facts">
+    <div>
+      <p class="muted small">Education</p>
+      <p class="role">{profile.education}</p>
+      <p class="muted">{profile.educationSchool}</p>
+    </div>
+    <div>
+      <p class="muted small">Languages</p>
+      <p class="role">{profile.languages.join(' · ')}</p>
+    </div>
+  </div>
+</section>

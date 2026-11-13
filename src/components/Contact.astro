@@ -1,56 +1,18 @@
 ---
 import { profile } from '../data/portfolio';
-import SectionRail from './SectionRail.astro';
-import { githubSvg, linkedinSvg } from '../data/brandIcons';
+import Icon from './Icon.astro';
 ---
 
-<section class="section" id="contact">
-  <SectionRail label="Contact" />
-  <div class="wrap">
-    <div class="contact-wrap">
-      <div class="contact-lead reveal">
-        <span class="eyebrow">Contact</span>
-        <h2>Let's build something <span class="accent">effortless</span>.</h2>
-        <p>Open to senior full-stack and frontend roles across React, Node.js, and TypeScript. I usually reply within a day.</p>
-        <a class="btn btn-primary" href={`mailto:${profile.email}`}>
-          <svg class="ic" data-lucide="send"></svg> Start a conversation
-        </a>
-      </div>
-
-      <div class="contact-list reveal" data-delay="2">
-        <a class="card contact-row" href={`mailto:${profile.email}`}>
-          <span class="cr-ic"><svg class="ic" data-lucide="mail"></svg></span>
-          <span class="cr-body">
-            <span class="cr-label">Email</span>
-            <span class="cr-value">{profile.email}</span>
-          </span>
-          <span class="cr-arrow"><svg class="ic" data-lucide="arrow-up-right"></svg></span>
-        </a>
-        <a class="card contact-row" href={`tel:${profile.phoneHref}`}>
-          <span class="cr-ic"><svg class="ic" data-lucide="phone"></svg></span>
-          <span class="cr-body">
-            <span class="cr-label">Phone</span>
-            <span class="cr-value">{profile.phone}</span>
-          </span>
-          <span class="cr-arrow"><svg class="ic" data-lucide="arrow-up-right"></svg></span>
-        </a>
-        <a class="card contact-row" href={profile.linkedin} target="_blank" rel="noopener">
-          <span class="cr-ic" set:html={linkedinSvg}></span>
-          <span class="cr-body">
-            <span class="cr-label">LinkedIn</span>
-            <span class="cr-value">{profile.linkedinLabel}</span>
-          </span>
-          <span class="cr-arrow"><svg class="ic" data-lucide="arrow-up-right"></svg></span>
-        </a>
-        <a class="card contact-row" href={profile.github} target="_blank" rel="noopener">
-          <span class="cr-ic" set:html={githubSvg}></span>
-          <span class="cr-body">
-            <span class="cr-label">GitHub</span>
-            <span class="cr-value">{profile.githubLabel}</span>
-          </span>
-          <span class="cr-arrow"><svg class="ic" data-lucide="arrow-up-right"></svg></span>
-        </a>
-      </div>
-    </div>
-  </div>
+<section id="contact" class="contact">
+  <p class="label">05 — Contact</p>
+  <h2>Building something that needs to work end to end? Let’s talk.</h2>
+  <a class="email" href={`mailto:${profile.email}`}>
+    {profile.email} <Icon name="arrow-up-right" size={22} />
+  </a>
+  <ul class="links">
+    <li><a href={`tel:${profile.phoneHref}`}>{profile.phone}</a></li>
+    <li><a href={profile.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a></li>
+    <li><a href={profile.github} target="_blank" rel="noopener">GitHub ↗</a></li>
+    <li><a href="/Prajwal%20Hebbar%20-%20Resume.pdf" target="_blank" rel="noopener">Résumé (PDF) ↓</a></li>
+  </ul>
 </section>
