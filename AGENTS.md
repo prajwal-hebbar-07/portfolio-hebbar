@@ -1,3 +1,35 @@
+# portfolio-hebbar
+
+Astro 6 static single-page portfolio (Vercel adapter). Source of truth for the UI: the claude.ai
+"hebbars.in redesign" canvas (minimal, Geist, light/dark via `prefers-color-scheme`).
+
+## Layout
+
+| Path | What |
+| --- | --- |
+| `src/pages/index.astro` | page: Nav, Hero, Experience, Projects, Stack, Background, Contact, Footer |
+| `src/layouts/Layout.astro` | `<head>`, Geist fonts, global CSS |
+| `src/components/` | one component per section; `Icon.astro` = inline SVG icons |
+| `src/data/portfolio.ts` | all content (`profile`, `experiences`, `selectedWork`, `projects`, `skillGroups`) + assistant grounding strings |
+| `src/styles/tokens.css` | colour/font vars, dark mode |
+| `src/styles/portfolio.css` | all component styles |
+| `src/config/`, `src/lib/` | standalone form-engine demo; not rendered |
+| `public/` | favicon, résumé PDF |
+
+## Where a change goes
+
+| Change | Edit |
+| --- | --- |
+| Copy, jobs, projects, skills | `src/data/portfolio.ts` |
+| Hero copy / stats | `src/components/Hero.astro` |
+| Colours, fonts | `src/styles/tokens.css` |
+| Layout, spacing | `src/styles/portfolio.css` |
+
+## Commands
+
+- `npm run dev` — local server
+- `npm run build` — only check available (no lint/typecheck configured)
+
 <!-- paper-target:start -->
 ## Paper design target
 
