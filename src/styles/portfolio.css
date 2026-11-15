@@ -137,3 +137,31 @@ h1 { max-width: 17ch; font-size: clamp(2.5rem, 5.2vw, 4.5rem); line-height: 1.04
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
   padding: 28px 0 40px; border-top: 1px solid var(--line); font: 12px var(--font-mono); color: var(--muted);
 }
+
+/* motion — the `.motion` class is set in Layout.astro only when reduced motion is not requested */
+.progress { position: fixed; inset: 0 0 auto 0; height: 3px; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); z-index: 20; pointer-events: none; }
+.glow {
+  position: fixed; top: -200px; left: -200px; width: 400px; height: 400px; border-radius: 50%; z-index: -1; pointer-events: none;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 16%, transparent), transparent 65%);
+}
+.card { transform-style: preserve-3d; will-change: transform; }
+.page { perspective: 1200px; }
+
+.motion .hero h1,
+.motion :is(.hero > :not(h1), .split > *, .contact > *, .card, .shipped li, .tags li, .stats div) { opacity: 0; }
+.w { display: inline-block; }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes pulse { from { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent); } to { box-shadow: 0 0 0 8px transparent; } }
+  .dot { animation: pulse 2.4s ease-out infinite; }
+  a { transition: opacity 0.2s; }
+  .card { transition: border-color 0.25s; }
+  .card:hover { border-color: var(--muted); }
+  .email, .text-link svg, .shipped svg { transition: transform 0.25s, border-color 0.25s; }
+  .text-link:hover svg, .shipped .row:hover svg { transform: translate(3px, -3px); }
+  .email:hover { transform: translateX(6px); opacity: 1; }
+  .tags li { transition: background 0.2s, transform 0.2s; }
+  .tags li:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); transform: translateY(-2px) rotate(-2deg); }
+  .shipped .row { transition: padding-left 0.25s; }
+  .shipped .row:hover { padding-left: 12px; }
+}

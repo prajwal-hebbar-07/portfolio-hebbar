@@ -11,6 +11,7 @@ Astro 6 static single-page portfolio (Vercel adapter). Source of truth for the U
 | `src/layouts/Layout.astro` | `<head>`, Geist fonts, global CSS |
 | `src/components/` | one component per section; `Icon.astro` = inline SVG icons |
 | `src/data/portfolio.ts` | all content (`profile`, `experiences`, `selectedWork`, `projects`, `skillGroups`) + assistant grounding strings |
+| `src/scripts/motion.ts` | animations (`motion` library); skipped for reduced-motion users |
 | `src/styles/tokens.css` | colour/font vars, dark mode |
 | `src/styles/portfolio.css` | all component styles |
 | `src/config/`, `src/lib/` | standalone form-engine demo; not rendered |

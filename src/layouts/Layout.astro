@@ -22,6 +22,7 @@ const description = `${profile.name} — ${profile.title} building configurable,
         var t = localStorage.getItem('ph_theme');
         if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
       } catch (e) {}
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
     </script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -33,5 +34,8 @@ const description = `${profile.name} — ${profile.title} building configurable,
   </head>
   <body>
     <slot />
+    <script>
+      import '../scripts/motion.ts';
+    </script>
   </body>
 </html>
