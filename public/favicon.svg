@@ -1,12 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#4FA894"/>
-      <stop offset="1" stop-color="#266255"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="14" fill="url(#g)"/>
-  <text x="32" y="33" text-anchor="middle" dominant-baseline="central"
-    font-family="Archivo, 'Segoe UI', system-ui, sans-serif" font-weight="700"
-    font-size="30" letter-spacing="-1" fill="#08110F">PH</text>
+  <style>
+    .bg { fill: #18181b; } .fg { fill: #fafaf9; }
+    @media (prefers-color-scheme: dark) { .bg { fill: #ededef; } .fg { fill: #0d0d0f; } }
+  </style>
+  <rect class="bg" width="64" height="64" rx="16"/>
+  <text class="fg" x="32" y="33" text-anchor="middle" dominant-baseline="central"
+    font-family="ui-monospace, Menlo, Consolas, monospace" font-weight="500" font-size="26">PH</text>
 </svg>
