@@ -4,6 +4,6 @@
     @media (prefers-color-scheme: dark) { .bg { fill: #ededef; } .fg { fill: #0d0d0f; } }
   </style>
   <rect class="bg" width="64" height="64" rx="16"/>
-  <text class="fg" x="32" y="33" text-anchor="middle" dominant-baseline="central"
-    font-family="ui-monospace, Menlo, Consolas, monospace" font-weight="500" font-size="26">PH</text>
+  <!-- "PH" in Geist Mono 500 as outlines, so it matches the nav logo without loading the font -->
+  <path class="fg" d="M20.98 41.23L18.25 41.23L18.25 22.77L23.97 22.77Q25.89 22.77 27.33 23.47Q28.78 24.17 29.57 25.46Q30.36 26.75 30.36 28.52L30.36 28.52Q30.36 30.28 29.57 31.57Q28.78 32.86 27.33 33.55Q25.89 34.24 23.97 34.24L23.97 34.24L20.98 34.24L20.98 41.23ZM20.98 25.34L20.98 31.66L23.68 31.66Q25.66 31.66 26.59 30.86Q27.53 30.05 27.53 28.52L27.53 28.52Q27.53 26.96 26.59 26.15Q25.66 25.34 23.68 25.34L23.68 25.34L20.98 25.34ZM35.80 41.23L33.07 41.23L33.07 22.77L35.80 22.77L35.80 31.66L34.57 30.67L44.25 30.67L43.02 31.66L43.02 22.77L45.75 22.77L45.75 41.23L43.02 41.23L43.02 32.23L44.25 33.22L34.57 33.22L35.80 32.23L35.80 41.23Z"/>
 </svg>
