@@ -1,6 +1,6 @@
 # Prajwal Hebbar — Portfolio Content
 
-> Source: https://portfolio.hebbars.in/
+> Source: https://hebbars.in/
 > Edit this file freely to update copy. The design prompt references this as the content source of truth.
 
 ---
