@@ -216,6 +216,33 @@ export const projects: Project[] = [
     tech: ['Expo', 'React Native', 'Tauri 2', 'React', 'TypeScript', 'Rust', 'Ink', 'SwiftUI', 'npm workspaces', 'GitHub Actions'],
   },
   {
+    name: 'Central auth service',
+    tagline: 'One sign-in service in front of self-hosted ZITADEL, shared by many registered apps, with an admin console to manage them.',
+    kind: 'pnpm monorepo · Hono · React · ZITADEL · PostgreSQL · Docker Compose',
+    status: 'Built',
+    points: [
+      'One origin serves the <b>OIDC endpoints</b> (proxied to ZITADEL under its own issuer), its own login screens and a <code>/v1</code> account API that apps call with <b>client credentials</b> to create, invite, reset and unlock users.',
+      'ZITADEL is reached only through an <b>IdP integration layer</b> behind a provider-independent interface, so the identity engine can be replaced without touching the login flow.',
+      'Password, TOTP, passkey and email-code sign-in with lockout; login progress lives in the backend and the browser carries only a cookie.',
+      'A separate <b>admin console</b> registers apps and their credentials, grants access, manages people and console admins, and shows a <b>hash-chained audit log</b> in PostgreSQL.',
+      'Runs as a Docker Compose stack (PostgreSQL, ZITADEL, MailPit, Caddy), with decisions recorded as ADRs and covered by Vitest and Playwright suites.',
+    ],
+    tech: ['Hono', 'React', 'TypeScript', 'ZITADEL', 'OIDC', 'PostgreSQL', 'Docker Compose', 'Caddy', 'Vitest', 'Playwright'],
+  },
+  {
+    name: 'Playbook',
+    tagline: 'Sprint playbook for small teams — ordered backlog, one sprint at a time, board and retro — with an AI chat that only drafts backlog text.',
+    kind: 'Turborepo · React 19 · Hono · PostgreSQL 17 · Drizzle',
+    status: 'In progress',
+    points: [
+      'The sprint rules are <b>pure functions in a domain package</b> and enforced on the server: the API applies one rule inside a transaction that locks the workspace row and writes only the rows that changed.',
+      'Email and password sign-in with <b>argon2id</b> hashing and http-only session cookies, team workspaces with invites, CSRF origin checks and rate limits.',
+      'Ollama chat uses each user&rsquo;s own key, <b>encrypted at rest with AES-256-GCM</b>; the model may edit backlog item text but cannot touch the sprint, board, review or releases.',
+      'Repository and API tests run against <b>PGlite</b> with the real migrations, and CI applies the same migrations to PostgreSQL 17.',
+    ],
+    tech: ['React 19', 'Vite', 'TanStack Query', 'Hono', 'Zod', 'PostgreSQL', 'Drizzle ORM', 'argon2id', 'Ollama', 'Turborepo'],
+  },
+  {
     name: 'Prompt Burn',
     tagline: 'Local dashboard for OMP and Cursor token usage, shown as estimated public pay-as-you-go cost; nothing leaves the machine.',
     kind: 'Tauri 2 desktop app, same UI in a VS Code editor tab, shared local SQLite',
@@ -280,20 +307,6 @@ export const projects: Project[] = [
     tech: ['Tauri 2', 'React 19', 'Expo 57', 'React Native', 'TypeScript', 'Zod', 'SQLite', 'Ollama', 'GitHub Actions', 'Docker'],
   },
   {
-    name: 'Central auth service',
-    tagline: 'One sign-in service in front of self-hosted ZITADEL, shared by many registered apps, with an admin console to manage them.',
-    kind: 'pnpm monorepo · Hono · React · ZITADEL · PostgreSQL · Docker Compose',
-    status: 'Built',
-    points: [
-      'One origin serves the <b>OIDC endpoints</b> (proxied to ZITADEL under its own issuer), its own login screens and a <code>/v1</code> account API that apps call with <b>client credentials</b> to create, invite, reset and unlock users.',
-      'ZITADEL is reached only through an <b>IdP integration layer</b> behind a provider-independent interface, so the identity engine can be replaced without touching the login flow.',
-      'Password, TOTP, passkey and email-code sign-in with lockout; login progress lives in the backend and the browser carries only a cookie.',
-      'A separate <b>admin console</b> registers apps and their credentials, grants access, manages people and console admins, and shows a <b>hash-chained audit log</b> in PostgreSQL.',
-      'Runs as a Docker Compose stack (PostgreSQL, ZITADEL, MailPit, Caddy), with decisions recorded as ADRs and covered by Vitest and Playwright suites.',
-    ],
-    tech: ['Hono', 'React', 'TypeScript', 'ZITADEL', 'OIDC', 'PostgreSQL', 'Docker Compose', 'Caddy', 'Vitest', 'Playwright'],
-  },
-  {
     name: 'Flex State',
     tagline: 'Offline, gamified home-workout desktop app — deterministic weekly plans, XP and streaks, no account, no cloud.',
     kind: 'Tauri 2 · React 19 · Rust · SQLite · pnpm + Turborepo monorepo',
@@ -307,19 +320,6 @@ export const projects: Project[] = [
       'Every persisted value has a runtime shape guard, so one corrupt row never blocks boot; the app is one local SQLite file with no telemetry.',
     ],
     tech: ['Tauri 2', 'React 19', 'TypeScript', 'Rust', 'SQLite', 'pnpm workspace', 'Turborepo', 'Biome'],
-  },
-  {
-    name: 'Playbook',
-    tagline: 'Sprint playbook for small teams — ordered backlog, one sprint at a time, board and retro — with an AI chat that only drafts backlog text.',
-    kind: 'Turborepo · React 19 · Hono · PostgreSQL 17 · Drizzle',
-    status: 'In progress',
-    points: [
-      'The sprint rules are <b>pure functions in a domain package</b> and enforced on the server: the API applies one rule inside a transaction that locks the workspace row and writes only the rows that changed.',
-      'Email and password sign-in with <b>argon2id</b> hashing and http-only session cookies, team workspaces with invites, CSRF origin checks and rate limits.',
-      'Ollama chat uses each user&rsquo;s own key, <b>encrypted at rest with AES-256-GCM</b>; the model may edit backlog item text but cannot touch the sprint, board, review or releases.',
-      'Repository and API tests run against <b>PGlite</b> with the real migrations, and CI applies the same migrations to PostgreSQL 17.',
-    ],
-    tech: ['React 19', 'Vite', 'TanStack Query', 'Hono', 'Zod', 'PostgreSQL', 'Drizzle ORM', 'argon2id', 'Ollama', 'Turborepo'],
   },
 ];
 
