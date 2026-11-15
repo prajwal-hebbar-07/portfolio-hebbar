@@ -14,7 +14,8 @@ Astro 6 static single-page portfolio (Vercel adapter). Source of truth for the U
 | `src/styles/tokens.css` | colour/font vars, dark mode |
 | `src/styles/portfolio.css` | all component styles |
 | `src/config/`, `src/lib/` | standalone form-engine demo; not rendered |
-| `public/` | favicon, résumé PDF |
+| `public/` | favicon, résumé PDF (generated) |
+| `resume/` | `resume.html` = résumé source, `build.sh` = Chrome headless → PDF in `public/` |
 
 ## Where a change goes
 
@@ -22,12 +23,14 @@ Astro 6 static single-page portfolio (Vercel adapter). Source of truth for the U
 | --- | --- |
 | Copy, jobs, projects, skills | `src/data/portfolio.ts` |
 | Hero copy / stats | `src/components/Hero.astro` |
+| Résumé | `resume/resume.html`, then `sh resume/build.sh` |
 | Colours, fonts | `src/styles/tokens.css` |
 | Layout, spacing | `src/styles/portfolio.css` |
 
 ## Commands
 
 - `npm run dev` — local server
+- `sh resume/build.sh` — rebuild résumé PDF (needs Google Chrome)
 - `npm run build` — only check available (no lint/typecheck configured)
 
 <!-- paper-target:start -->

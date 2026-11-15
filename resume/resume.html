@@ -35,7 +35,7 @@
        color: var(--accent); margin: 7pt 0 3.5pt; padding-bottom: 2.5pt; border-bottom: 0.6pt solid var(--rule); }
   header { padding-bottom: 5pt; border-bottom: 1.6pt solid var(--ink); }
 
-  .job { margin-top: 6.5pt; }
+  .job { margin-top: 6.5pt;  break-inside: avoid; }
   .job:first-of-type { margin-top: 0; }
   .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12pt; }
   .job-title { font-size: 12.2pt; font-weight: 700; color: var(--ink); }
@@ -65,7 +65,7 @@
   <h1>Prajwal Hebbar</h1>
   <div class="role">Senior Full-Stack Engineer</div>
   <div class="contact">
-    <span>prajwalhebbaras@gmail.com</span><span class="sep">·</span><span>+91 94839 24880</span><span class="sep">·</span><span>Bengaluru, India</span><span class="sep">·</span><span>linkedin.com/in/prajwal-hebbar-a-s-a213b121a</span><span class="sep">·</span><span>github.com/prajwal-hebbar-07</span><span class="sep">·</span><span>portfolio.hebbars.in</span>
+    <span>prajwalhebbaras@gmail.com</span><span class="sep">·</span><span>+91 94839 24880</span><span class="sep">·</span><span>Bengaluru, India</span><span class="sep">·</span><span>linkedin.com/in/prajwal-hebbar-a-s-a213b121a</span><span class="sep">·</span><span>github.com/prajwal-hebbar-07</span><span class="sep">·</span><span>hebbars.in</span>
   </div>
 </header>
 
@@ -86,6 +86,9 @@ at LYIK in April 2026 after shipping v2 and driving much of the v3 form platform
   </div>
   <div class="job-meta">On-site · Bengaluru · Previously Enterprise Engineer (Apr 2023 – Mar 2026)</div>
   <ul>
+    <li>Built most of the front end of LYIK's first <b>enterprise console</b> (Next.js · Material UI · Redux Toolkit ·
+      <b>CASL</b> access control): a form and template builder with <b>drag and drop</b>, CSV-based form creation and
+      credential issuing with QR codes.</li>
     <li>Owned a <b>regulatory compliance dashboard</b> for a financial-services client end to end —
       requirement gathering through architecture, build, production deployment and handover docs (React 19 ·
       Vite 7 · Tailwind 4, Node API on <code>node:sqlite</code> with Zod-validated Excel ingestion, two-container
@@ -103,14 +106,16 @@ at LYIK in April 2026 after shipping v2 and driving much of the v3 form platform
       across the shared form <b>engines</b> (actions, rules, derive, navigator) with their unit, integration and
       e2e suites.</li>
     <li>Ran <b>customer requirement discussions</b> and drove alignment across backend, QA and product, turning
-      the outcomes into the JSON configuration models the platform ships with.</li>
+      the outcomes into the JSON configuration models the platform ships with; client-facing platform work delivered a
+      reported <b>30%+ efficiency gain</b>.</li>
     <li>On v3, built <b>multi-organisation sign-in</b>, a <b>versioned v1/v2 API client</b>, guarded CSV uploads and
-      a <b>video-KYC journey</b>. Delivered <b>SSO</b>, <b>client-side encryption</b>, <b>JSON-driven theming</b> and PWA/runtime config;
+      a <b>video-KYC journey</b>; closed an <b>XSS hole</b> by sanitising operations-field HTML in a shared module and
+      extended the <b>release pipeline</b> so deploy posts list each release's form-config changes. Delivered <b>SSO</b>, <b>client-side encryption</b>, <b>JSON-driven theming</b> and PWA/runtime config;
       set up <b>Docker/Nginx</b> and <b>GitHub Actions</b> CI/CD; built a <b>Frappe-based ERP</b> and a
       ServiceNow POC. Contributed to the company's <b>first enterprise client acquisition</b>.</li>
   </ul>
-  <div class="stack"><b>Stack:</b> React 19, TypeScript, Redux Toolkit, RTK Query, TanStack Query, Material UI,
-    Material React Table, Tailwind CSS 4, Turborepo/pnpm, Node.js, SQLite, Zod, Vitest, Playwright, Docker,
+  <div class="stack"><b>Stack:</b> React 19, Next.js, TypeScript, Redux Toolkit, RTK Query, TanStack Query, Material UI,
+    Material React Table, CASL, Tailwind CSS 4, Turborepo/pnpm, Node.js, SQLite, Zod, Vitest, Playwright, Docker,
     Nginx, GitHub Actions, Azure, Frappe</div>
 </div>
 
@@ -131,10 +136,28 @@ at LYIK in April 2026 after shipping v2 and driving much of the v3 form platform
 
 <div class="job">
   <div class="job-head">
+    <div class="job-title">Logbook — <span class="co">attendance and leave log</span></div>
+    <div class="job-when">github.com/prajwal-hebbar-07/tracker-mobile</div>
+  </div>
+  <div class="job-meta">Expo · Tauri 2 · Ink CLI · SwiftUI widget — Android app, Mac desktop widget and CLI over one shared core</div>
+  <ul>
+    <li>Three clients over <b>one platform-free core</b> (dates, summaries, leave spans, reports, CSV/Excel export), and
+      the Mac widget and <code>logbook</code> CLI read and write <b>one log file</b> kept outside the app bundle, so updates never touch the data.</li>
+    <li>Reporting built in: month heatmap, year totals, leave by type, <b>plan leave in advance</b> and an Excel
+      workbook with one row per day; a native <b>WidgetKit</b> widget redraws when the log changes.</li>
+    <li>Released through <b>GitHub Actions</b>; the widget <b>verifies the download's signature</b> against a key built
+      into the app before replacing itself.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> Expo, React Native, Tauri 2, React, TypeScript, Rust, Ink, SwiftUI, npm workspaces,
+    GitHub Actions</div>
+</div>
+
+<div class="job">
+  <div class="job-head">
     <div class="job-title">Prompt Burn — <span class="co">local AI coding token dashboard</span></div>
     <div class="job-when">github.com/prajwal-hebbar-07/prompt-burn</div>
   </div>
-  <div class="job-meta">Tauri 2 · VS Code Extension · React · SQLite — Active build · shared local database</div>
+  <div class="job-meta">Tauri 2 · VS Code Extension · React · SQLite — shipped · shared local database</div>
   <ul>
     <li>Estimates what OMP and Cursor usage would cost if billed at <b>public pay-as-you-go rates</b> for
       comparison, never as an invoice; <b>provider usage clocks</b> stay on a dedicated panel.</li>
@@ -189,20 +212,15 @@ at LYIK in April 2026 after shipping v2 and driving much of the v3 form platform
 
 <div class="job">
   <div class="job-head">
-    <div class="job-title">Portfolio — <span class="co">personal site with a grounded AI assistant</span></div>
-    <div class="job-when">portfolio.hebbars.in · github.com/prajwal-hebbar-07/portfolio-hebbar</div>
+    <div class="job-title">Portfolio — <span class="co">minimal static personal site</span></div>
+    <div class="job-when">hebbars.in · github.com/prajwal-hebbar-07/portfolio-hebbar</div>
   </div>
-  <div class="job-meta">Astro · TypeScript · Go assistant API — static site, runtime personalization, Ask AI</div>
+  <div class="job-meta">Astro 6 · TypeScript — static single page, light/dark via CSS design tokens</div>
   <ul>
-    <li>One content module is the <b>single source of truth</b> for the rendered sections, the resume and the
-      assistant's grounding, so a fact is written once and cannot drift between the page and the answers.</li>
-    <li><b>Ask AI</b> posts through a same-origin Astro endpoint to a Go assistant API; when that backend is
-      unreachable the endpoint serves a <b>keyword-routed grounded answer</b> instead of an error, and an
-      off-topic prompt gets the same guardrail refusal either way. Prompts are validated and capped server-side.</li>
-    <li><b>Personalize panel</b> re-themes the site live — ground and primary colour, typeface and section order
-      — over CSS design tokens, with the whole site prerendered static except the one assistant route.</li>
+    <li>One content module is the <b>single source of truth</b> for every rendered section, so a fact is written once
+      and cannot drift between the page and the résumé.</li>
   </ul>
-  <div class="stack"><b>Stack:</b> Astro, TypeScript, CSS design tokens, Go API, Vercel</div>
+  <div class="stack"><b>Stack:</b> Astro, TypeScript, CSS design tokens, Vercel</div>
 </div>
 
 <h2>Skills</h2>
