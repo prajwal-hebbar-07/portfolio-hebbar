@@ -35,7 +35,16 @@
        color: var(--accent); margin: 7pt 0 3.5pt; padding-bottom: 2.5pt; border-bottom: 0.6pt solid var(--rule); }
   header { padding-bottom: 5pt; border-bottom: 1.6pt solid var(--ink); }
 
-  .job { margin-top: 6.5pt;  break-inside: avoid; }
+  .job { margin-top: 6.5pt; }
+  .prod, .proj { break-inside: avoid; }
+  .prod { margin-top: 5pt; }
+  .prod-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12pt; }
+  .prod-title { font-size: 10.4pt; font-weight: 700; color: var(--ink); }
+  .prod-title .r { font-weight: 600; color: var(--accent); }
+  .prod-when { font-size: 8.9pt; font-weight: 600; color: var(--muted); white-space: nowrap; }
+  .blurb { margin-top: 3pt; color: var(--muted); }
+  .prod .blurb { margin-top: 1pt; font-size: 9.4pt; }
+  .prod ul { margin-top: 2pt; }
   .job:first-of-type { margin-top: 0; }
   .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12pt; }
   .job-title { font-size: 12.2pt; font-weight: 700; color: var(--ink); }
@@ -70,56 +79,103 @@
 </header>
 
 <h2>Summary</h2>
-<p>Senior Full-Stack Engineer with nearly 5 years building configurable, enterprise-grade web platforms across
-<b>React front ends, Node.js APIs, SQL databases, auth and Docker/CI/CD</b>, with deep experience in
-schema-driven frontend architecture: admin dashboards, permission systems and rules/actions engines. Client-facing: gathers requirements
-directly from customers, aligns backend, QA and product, and <b>mentors juniors</b>. Promoted to Senior Engineer
-at LYIK in April 2026 after shipping v2 and driving much of the v3 form platform. Outside work I ship
-<b>local-first Tauri 2 desktop and Expo mobile apps</b> in TypeScript and Rust, release pipeline included.</p>
+<p>Senior Full-Stack Engineer with nearly 5 years building configurable, enterprise-grade software end to end:
+<b>React and TypeScript interfaces, Node.js APIs, SQL databases, authentication, and the Docker and CI/CD pipelines that
+ship them</b>. Deepest experience is schema-driven, configurable frontend architecture: admin dashboards, permission
+systems and rules/actions engines. Client-facing: gathers requirements directly from customers, aligns backend, QA and
+product, and <b>mentors juniors and interns</b>. Promoted to Senior Engineer at LYIK in April 2026 after shipping v2 and
+driving much of v3. Outside work I ship <b>local-first Tauri 2 desktop and Expo mobile apps</b> in TypeScript and Rust,
+release pipeline included.</p>
 
 <h2>Experience</h2>
 
 <div class="job">
   <div class="job-head">
     <div class="job-title">Senior Engineer — <span class="co">LYIK Technologies Pvt. Ltd.</span></div>
-    <div class="job-when">Apr 2026 – Present</div>
+    <div class="job-when">Apr 2023 – Present</div>
   </div>
-  <div class="job-meta">On-site · Bengaluru · Previously Enterprise Engineer (Apr 2023 – Mar 2026)</div>
-  <ul>
-    <li>Built most of the front end of LYIK's first <b>enterprise console</b> (Next.js · Material UI · Redux Toolkit ·
-      <b>CASL</b> access control): a form and template builder with <b>drag and drop</b>, CSV-based form creation and
-      credential issuing with QR codes.</li>
-    <li>Owned a <b>regulatory compliance dashboard</b> for a financial-services client end to end —
-      requirement gathering through architecture, build, production deployment and handover docs (React 19 ·
-      Vite 7 · Tailwind 4, Node API on <code>node:sqlite</code> with Zod-validated Excel ingestion, two-container
-      Docker Compose behind nginx) — and <b>mentored the intern</b> who built its provider-comparison and
-      data-exclusion features on top.</li>
-    <li>Started <b>v1 of the forms platform</b> and wrote most of it, then was <b>top contributor on the v2 TypeScript rewrite</b>, from project init to production:
-      Redux Toolkit → <b>RTK Query</b> data layer, Tailwind→MUI migration, records and checker flows, DigiLocker
-      OAuth2, liveness/KYC, e-sign and trusted APIs, shipped to <b>Azure</b> via GitHub Actions.</li>
-    <li>Restructured <b>v3</b> into a <b>Turborepo/pnpm monorepo</b> — types, auth, API client, form core,
-      transformer and shared UI as workspace packages — and built its <b>admin dashboard</b>: a config-driven
-      widget renderer fed by <code>dashboard.json</code>, a form-management console (Material React Table) and a
-      <b>user-management tree-table</b> modeling the org as a hierarchy/DAG with full CRUD.</li>
-    <li>Built the persona/permission model behind both apps — <b>maker-checker</b> workflow state machine,
-      <code>GuardRail</code> permission gating, bulk <b>CSV/ZIP onboarding</b>, trusted API records — and worked
-      across the shared form <b>engines</b> (actions, rules, derive, navigator) with their unit, integration and
-      e2e suites.</li>
-    <li>Ran <b>customer requirement discussions</b> and drove alignment across backend, QA and product, turning
-      the outcomes into the JSON configuration models the platform ships with; client-facing platform work delivered a
-      reported <b>30%+ efficiency gain</b>.</li>
-    <li>On v3, built <b>multi-organisation sign-in</b>, a <b>versioned v1/v2 API client</b>, guarded CSV uploads and
-      a <b>video-KYC journey</b>; closed an <b>XSS hole</b> by sanitising operations-field HTML in a shared module and
-      extended the <b>release pipeline</b> so deploy posts list each release's form-config changes. Delivered <b>SSO</b>, <b>client-side encryption</b>, <b>JSON-driven theming</b> and PWA/runtime config;
-      set up <b>Docker/Nginx</b> and <b>GitHub Actions</b> CI/CD; built a <b>Frappe-based ERP</b> and a
-      ServiceNow POC. Contributed to the company's <b>first enterprise client acquisition</b>.</li>
+  <div class="job-meta">On-site · Bengaluru · Enterprise Engineer (Apr 2023 – Mar 2026) → Senior Engineer (Apr 2026 – Present)</div>
+  <p class="blurb">Three generations of an enterprise form platform, plus a compliance dashboard owned across the full stack.
+    Client-facing throughout: requirements gathered directly with customers, turned into the JSON configuration models the
+    platforms ship with. Client-facing platform work delivered a reported <b>30%+ efficiency gain</b>.</p>
+  <div class="prod">
+    <div class="prod-head">
+      <div class="prod-title">Forms platform v3 — <span class="r">Core contributor</span></div>
+      <div class="prod-when">Feb 2026 – Present</div>
+    </div>
+    <p class="blurb">Configurable, multi-tenant form platform: one login, many organisations, every form driven by configuration.</p>
+    <ul>
+      <li>Restructured it into a <b>Turborepo/pnpm monorepo</b> (one web app, eight packages) and built <b>multi-organisation sign-in</b>: one login exchanged for an organisation-scoped token, with per-tenant branding.</li>
+      <li>Built the <b>admin area</b> (tenant management, configuration settings, a <b>user-management tree</b> modelling the org as a hierarchy) on the persona/permission model: <b>maker-checker</b> workflow, <code>GuardRail</code> permission gating, template-driven bulk CSV uploads that reject formula and script cells.</li>
+      <li>Split the API client into <b>versioned v1/v2 surfaces</b> with wire-level tests; built a JSON-authored <b>video-KYC journey</b> (ID capture, liveness, recording timeline); wrote a large share of the unit, integration and <b>Playwright</b> suites and the architecture docs.</li>
+      <li>Closed an <b>XSS hole</b> by sanitising operations-field HTML in a shared module; extended the <b>release pipeline</b> so deploy posts in Slack list the form-config changes each release needs.</li>
+    </ul>
+  </div>
+  <div class="prod">
+    <div class="prod-head">
+      <div class="prod-title">Regulatory compliance dashboard — <span class="r">Owner, full stack</span></div>
+      <div class="prod-when">Feb 2026 – Oct 2026</div>
+    </div>
+    <p class="blurb">Monthly regulatory reporting for a financial-services client, owned from the first client conversation to production.</p>
+    <ul>
+      <li>Owned the <b>full stack</b>: React front end, Node.js API on SQLite, Docker Compose deployment behind nginx; requirements gathered directly from the client.</li>
+      <li>Excel report data is <b>validated with Zod</b> and previewed before it replaces a month; email/password login with admin user management restricts uploads and deletions by role.</li>
+      <li>Every upload and deletion is recorded, with database-level delete guards and <b>trigger-enforced append-only audit tables</b>; <b>mentored the intern</b> who built the provider-comparison and data-exclusion features on top.</li>
+    </ul>
+  </div>
+  <div class="prod">
+    <div class="prod-head">
+      <div class="prod-title">Forms platform v2 — <span class="r">Top contributor</span></div>
+      <div class="prod-when">Mar 2025 – Oct 2026</div>
+    </div>
+    <p class="blurb">TypeScript rewrite of the form-filling app, taken from project init to production.</p>
+    <ul>
+      <li>Built the data layer on <b>Redux Toolkit and RTK Query</b> behind an axios client with interceptors and request encryption.</li>
+      <li>Delivered DigiLocker sign-in, liveness/KYC, e-sign, trusted-API autofill, checker flows, SSO and JSON-driven theming, shipped to <b>Azure</b> via <b>GitHub Actions</b>.</li>
+    </ul>
+  </div>
+  <div class="prod">
+    <div class="prod-head">
+      <div class="prod-title">Forms platform v1 — <span class="r">Started it</span></div>
+      <div class="prod-when">Oct 2024 – Aug 2026</div>
+    </div>
+    <p class="blurb">The original schema-driven form app: whole onboarding forms rendered from server-sent JSON, with no per-form code.</p>
+    <ul>
+      <li>Started the project and wrote most of it: a <b>rendering engine</b> for sections, cards, tables and field types, with default values and visibility rules resolved through JSONPath.</li>
+      <li>Integrated DigiLocker, document verification, e-sign, payments and face-based liveness; added the maker-checker review flow; containerised with <b>Docker/Nginx</b> and deployed through GitHub Actions.</li>
+    </ul>
+  </div>
+  <div class="prod">
+    <div class="prod-head">
+      <div class="prod-title">Enterprise console — <span class="r">Top contributor</span></div>
+      <div class="prod-when">Apr 2023 – Sep 2024</div>
+    </div>
+    <p class="blurb">The first LYIK product I worked on: a Next.js console where organisations build forms and issue verifiable credentials.</p>
+    <ul>
+      <li>Built most of the front end on <b>Next.js, Material UI and Redux Toolkit</b>, with <b>CASL</b>-based access control and Firebase sign-in.</li>
+      <li>Organisation onboarding, then a form and template builder: section creator with <b>drag and drop</b>, field types with live preview, <b>CSV-based form creation</b>, expression-based conditions and JSON export.</li>
+      <li>Credential flows to create, issue in batches and view credentials with QR codes, plus payment-gateway integration.</li>
+    </ul>
+  </div>
+  <div class="prod">
+    <div class="prod-head">
+      <div class="prod-title">Early platform work — <span class="r">Engineer</span></div>
+      <div class="prod-when">Mar 2024 – Oct 2024</div>
+    </div>
+    <p class="blurb">Smaller builds that came before the forms platform.</p>
+    <ul>
+      <li>A <b>JSON-driven form-filling proof of concept</b> in React and Material UI (Firebase login, conditionally hidden KYC sections, filtering dropdowns) and a management portal fed by the records and forms APIs.</li>
+      <li>Form definitions and RPC handlers on the Python server for a bank client&rsquo;s customer-request and consent-withdrawal forms.</li>
+    </ul>
+  </div>
+  <ul style="margin-top:5pt">
+    <li>Reached into the Python forms API (<b>form-summary retrieval and database indexing</b>), migrated the company website from Vite to <b>Next.js 15</b>, authored JSON form definitions for a client&rsquo;s onboarding journeys, and built a <b>Frappe-based ERP</b> and a ServiceNow integration POC. Contributed to the company&rsquo;s <b>first enterprise client acquisition</b>.</li>
   </ul>
-  <div class="stack"><b>Stack:</b> React 19, Next.js, TypeScript, Redux Toolkit, RTK Query, TanStack Query, Material UI,
-    Material React Table, CASL, Tailwind CSS 4, Turborepo/pnpm, Node.js, SQLite, Zod, Vitest, Playwright, Docker,
-    Nginx, GitHub Actions, Azure, Frappe</div>
+  <div class="stack"><b>Stack:</b> React 19, Next.js, TypeScript, Redux Toolkit, RTK Query, TanStack Query, Material UI, Material React Table, CASL,
+    Tailwind CSS 4, Turborepo/pnpm, Node.js, SQLite, Zod, Vitest, Playwright, Docker, Nginx, GitHub Actions, Azure, Frappe</div>
 </div>
 
-<div class="job">
+<div class="job proj">
   <div class="job-head">
     <div class="job-title">Associate Web Developer — <span class="co">Content Enablers Inc.</span></div>
     <div class="job-when">Mar 2022 – Mar 2023</div>
@@ -134,101 +190,126 @@ at LYIK in April 2026 after shipping v2 and driving much of the v3 form platform
 
 <h2>Projects</h2>
 
-<div class="job">
+<div class="job proj">
   <div class="job-head">
     <div class="job-title">Logbook — <span class="co">attendance and leave log</span></div>
     <div class="job-when">github.com/prajwal-hebbar-07/tracker-mobile</div>
   </div>
-  <div class="job-meta">Expo · Tauri 2 · Ink CLI · SwiftUI widget — Android app, Mac desktop widget and CLI over one shared core</div>
+  <div class="job-meta">Expo · Tauri 2 · Ink CLI · SwiftUI widget — shipped · Android app, Mac desktop widget and CLI over one shared core</div>
   <ul>
-    <li>Three clients over <b>one platform-free core</b> (dates, summaries, leave spans, reports, CSV/Excel export), and
-      the Mac widget and <code>logbook</code> CLI read and write <b>one log file</b> kept outside the app bundle, so updates never touch the data.</li>
-    <li>Reporting built in: month heatmap, year totals, leave by type, <b>plan leave in advance</b> and an Excel
-      workbook with one row per day; a native <b>WidgetKit</b> widget redraws when the log changes.</li>
-    <li>Released through <b>GitHub Actions</b>; the widget <b>verifies the download's signature</b> against a key built
-      into the app before replacing itself.</li>
+    <li>Three clients over <b>one platform-free core</b> (dates, summaries, leave spans, reports, CSV/Excel export); the Mac widget and <code>logbook</code> CLI read and write <b>one log file</b> kept outside the app bundle, so updates never touch the data.</li>
+    <li>Reporting built in: month heatmap, year totals, leave by type, <b>plan leave in advance</b> and an Excel workbook with one row per day; a native <b>WidgetKit</b> widget redraws when the log changes.</li>
+    <li>Released through <b>GitHub Actions</b>; the widget <b>verifies the download&rsquo;s signature</b> against a key built into the app before replacing itself.</li>
   </ul>
-  <div class="stack"><b>Stack:</b> Expo, React Native, Tauri 2, React, TypeScript, Rust, Ink, SwiftUI, npm workspaces,
-    GitHub Actions</div>
+  <div class="stack"><b>Stack:</b> Expo, React Native, Tauri 2, React, TypeScript, Rust, Ink, SwiftUI, npm workspaces, GitHub Actions</div>
 </div>
 
-<div class="job">
+<div class="job proj">
+  <div class="job-head">
+    <div class="job-title">Central auth service — <span class="co">one sign-in for many apps</span></div>
+    <div class="job-when">private repository</div>
+  </div>
+  <div class="job-meta">Hono · React · ZITADEL · PostgreSQL · Docker Compose — built · pnpm monorepo</div>
+  <ul>
+    <li>One origin serves the <b>OIDC endpoints</b> (proxied to ZITADEL), its own login screens and a <code>/v1</code> account API that apps call with <b>client credentials</b> to create, invite, reset and unlock users.</li>
+    <li>ZITADEL sits behind an <b>IdP integration layer</b> with a provider-independent interface, so the identity engine can be replaced without touching the login flow; password, TOTP, passkey and email-code sign-in with lockout.</li>
+    <li>A separate <b>admin console</b> registers apps, grants access, manages people and shows a <b>hash-chained audit log</b> in PostgreSQL; Docker Compose stack, ADRs, Vitest and Playwright suites.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> Hono, React, TypeScript, ZITADEL, OIDC, PostgreSQL, Docker Compose, Caddy, Vitest, Playwright</div>
+</div>
+
+<div class="job proj">
+  <div class="job-head">
+    <div class="job-title">Playbook — <span class="co">sprint playbook for small teams</span></div>
+    <div class="job-when">private repository</div>
+  </div>
+  <div class="job-meta">Turborepo · React 19 · Hono · PostgreSQL 17 · Drizzle — in progress</div>
+  <ul>
+    <li>Sprint rules are <b>pure functions in a domain package</b>, enforced on the server in one transaction that locks the workspace row and writes only the rows that changed.</li>
+    <li>Email/password sign-in with <b>argon2id</b> and http-only session cookies, team workspaces with invites, CSRF origin checks and rate limits.</li>
+    <li>Ollama chat uses each user&rsquo;s own key, <b>encrypted at rest with AES-256-GCM</b>, and may only edit backlog item text; tests run on <b>PGlite</b> with the real migrations, CI on PostgreSQL 17.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> React 19, Vite, TanStack Query, Hono, Zod, PostgreSQL, Drizzle ORM, argon2id, Ollama, Turborepo</div>
+</div>
+
+<div class="job proj">
   <div class="job-head">
     <div class="job-title">Prompt Burn — <span class="co">local AI coding token dashboard</span></div>
     <div class="job-when">github.com/prajwal-hebbar-07/prompt-burn</div>
   </div>
   <div class="job-meta">Tauri 2 · VS Code Extension · React · SQLite — shipped · shared local database</div>
   <ul>
-    <li>Estimates what OMP and Cursor usage would cost if billed at <b>public pay-as-you-go rates</b> for
-      comparison, never as an invoice; <b>provider usage clocks</b> stay on a dedicated panel.</li>
-    <li>Desktop app and VS Code editor tab share <b>one local database</b> at <code>~/.prompt-burn/db.sqlite</code>,
-      with no web app, account, or cloud backend.</li>
-    <li>Usage is priced against a <b>bundled versioned rate table</b>; unknown models show an em dash (&mdash;)
-      rather than <code>$0</code>, and retroactively price when added. Fetch is local and non-blocking.</li>
+    <li>Estimates what OMP and Cursor usage would cost at <b>public pay-as-you-go rates</b>, for comparison and never as an invoice; <b>provider usage clocks</b> stay on their own panel.</li>
+    <li>Desktop app and VS Code editor tab share <b>one local database</b> at <code>~/.prompt-burn/db.sqlite</code>, with no web app, account or cloud.</li>
+    <li>Priced from a <b>bundled versioned rate table</b>; unknown models show an em dash (&mdash;), never <code>$0</code>; fetch is local and non-blocking.</li>
   </ul>
-  <div class="stack"><b>Stack:</b> Tauri 2, VS Code Extension, React, TypeScript, Tailwind CSS, SQLite, Node.js,
-    pnpm workspace</div>
+  <div class="stack"><b>Stack:</b> Tauri 2, VS Code Extension, React, TypeScript, Tailwind CSS, SQLite, Node.js, pnpm workspace</div>
 </div>
 
-<div class="job">
+<div class="job proj">
   <div class="job-head">
     <div class="job-title">LedgerFlow — <span class="co">local-first desktop expense tracker</span></div>
     <div class="job-when">github.com/prajwal-hebbar-07/ledger-flow</div>
   </div>
-  <div class="job-meta">Tauri 2 · React 19 · Rust · SQLite — shipping signed macOS/Linux/Windows releases</div>
+  <div class="job-meta">Tauri 2 · React 19 · Rust · SQLite — shipped · signed macOS/Linux/Windows releases</div>
   <ul>
-    <li>Models every money movement as <b>one row</b> in a single table — spend, income, self-transfer and card
-      charge differ only by <code>direction</code> and which source column is set; <b>balances are derived in
-      SQL</b>, so no stored total can drift from the ledger.</li>
-    <li>Analytics and a <b>rules-based report generator</b> over one period picker: period-over-period deltas and
-      charts built from CSS boxes, not a charting library. Optional <b>Ollama</b> categorisation writes prose,
-      never figures.</li>
-    <li>Disk and network access live in <b>Rust commands</b>; <b>GitHub Actions</b> cuts macOS/Linux/Windows
-      builds and a <b>minisign-signed</b> manifest drives in-app auto-update.</li>
+    <li>Models every money movement as <b>one row</b> in a single table; <b>balances are derived in SQL</b>, so no running total can drift out of sync with the ledger.</li>
+    <li>Analytics with period-over-period deltas and CSS-box charts, plus a <b>rules-based report generator</b>; optional <b>Ollama</b> categorises transactions and writes prose, never figures.</li>
+    <li>Disk and network access live in <b>Rust commands</b>; <b>GitHub Actions</b> cuts macOS/Linux/Windows builds with <b>minisign-signed</b> auto-update.</li>
   </ul>
-  <div class="stack"><b>Stack:</b> Tauri 2, React 19, TypeScript, Rust, SQLite, Tailwind CSS 4, Ollama,
-    pnpm workspace, Turborepo, GitHub Actions</div>
+  <div class="stack"><b>Stack:</b> Tauri 2, React 19, TypeScript, Rust, SQLite, Tailwind CSS 4, Ollama, Turborepo, GitHub Actions</div>
 </div>
 
-<div class="job">
+<div class="job proj">
   <div class="job-head">
     <div class="job-title">GrowthOS — <span class="co">local-first study-plan tracker</span></div>
     <div class="job-when">private repository</div>
   </div>
-  <div class="job-meta">Tauri 2 · React 19 · Expo 57 · Rust · SQLite — macOS desktop plus Android/iOS clients</div>
+  <div class="job-meta">Tauri 2 · React 19 · Expo 57 · Rust · SQLite — shipped · macOS desktop plus Android/iOS clients</div>
   <ul>
-    <li>Two clients over <b>one model</b>: <code>@growth-os/learning</code> is consumed as TypeScript source with
-      no build step, so the desktop app and the Expo React Native app share the same types, validators and eight
-      bundled courses.</li>
-    <li>Progress is <b>dated completions in SQLite</b> — one row per finished task, so totals and the
-      consecutive-day streak derive from the ordered history and re-ticking never rewrites the original date.</li>
-    <li>Task chat and day summaries call <b>Ollama from Rust</b>, never the webview, so no key reaches the
-      frontend; summaries append into a markdown notes folder under a dated heading, and versioned
-      <b>backup/restore</b> rejects a newer format whole rather than losing ticks.</li>
+    <li>Two clients over <b>one model</b>: <code>@growth-os/learning</code> is consumed as TypeScript source with no build step, so the desktop and Expo apps share types, validators and eight bundled courses.</li>
+    <li>Progress is <b>dated completions in SQLite</b>, so streaks and totals derive from the ordered history; task chat and day summaries call <b>Ollama from Rust</b>, never the webview.</li>
+    <li>Versioned <b>backup/restore</b> merges into the device and rejects a newer format whole rather than losing ticks.</li>
   </ul>
-  <div class="stack"><b>Stack:</b> Tauri 2, React 19, TypeScript, Rust, SQLite, Expo 57, React Native, Ollama,
-    pnpm workspace, Turborepo</div>
+  <div class="stack"><b>Stack:</b> Tauri 2, React 19, TypeScript, Rust, SQLite, Expo 57, React Native, Ollama, pnpm workspace, Turborepo</div>
 </div>
 
-<div class="job">
+<div class="job proj">
   <div class="job-head">
-    <div class="job-title">Portfolio — <span class="co">minimal static personal site</span></div>
-    <div class="job-when">hebbars.in · github.com/prajwal-hebbar-07/portfolio-hebbar</div>
+    <div class="job-title">Anime List — <span class="co">personal anime tracker</span></div>
+    <div class="job-when">github.com/prajwal-hebbar-07/anime-list</div>
   </div>
-  <div class="job-meta">Astro 6 · TypeScript — static single page, light/dark via CSS design tokens</div>
+  <div class="job-meta">pnpm workspace · Tauri 2 · Expo 57 · SQLite · Zod · Ollama Cloud — in progress</div>
   <ul>
-    <li>One content module is the <b>single source of truth</b> for every rendered section, so a fact is written once
-      and cannot drift between the page and the résumé.</li>
+    <li>Desktop and Android apps track seasons and episodes <b>offline</b> over one shared Zod data model and sync contract; a reusable <b>sync client</b> merges changes against a self-hosted SQLite-backed server.</li>
+    <li>Add an entry by pasting a URL: the server extracts details with <b>Ollama Cloud</b>; GitHub Actions typechecks every push and cuts releases with desktop installers, an Android APK and a GHCR server image.</li>
   </ul>
-  <div class="stack"><b>Stack:</b> Astro, TypeScript, CSS design tokens, Vercel</div>
+  <div class="stack"><b>Stack:</b> Tauri 2, React 19, Expo 57, React Native, TypeScript, Zod, SQLite, Ollama, GitHub Actions, Docker</div>
+</div>
+
+<div class="job proj">
+  <div class="job-head">
+    <div class="job-title">Flex State — <span class="co">offline gamified home-workout app</span></div>
+    <div class="job-when">github.com/prajwal-hebbar-07/flex-state</div>
+  </div>
+  <div class="job-meta">Tauri 2 · React 19 · Rust · SQLite · pnpm + Turborepo — in progress</div>
+  <ul>
+    <li><b>Deterministic plan generation</b>: the same profile, exercise catalog and training locations always give the same weekly plan; the generator version is stamped on every saved plan.</li>
+    <li>XP, level, rank and streak are <b>derived from one row per completion date</b>; every persisted value has a runtime shape guard, so one corrupt row never blocks boot.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> Tauri 2, React 19, TypeScript, Rust, SQLite, pnpm workspace, Turborepo, Biome</div>
 </div>
 
 <h2>Skills</h2>
 <dl class="skills">
-  <dt>Frontend</dt><dd>React, Next.js, Astro, TypeScript, JavaScript, Redux Toolkit, TanStack Query, Material UI, Tailwind CSS, Design Tokens</dd>
-  <dt>Backend, Data &amp; Auth</dt><dd>Node.js, Hono, REST APIs, PostgreSQL, SQLite, Rust (Tauri), OIDC/OAuth2, SSO, MFA, permission models, client-side encryption</dd>
-  <dt>DevOps &amp; Platforms</dt><dd>Docker, Docker Compose, Nginx, GitHub Actions, Azure, Vercel, React Native/Expo, Tauri 2</dd>
-  <dt>Architecture &amp; Testing</dt><dd>System design, schema-driven UI, Rule/Derive/Actions engines, Monorepo, Local-first apps, Vitest, Playwright</dd>
+  <dt>Frontend</dt><dd>React, Next.js, Astro, TypeScript, JavaScript, Redux Toolkit, TanStack Query, React Hook Form</dd>
+  <dt>Backend &amp; APIs</dt><dd>Node.js, Hono, REST APIs, Zod-validated contracts, Rust (Tauri commands), Frappe ERP, LLM integration (Ollama)</dd>
+  <dt>Databases &amp; Data</dt><dd>PostgreSQL, SQLite, Drizzle ORM, SQL migrations, schema design, offline sync (outbox), Excel / CSV ingestion</dd>
+  <dt>Auth &amp; Security</dt><dd>OIDC / OAuth2, SSO, ZITADEL, MFA (TOTP, passkeys), role &amp; permission models, audit logging, argon2id sessions, client-side encryption</dd>
+  <dt>DevOps &amp; Cloud</dt><dd>Docker, Docker Compose, Nginx, GitHub Actions, Azure, Vercel, signed release pipelines</dd>
+  <dt>Mobile, Desktop &amp; CLI</dt><dd>React Native, Expo, Tauri 2, Rust, VS Code Extension, terminal UI (Ink), local-first apps</dd>
+  <dt>Architecture &amp; Testing</dt><dd>System design, schema-driven UI, Rule/Derive/Actions engines, monorepo (Turborepo, pnpm), ADRs, Vitest, Playwright</dd>
+  <dt>UI &amp; Design Systems</dt><dd>Material UI, Tailwind CSS, design tokens, responsive design, Figma, Paper</dd>
   <dt>Delivery &amp; Ownership</dt><dd>Requirement gathering, client communication, cross-team coordination, mentoring, production deployment, technical documentation</dd>
 </dl>
 
